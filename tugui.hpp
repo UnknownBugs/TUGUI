@@ -61,9 +61,13 @@ public:
         if (x1 == x2) drawYLine(x1, y1, y2, p);
         if (y1 == y2) drawXLine(y1, x1, x2, p);
         __mLinearEquation.set(x1, y1, x2, y2);
-        while (x1 < x2) {
-            drawPixel(x1, __mLinearEquation.getY(x1), p);
-            x1++;
+        double x = x1;
+        double deltaX { 1 };
+        if (__mLinearEquation.getSlope() > 1) // deltaY = 1
+            deltaX = 1. / __mLinearEquation.getSlope();
+        while (x < x2) {
+            drawPixel(x, __mLinearEquation.getY(x), p);
+            x += deltaX;
         }
     }
 

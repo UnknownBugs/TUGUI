@@ -39,7 +39,7 @@ all : CreateDir $(SUBDIRS)
 
 CreateDir:
 	@echo + dir: obj bin
-	echo $(modules) $(SUBDIRS)
+	@echo $(modules): go
 
 	@$(MKDIR) -p $(OBJ_DIR) $(BIN_DIR)
 

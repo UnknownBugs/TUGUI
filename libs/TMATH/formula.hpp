@@ -3,6 +3,8 @@
 
 #include "../TDEBUG/tdebug.hpp"
 
+#define DOUBLE_MAX (1.79769e+308)
+
 namespace Math {
 namespace Formula {
 
@@ -21,13 +23,17 @@ public:
     }
 
     double getY(double x) const {
-        if (-0.01 == __mK) TDEBUG::crash();
+        if (DOUBLE_MAX == __mK) TDEBUG::crash();
         return __mK * x + __mB;
     }
 
     double getX(double y) const {
         if (0 == __mK) TDEBUG::crash();
         return (y - __mB) / __mK;
+    }
+
+    double getSlope() const {
+        return __mK;
     }
 
 private:
@@ -41,7 +47,7 @@ private:
     */
     void computer(double x1, double y1, double x2, double y2) {
         if (x1 == x2) {
-            __mK = -0.01;
+            __mK = DOUBLE_MAX; // temp method to expression inf
             __mB = x1;
             __mXY = x1;
         } else {

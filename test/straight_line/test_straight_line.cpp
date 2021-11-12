@@ -18,7 +18,7 @@ tugui_main(void *ImageHandle __attribute__ ((unused)), SystemTable::ESystemTable
 
     // test line
     g.drawLine(50, 50, 600, 50, {0xFF, 0, 0, 0});
-    g.drawLine(50, 50, 500, 100, {0, 0xFF, 0, 0});  // erro
+    g.drawLine(50, 50, 500, 100, {0, 0xFF, 0, 0});
     g.drawLine(50, 50, 400, 200, {0, 0, 0xFF, 0});
     g.drawLine(50, 50, 300, 300, {0xFF, 0xFF, 0, 0});
     g.drawLine(50, 50, 200, 400, {0xFF, 0, 0xFF, 0});

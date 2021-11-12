@@ -18,7 +18,8 @@ tugui_main(void *ImageHandle __attribute__ ((unused)), SystemTable::ESystemTable
     base.drawYLine(104, 200, 460, {0, 0xFF, 0xFF, 0});
     base.drawYLine(106, 250, 560, {0xFF, 0, 0xFF, 0});
 
-    g.drawXLine(500, 400, 600, {0, 0, 0xFF, 0});
-    g.drawYLine(500, 400, 600, {0, 0xFF, 0, 0});
+    // / coordinate
+    g.drawXLine(500, 300, 700, {0, 0, 0xFF, 0});
+    g.drawYLine(500, 300, 700, {0, 0xFF, 0, 0});
     while (1);
 }

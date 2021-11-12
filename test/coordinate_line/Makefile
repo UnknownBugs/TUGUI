@@ -1,4 +1,4 @@
-SRCS:= test_drawXYLine.cpp
+SRCS:= test_coordinate_line.cpp
 
 INC := $(addprefix -I,$(TOP_DIR))
 
@@ -9,4 +9,4 @@ $(EFI): $(SRCS)
 	@echo + $@
 	$(CXX) $^ $(CXX_FLAGS) -o $@ $(INC)
 
-module := xy_line
+module := coordinate_line

@@ -1,2 +1,2 @@
-xy_line			:= test/xy_line
+coordinate_line	:= test/coordinate_line
 straight_line 	:= test/straight_line
