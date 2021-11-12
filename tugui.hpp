@@ -11,11 +11,14 @@
 #include <src/wrapper/gop_wrapper.hpp>
 #include <src/utils/utils.hpp>
 
+#include "libs/TMATH/formula.hpp"
+
 #define PIXEL_WHITE {0xFF, 0xFF, 0xFF, 0}
 
 namespace TUGUI {
 
 using UEFIWrapper::GOP;
+using Math::Formula::LinearEquation;
 
 class Base {
 private:
@@ -29,16 +32,16 @@ public:
     Base() = default;
 
     void drawPixel(unsigned int x, unsigned int y, Pixel p) {
-        unsigned int hr = _mGOP.getHorizontalResolution();
-        Pixel *base = (Pixel *)_mGOP.getFrameBufferBase();
+        unsigned int hr = __mGOP.getHorizontalResolution();
+        Pixel *base = (Pixel *)__mGOP.getFrameBufferBase();
         Pixel *pixel = base + (hr * y) + x;
 
         *pixel = p;
     }
 
-    void drawXLine(const unsigned int &y, unsigned int x1, unsigned int x2, Pixel p = PIXEL_WHITE) {
+    void drawXLine(unsigned int y, unsigned int x1, unsigned int x2, Pixel p = PIXEL_WHITE) {
         if (x1 > x2) swap(x1, x2);
-        unsigned int end = min(x2, _mGOP.getHorizontalResolution());
+        unsigned int end = min(x2, __mGOP.getHorizontalResolution());
         while (x1 <= end) {
             drawPixel(x1, y, p);
             x1++;
@@ -47,15 +50,26 @@ public:
 
     void drawYLine(const unsigned int &x, unsigned int y1, unsigned int y2, Pixel p = PIXEL_WHITE) {
         if (y1 > y2) swap(y1, y2);
-        unsigned int end = min(y2, _mGOP.getHorizontalResolution());
+        unsigned int end = min(y2, __mGOP.getVerticalResolution());
         while (y1 <= end) {
             drawPixel(x, y1, p);
             y1++;
         }
     }
 
+    void drawLine(unsigned int x1, unsigned int y1, unsigned int x2, unsigned int y2, Pixel p = PIXEL_WHITE) {
+        if (x1 == x2) drawYLine(x1, y1, y2, p);
+        if (y1 == y2) drawXLine(y1, x1, x2, p);
+        __mLinearEquation.set(x1, y1, x2, y2);
+        while (x1 < x2) {
+            drawPixel(x1, __mLinearEquation.getY(x1), p);
+            x1++;
+        }
+    }
+
 private:
-    GOP _mGOP;
+    GOP __mGOP;
+    static LinearEquation __mLinearEquation;
 
 };  /* GUI end */
 
@@ -88,6 +102,14 @@ void Graphics::drawRectangle(Rectangle rect, Pixel p) {
     drawRectangle(rect.x, rect.y, rect.w, rect.h, p);
 }
 
+
+
+/**
+ * 
+ * init global(static) var
+ * 
+*/
+LinearEquation Base::__mLinearEquation;
 
 };  /* TU end */
 

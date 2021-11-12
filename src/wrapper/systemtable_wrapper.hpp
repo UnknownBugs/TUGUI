@@ -108,6 +108,9 @@ public:
     static void
     locateProtocol(EFI_GUID *protocol, void *registration, void **interface);
 
+    static void
+    clearScreen();
+
 private:
     static ESystemTable *_mST;
 
@@ -126,6 +129,11 @@ SystemTable::setWatchdogTimer(uint64 timeout, uint64 watchdogCode, uint64 dataSi
 inline void
 SystemTable::locateProtocol(EFI_GUID *protocol, void *registration, void **interface) {
     _mST->bootServices->locateProtocol(protocol, registration, interface);
+}
+
+inline void
+SystemTable::clearScreen() {
+    _mST->conOut->clearScreen(_mST->conOut);
 }
 
 };  /* UEFIWrapper end */
