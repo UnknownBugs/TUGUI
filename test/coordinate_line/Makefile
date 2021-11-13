@@ -1,6 +1,6 @@
 SRCS:= test_coordinate_line.cpp
 
-INC := $(addprefix -I,$(TOP_DIR))
+INC := $(addprefix -I,$(INC_DIR))
 
 EFI := $(SRCS:.cpp=)
 EFI := $(addprefix $(BIN_DIR)/,$(EFI))

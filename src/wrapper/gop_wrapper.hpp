@@ -1,8 +1,12 @@
-/**
- * UEFI:
- *  Graphics Output Protocal Wrapper
+/*
+ * @Author: SPeak Shen 
+ * @Date: 2021-11-13 23:13:58 
+ * @Last Modified by: SPeak Shen
+ * @Last Modified time: 2021-11-13 23:14:29
  * 
-*/
+ * Graphics Output Protocal Wrapper
+ * 
+ */
 
 #ifndef __GOP_WRAPPER_HPP__
 #define __GOP_WRAPPER_HPP__

@@ -1,4 +1,4 @@
-SRCS:= test_straight_line.cpp
+SRCS:= test_circle.cpp
 
 INC := $(addprefix -I,$(INC_DIR))
 
@@ -9,4 +9,4 @@ $(EFI): $(SRCS)
 	@echo + $@
 	$(CXX) $^ $(CXX_FLAGS) -o $@ $(INC)
 
-module := straight_line
+module := circle

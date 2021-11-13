@@ -1,8 +1,12 @@
-/**
- * UEFI:
- *  System Table Wrapper
+/*
+ * @Author: SPeak Shen 
+ * @Date: 2021-11-13 23:14:39 
+ * @Last Modified by:   SPeak Shen 
+ * @Last Modified time: 2021-11-13 23:14:39 
  * 
-*/
+ * System Table Wrapper
+ * 
+ */
 
 #ifndef __SYSTEMTABLE_WRAPPER_HPP__
 #define __SYSTEMTABLE_WRAPPER_HPP__

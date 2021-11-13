@@ -1,17 +1,23 @@
-/**
+/*
+ * @Author: SPeak Shen 
+ * @Date: 2021-11-13 23:13:11 
+ * @Last Modified by: SPeak Shen
+ * @Last Modified time: 2021-11-14 02:29:45
+ * 
  * Tiny UEFI Graphical User Interface
  * 
- * 
-*/
+ */
 
 #ifndef __TUGUI_HPP__
 #define __TUGUI_HPP__
 
-#include <src/wrapper/systemtable_wrapper.hpp>
-#include <src/wrapper/gop_wrapper.hpp>
-#include <src/utils/utils.hpp>
+#include <formula.hpp>
+#include <vector.hpp>
 
-#include "libs/TMATH/formula.hpp"
+#include "wrapper/systemtable_wrapper.hpp"
+#include "wrapper/gop_wrapper.hpp"
+#include "utils/utils.hpp"
+
 
 #define PIXEL_WHITE {0xFF, 0xFF, 0xFF, 0}
 
@@ -93,6 +99,51 @@ public:
 
     void drawRectangle(Rectangle rect, Pixel p = PIXEL_WHITE);
 
+    /**
+     *  F(x, y) = x^2 + y^2 -R^2 
+     *  1/8 circle of first quadrant(above)
+     *  deltaX = 1;
+     *  deltaY = 0.5;
+     *  compare F(x + deltaX, y - deltaY) with 0 to choice (x + 1, y) and (x, y - 1)
+     *  F(x + 1, y - 0.5) = x^2 + 2x + 1 + y2 - y + 0.25 - R^2
+     *  Example:
+     *      when initial point is (0, R),
+     *      F(x + 1, y - 0.5) = 1.25 - R
+     *      if (1.25 - R <= 0) choice (x + 1, y)
+     *      else choice (x, y - 1)
+     *          *---->(x + 1, y)
+     *          |
+     *          V
+     *      (x, y - 1)
+    */
+    void drawCircle(unsigned int x0, unsigned int y0, unsigned int r, Pixel p = PIXEL_WHITE);
+
+private:
+    /**
+     *  1.x
+     *  2.y 
+     *  3.(0, 0)
+     *  4.y = x
+     *  5.y = -x
+     * 
+    */
+    void drawCirclePoint(unsigned int x0, unsigned int y0, unsigned int x, unsigned int y, Pixel p = PIXEL_WHITE) {
+        drawPixel(x0 + x, y0 + y, p);   // (x, y)
+        
+        // base (x, y)
+        drawPixel(x0 + x, y0 - y, p);   // 1.(x, -y)
+        drawPixel(x0 - x, y0 + y, p);   // 2.(-x, y)
+        drawPixel(x0 - x, y0 - y, p);   // 3.(-x, -y)
+        drawPixel(x0 + y, y0 + x, p);   // 4.(y, x)
+        drawPixel(x0 - y, y0 + x, p);   // 5.(-y, x)
+        
+        // base (y, x)
+        drawPixel(x0 + y, y0 - x, p);   // 1.(y, -x)
+
+        // base (-y, x)
+        drawPixel(x0 - y, y0 - x, p);   // 1.(-y, -x)
+    }
+
 };
 
 void Graphics::drawRectangle(unsigned int x, unsigned int y, unsigned int w, unsigned int h, Pixel p) {
@@ -106,7 +157,19 @@ void Graphics::drawRectangle(Rectangle rect, Pixel p) {
     drawRectangle(rect.x, rect.y, rect.w, rect.h, p);
 }
 
-
+void Graphics::drawCircle(unsigned int x0, unsigned int y0, unsigned int r, Pixel p) {
+    unsigned int x = 0, y = r;  // init point
+    while (x <= y) {
+        drawCirclePoint(x0, y0, x, y, p);
+        // F(x + 1, y - 0.5)
+        double F = x * x + 2 * x + 1 + y * y - y + 0.25 - r * r;
+        if (F <= 0) {
+            x++;    // (x + 1, y)
+        } else {
+            y--;    // (x, y -1)
+        }
+    }
+}
 
 /**
  * 

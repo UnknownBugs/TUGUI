@@ -3,17 +3,28 @@ a tiny uefi graphical user interfaces libaray......
 
 ## 1.最近动态
 
-> 优化编译
+> 优化目录结构
 >
-> 增加 画任意方向直线功能(初步)
+> 添加基础的圆算法
 
 ## 2.功能展示
 
+> 4.画圆
+>
 > 3.任意角度直线
 >
 > 2.坐标线
 >
 > 1.像素控制
+
+### 画圆
+
+#### 5环示例
+
+![](doc/images/test_pic/test_circle.png)
+
+#### bug圆
+![](doc/images/test_pic/test_circle_fail.png)![](doc/images/test_pic/test_circle_fail2.png)
 
 ### 任意角度直线
 

@@ -7,10 +7,14 @@ TOP_DIR := $(shell pwd)
 OBJ_DIR := $(TOP_DIR)/obj
 BIN_DIR := $(TOP_DIR)/bin
 # libs and include
-LIBS_DIR := $(TOP_DIR)
+INC_DIR := src \
+           libs/TDEBUG \
+		   libs/TMATH
+
+INC_DIR := $(addprefix $(TOP_DIR)/,$(INC_DIR))
 
 ifeq ($(modules),)
-SUBDIRS := 	test/xy_line \
+SUBDIRS := 	test/coordinate_line \
 			test/straight_line
 else
 SUBDIRS := $($(modules))
@@ -31,7 +35,7 @@ export CXX
 export CXX_FLAGS
 
 export TOP_DIR
-export LIBS_DIR
+export INC_DIR
 export OBJ_DIR
 export BIN_DIR
 

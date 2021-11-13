@@ -1,9 +1,12 @@
-/**
+/*
+ * @Author: SPeak Shen 
+ * @Date: 2021-11-13 23:15:18 
+ * @Last Modified by:   SPeak Shen 
+ * @Last Modified time: 2021-11-13 23:15:18
  * 
- *  utility tools
+ * utility tools
  * 
- * 
-*/
+ */
 
 #ifndef __UTILS__HPP__
 #define __UTILS__HPP__
