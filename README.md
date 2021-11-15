@@ -6,9 +6,13 @@ a tiny uefi graphical user interfaces libaray......
 > 优化目录结构
 >
 > 添加基础的圆算法
+>
+> 添加画矩形的测试用例
 
 ## 2.功能展示
 
+> 5.画矩形
+>
 > 4.画圆
 >
 > 3.任意角度直线
@@ -16,6 +20,12 @@ a tiny uefi graphical user interfaces libaray......
 > 2.坐标线
 >
 > 1.像素控制
+
+### 画矩形
+
+![](doc/images/test_pic/test_rectangle.png)
+
+
 
 ### 画圆
 
@@ -52,3 +62,8 @@ a tiny uefi graphical user interfaces libaray......
   - mount/umount
   - fdisk
   - mkfs.vfat
+
+
+
+## 4.QuickLinks
+[UEFI DOC]()

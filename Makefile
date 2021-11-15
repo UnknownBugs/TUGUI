@@ -15,7 +15,9 @@ INC_DIR := $(addprefix $(TOP_DIR)/,$(INC_DIR))
 
 ifeq ($(modules),)
 SUBDIRS := 	test/coordinate_line \
-			test/straight_line
+			test/straight_line \
+			test/circle \
+			test/rectangle
 else
 SUBDIRS := $($(modules))
 endif
