@@ -1,8 +1,8 @@
 /*
  * @Author: SPeak Shen 
  * @Date: 2021-11-13 23:14:39 
- * @Last Modified by:   SPeak Shen 
- * @Last Modified time: 2021-11-13 23:14:39 
+ * @Last Modified by: SPeak Shen
+ * @Last Modified time: 2021-11-17 01:10:06
  * 
  * System Table Wrapper
  * 
@@ -11,14 +11,12 @@
 #ifndef __SYSTEMTABLE_WRAPPER_HPP__
 #define __SYSTEMTABLE_WRAPPER_HPP__
 
-namespace TUGUI {
+#include <defs.h>
 
 namespace UEFIWrapper {
 
 class SystemTable {
 private:
-
-    using uint64 = unsigned long long;
 
     struct EFI_INPUT_KEY {
         unsigned short ScanCode;
@@ -33,15 +31,15 @@ private:
     };
 
     struct EFI_SIMPLE_TEXT_OUTPUT_PROTOCOL {
-        uint64 _buf;
-        uint64 (*outputString)(struct EFI_SIMPLE_TEXT_OUTPUT_PROTOCOL *_this, unsigned short *str);
-        uint64 _buf2[4];
-        uint64 (*clearScreen)(struct EFI_SIMPLE_TEXT_OUTPUT_PROTOCOL *_this);
+        MUTILS::uint64_t _buf;
+        MUTILS::uint64_t (*outputString)(struct EFI_SIMPLE_TEXT_OUTPUT_PROTOCOL *_this, unsigned short *str);
+        MUTILS::uint64_t _buf2[4];
+        MUTILS::uint64_t (*clearScreen)(struct EFI_SIMPLE_TEXT_OUTPUT_PROTOCOL *_this);
     };
 
     struct EFI_SIMPLE_TEXT_INPUT_PROTOCOL {
-        uint64 _buf;
-        uint64 (*readKeyStroke)(struct EFI_SIMPLE_TEXT_INPUT_PROTOCOL *_this, struct EFI_INPUT_KEY *key);
+        MUTILS::uint64_t _buf;
+        MUTILS::uint64_t (*readKeyStroke)(struct EFI_SIMPLE_TEXT_INPUT_PROTOCOL *_this, struct EFI_INPUT_KEY *key);
         void *waitForKey;
     };
 
@@ -49,50 +47,50 @@ private:
         char _buf1[24];
 
         // Task Priority Services
-        uint64 _buf2[2];
+        MUTILS::uint64_t _buf2[2];
 
         // Memory Services
-        uint64 _buf3[5];
+        MUTILS::uint64_t _buf3[5];
 
         // Event & Timer Services
-        uint64 _buf4[2];
-        uint64 (*waitForEvent)(uint64 numberOfEvents, void **event, uint64 *index);
-        uint64 _buf4_2[3];
+        MUTILS::uint64_t _buf4[2];
+        MUTILS::uint64_t (*waitForEvent)(MUTILS::uint64_t numberOfEvents, void **event, MUTILS::uint64_t *index);
+        MUTILS::uint64_t _buf4_2[3];
 
         // Protocol Handler Services
-        uint64 _buf5[9];
+        MUTILS::uint64_t _buf5[9];
 
         // Image Services
-        uint64 _buf6[5];
+        MUTILS::uint64_t _buf6[5];
 
         // Miscellaneous Services
-        uint64 _buf7[2];
-        uint64 (*setWatchdogTimer)(uint64 timeout, uint64 watchdogCode, uint64 dataSize, unsigned short *watchdogData);
+        MUTILS::uint64_t _buf7[2];
+        MUTILS::uint64_t (*setWatchdogTimer)(MUTILS::uint64_t timeout, MUTILS::uint64_t watchdogCode, MUTILS::uint64_t dataSize, unsigned short *watchdogData);
 
         // DriverSupport Services
-        uint64 _buf8[2];
+        MUTILS::uint64_t _buf8[2];
 
         // Open and Close Protocol Services
-        uint64 _buf9[3];
+        MUTILS::uint64_t _buf9[3];
 
         // Library Services
-        uint64 _buf10[2];
-        uint64 (*locateProtocol)(EFI_GUID *protocol, void *registration, void **interface);
-        uint64 _buf10_2[2];
+        MUTILS::uint64_t _buf10[2];
+        MUTILS::uint64_t (*locateProtocol)(EFI_GUID *protocol, void *registration, void **interface);
+        MUTILS::uint64_t _buf10_2[2];
 
         // 32-bit CRC Services
-        uint64 _buf11;
+        MUTILS::uint64_t _buf11;
 
         // Miscellaneous Services
-        uint64 _buf12[3];
+        MUTILS::uint64_t _buf12[3];
     };
 
     struct EFI_SYSTEM_TABLE {
         char _buf1[44];
         EFI_SIMPLE_TEXT_INPUT_PROTOCOL *conIn;
-        uint64 _buf2;
+        MUTILS::uint64_t _buf2;
         EFI_SIMPLE_TEXT_OUTPUT_PROTOCOL *conOut;
-        uint64 _buf3[3];
+        MUTILS::uint64_t _buf3[3];
         EFI_BOOT_SERVICES *bootServices;
     };
 
@@ -107,7 +105,7 @@ public:
     init(ESystemTable * st);
 
     static void 
-    setWatchdogTimer(uint64, uint64, uint64, unsigned short *);
+    setWatchdogTimer(MUTILS::uint64_t, MUTILS::uint64_t, MUTILS::uint64_t, unsigned short *);
 
     static void
     locateProtocol(EFI_GUID *protocol, void *registration, void **interface);
@@ -126,7 +124,7 @@ SystemTable::init(ESystemTable * st) {
 }
 
 inline void
-SystemTable::setWatchdogTimer(uint64 timeout, uint64 watchdogCode, uint64 dataSize, unsigned short *watchdogData) {
+SystemTable::setWatchdogTimer(MUTILS::uint64_t timeout, MUTILS::uint64_t watchdogCode, MUTILS::uint64_t dataSize, unsigned short *watchdogData) {
     _mST->bootServices->setWatchdogTimer(timeout, watchdogCode, dataSize, watchdogData);
 }
 
@@ -140,10 +138,8 @@ SystemTable::clearScreen() {
     _mST->conOut->clearScreen(_mST->conOut);
 }
 
-};  /* UEFIWrapper end */
+}; // UEFIWrapper
 
 UEFIWrapper::SystemTable::ESystemTable * UEFIWrapper::SystemTable::_mST = nullptr;
-
-};  /* TUGUI */
 
 #endif

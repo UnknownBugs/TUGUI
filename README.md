@@ -66,4 +66,4 @@ a tiny uefi graphical user interfaces libaray......
 
 
 ## 4.QuickLinks
-[UEFI DOC]()
+[UEFI DOC](https://kagurazakakotori.github.io/ubmp-cn/)
