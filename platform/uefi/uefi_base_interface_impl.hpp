@@ -6,18 +6,31 @@
 
 class BaseInterfaceImpl : public TUGUI::BaseInterface {
 
+    using ST  = UEFIWrapper::SystemTable;
+    using EST = UEFIWrapper::SystemTable::ESystemTable;
+
 public:
-    MUTILS::uint32_t getFrameBufferBase() const;
 
-    MUTILS::uint32_t getHorizontalResolution() const;
+    void init(EST *est);
 
-    MUTILS::uint32_t getVerticalResolution() const;
+    MUTILS::uint32_t getFrameBufferBase() const override;
 
-    void drawPixel(MUTILS::uint32_t x, MUTILS::uint32_t y, TUGUI::RGB rgb);
+    MUTILS::uint32_t getHorizontalResolution() const override;
+
+    MUTILS::uint32_t getVerticalResolution() const override;
+
+    void drawPixel(MUTILS::uint32_t x, MUTILS::uint32_t y, TUGUI::RGB rgb) override;
 
 private:
     static UEFIWrapper::GOP __mGOP;
 }; // BaseInterfaceImpl
+
+void BaseInterfaceImpl::init(EST *est) {
+    ST::init(est);
+    ST::setWatchdogTimer(0, 0, 0, nullptr);
+    ST::clearScreen();
+    __mGOP = UEFIWrapper::GOP(); // init gop ptr
+}
 
 MUTILS::uint32_t BaseInterfaceImpl::getFrameBufferBase() const {
     return __mGOP.getFrameBufferBase();
@@ -41,7 +54,5 @@ void BaseInterfaceImpl::drawPixel(MUTILS::uint32_t x, MUTILS::uint32_t y, TUGUI:
     pixel->blue = rgb.B;
     pixel->reserved = rgb.S;
 }
-
-UEFIWrapper::GOP BaseInterfaceImpl::__mGOP;
 
 #endif // __UEFI_BASE_INTERFACE_HPP__

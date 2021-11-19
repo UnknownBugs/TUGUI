@@ -2,7 +2,7 @@
  * @Author: SPeak Shen 
  * @Date: 2021-11-13 23:13:58 
  * @Last Modified by: SPeak Shen
- * @Last Modified time: 2021-11-18 01:34:39
+ * @Last Modified time: 2021-11-20 00:41:11
  * 
  * Graphics Output Protocal Wrapper
  * 
@@ -117,5 +117,7 @@ MUTILS::uint32_t GOP::getHorizontalResolution() const {
 MUTILS::uint32_t GOP::getVerticalResolution() const {
     return _mEGOP->mode->info->verticalResolution;
 }
+
 } //UEFIWrapper
-#endif
+
+#endif // __GOP_WRAPPER_HPP__

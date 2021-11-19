@@ -11,4 +11,4 @@ OBJS := $(addprefix $(OBJ_DIR)/,$(OBJS))
 $(EFI): $(SRCS)
 	@echo + $@
 	$(CXX) -c $^ $(CXX_FLAGS) -o $(OBJS) $(INC)
-	$(LD) $(LD_FLAGS) $(BOOTMAIN_OBJS) $(OBJS) -o $@
+	$(LD) $(LD_FLAGS) $(BOOTMAIN_OBJS) $(OBJS) -o $@ -subsystem=10

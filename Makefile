@@ -34,6 +34,7 @@ endif
 LD := x86_64-w64-mingw32-ld
 LD_FLAGS := -e tugui_bootmain \
 			-nostdinc -nostdinc++ -nostdlib
+UEFI_APP_LD_FLAGS := -subsystem=10
 
 # compilers & app
 CXX := x86_64-w64-mingw32-g++ 
@@ -43,17 +44,15 @@ MAKE := make
 
 # flag
 # -ffreestanding : __main
-CXX_FLAGS := -e tugui_bootmain \
-             -Wall -Wextra \
+CXX_FLAGS := -Wall -Wextra \
         	 -fno-builtin  \
 			 -nostdinc -nostdlib \
-			 -fno-rtti \
-			 -Wl,--subsystem,10
+			 -fno-rtti
 
-export LD
-export LD_FLAGS
-export CXX
-export CXX_FLAGS
+UEFI_APP_CXX_FLAGS := -Wl,--subsystem,10
+
+export LD LD_FLAGS UEFI_APP_LD_FLAGS
+export CXX CXX_FLAGS UEFI_APP_CXX_FLAGS
 
 export LIBS
 export SRCS
