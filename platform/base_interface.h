@@ -2,7 +2,7 @@
  * @Author: SPeak Shen 
  * @Date: 2021-11-16 23:55:54 
  * @Last Modified by: SPeak Shen
- * @Last Modified time: 2021-11-19 03:15:56
+ * @Last Modified time: 2021-11-19 03:56:19
  */
 
 #ifndef __BASE_INTERFACE_HPP__
@@ -31,12 +31,7 @@ public:
     }
 };
 
-static BaseInterface *gBaseInterface = nullptr;
-
-inline static
-void initInterface(BaseInterface *bi) {
-    gBaseInterface = bi;
-}
+extern BaseInterface *gBaseInterfacePtr;
 
 }; // TUGUI
 
