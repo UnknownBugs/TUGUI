@@ -1,8 +1,8 @@
 /*
  * @Author: SPeak Shen 
  * @Date: 2021-11-13 23:15:18 
- * @Last Modified by:   SPeak Shen 
- * @Last Modified time: 2021-11-13 23:15:18
+ * @Last Modified by: SPeak Shen
+ * @Last Modified time: 2021-11-17 01:05:46
  * 
  * utility tools
  * 
@@ -11,7 +11,7 @@
 #ifndef __UTILS__HPP__
 #define __UTILS__HPP__
 
-namespace TUGUI {
+namespace MUTILS {
 
 template<typename T>
 T max(const T &a, const T &b) {

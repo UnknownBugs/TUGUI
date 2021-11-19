@@ -2,7 +2,7 @@
  * @Author: SPeak Shen 
  * @Date: 2021-11-13 23:13:11 
  * @Last Modified by: SPeak Shen
- * @Last Modified time: 2021-11-14 02:29:45
+ * @Last Modified time: 2021-11-18 00:53:01
  * 
  * Tiny UEFI Graphical User Interface
  * 
@@ -13,72 +13,60 @@
 
 #include <formula.hpp>
 #include <vector.hpp>
+#include <utils.hpp>
 
-#include "wrapper/systemtable_wrapper.hpp"
-#include "wrapper/gop_wrapper.hpp"
-#include "utils/utils.hpp"
-
-
-#define PIXEL_WHITE {0xFF, 0xFF, 0xFF, 0}
+#include "base_interface.h"
+#include "color.hpp"
 
 namespace TUGUI {
 
-using UEFIWrapper::GOP;
 using Math::Formula::LinearEquation;
+using MUTILS::max;
+using MUTILS::min;
+using MUTILS::swap;
 
 class Base {
-private:
-    using EGOP  = GOP::EGOP;
-
-public:
-    using Pixel = GOP::Pixel;
-    
 public:
 
     Base() = default;
 
-    void drawPixel(unsigned int x, unsigned int y, Pixel p) {
-        unsigned int hr = __mGOP.getHorizontalResolution();
-        Pixel *base = (Pixel *)__mGOP.getFrameBufferBase();
-        Pixel *pixel = base + (hr * y) + x;
-
-        *pixel = p;
+    void drawPixel(unsigned int x, unsigned int y, RGB rgb) {
+        gBaseInterfacePtr->drawPixel(x, y, rgb);
     }
 
-    void drawXLine(unsigned int y, unsigned int x1, unsigned int x2, Pixel p = PIXEL_WHITE) {
+    void drawXLine(unsigned int y, unsigned int x1, unsigned int x2, RGB rgb = PIXEL_WHITE) {
         if (x1 > x2) swap(x1, x2);
-        unsigned int end = min(x2, __mGOP.getHorizontalResolution());
+        unsigned int end = min(x2, gBaseInterfacePtr->getHorizontalResolution());
         while (x1 <= end) {
-            drawPixel(x1, y, p);
+            drawPixel(x1, y, rgb);
             x1++;
         }
     }
 
-    void drawYLine(const unsigned int &x, unsigned int y1, unsigned int y2, Pixel p = PIXEL_WHITE) {
+    void drawYLine(const unsigned int &x, unsigned int y1, unsigned int y2, RGB rgb = PIXEL_WHITE) {
         if (y1 > y2) swap(y1, y2);
-        unsigned int end = min(y2, __mGOP.getVerticalResolution());
+        unsigned int end = min(y2, gBaseInterfacePtr->getVerticalResolution());
         while (y1 <= end) {
-            drawPixel(x, y1, p);
+            drawPixel(x, y1, rgb);
             y1++;
         }
     }
 
-    void drawLine(unsigned int x1, unsigned int y1, unsigned int x2, unsigned int y2, Pixel p = PIXEL_WHITE) {
-        if (x1 == x2) drawYLine(x1, y1, y2, p);
-        if (y1 == y2) drawXLine(y1, x1, x2, p);
+    void drawLine(unsigned int x1, unsigned int y1, unsigned int x2, unsigned int y2, RGB rgb = PIXEL_WHITE) {
+        if (x1 == x2) drawYLine(x1, y1, y2, rgb);
+        if (y1 == y2) drawXLine(y1, x1, x2, rgb);
         __mLinearEquation.set(x1, y1, x2, y2);
         double x = x1;
         double deltaX { 1 };
         if (__mLinearEquation.getSlope() > 1) // deltaY = 1
             deltaX = 1. / __mLinearEquation.getSlope();
         while (x < x2) {
-            drawPixel(x, __mLinearEquation.getY(x), p);
+            drawPixel(x, __mLinearEquation.getY(x), rgb);
             x += deltaX;
         }
     }
 
 private:
-    GOP __mGOP;
     static LinearEquation __mLinearEquation;
 
 };  /* GUI end */
@@ -95,9 +83,9 @@ public:
 
 public:
 
-    void drawRectangle(unsigned int x, unsigned int y, unsigned int w, unsigned int h, Pixel p = PIXEL_WHITE);
+    void drawRectangle(unsigned int x, unsigned int y, unsigned int w, unsigned int h, RGB rgb = PIXEL_WHITE);
 
-    void drawRectangle(Rectangle rect, Pixel p = PIXEL_WHITE);
+    void drawRectangle(Rectangle rect, RGB rgb = PIXEL_WHITE);
 
     /**
      *  F(x, y) = x^2 + y^2 -R^2 
@@ -116,7 +104,7 @@ public:
      *          V
      *      (x, y - 1)
     */
-    void drawCircle(unsigned int x0, unsigned int y0, unsigned int r, Pixel p = PIXEL_WHITE);
+    void drawCircle(unsigned int x0, unsigned int y0, unsigned int r, RGB rgb = PIXEL_WHITE);
 
 private:
     /**
@@ -127,40 +115,40 @@ private:
      *  5.y = -x
      * 
     */
-    void drawCirclePoint(unsigned int x0, unsigned int y0, unsigned int x, unsigned int y, Pixel p = PIXEL_WHITE) {
-        drawPixel(x0 + x, y0 + y, p);   // (x, y)
+    void drawCirclePoint(unsigned int x0, unsigned int y0, unsigned int x, unsigned int y, RGB rgb = PIXEL_WHITE) {
+        drawPixel(x0 + x, y0 + y, rgb);   // (x, y)
         
         // base (x, y)
-        drawPixel(x0 + x, y0 - y, p);   // 1.(x, -y)
-        drawPixel(x0 - x, y0 + y, p);   // 2.(-x, y)
-        drawPixel(x0 - x, y0 - y, p);   // 3.(-x, -y)
-        drawPixel(x0 + y, y0 + x, p);   // 4.(y, x)
-        drawPixel(x0 - y, y0 + x, p);   // 5.(-y, x)
+        drawPixel(x0 + x, y0 - y, rgb);   // 1.(x, -y)
+        drawPixel(x0 - x, y0 + y, rgb);   // 2.(-x, y)
+        drawPixel(x0 - x, y0 - y, rgb);   // 3.(-x, -y)
+        drawPixel(x0 + y, y0 + x, rgb);   // 4.(y, x)
+        drawPixel(x0 - y, y0 + x, rgb);   // 5.(-y, x)
         
         // base (y, x)
-        drawPixel(x0 + y, y0 - x, p);   // 1.(y, -x)
+        drawPixel(x0 + y, y0 - x, rgb);   // 1.(y, -x)
 
         // base (-y, x)
-        drawPixel(x0 - y, y0 - x, p);   // 1.(-y, -x)
+        drawPixel(x0 - y, y0 - x, rgb);   // 1.(-y, -x)
     }
 
 };
 
-void Graphics::drawRectangle(unsigned int x, unsigned int y, unsigned int w, unsigned int h, Pixel p) {
-    drawXLine(y, x, x + w, p);
-    drawYLine(x + w, y, y + h, p);
-    drawXLine(y + h, x + w, x, p);
-    drawYLine(x, y + h, y, p);
+void Graphics::drawRectangle(unsigned int x, unsigned int y, unsigned int w, unsigned int h, RGB rgb) {
+    drawXLine(y, x, x + w, rgb);
+    drawYLine(x + w, y, y + h, rgb);
+    drawXLine(y + h, x + w, x, rgb);
+    drawYLine(x, y + h, y, rgb);
 }
 
-void Graphics::drawRectangle(Rectangle rect, Pixel p) {
-    drawRectangle(rect.x, rect.y, rect.w, rect.h, p);
+void Graphics::drawRectangle(Rectangle rect, RGB rgb) {
+    drawRectangle(rect.x, rect.y, rect.w, rect.h, rgb);
 }
 
-void Graphics::drawCircle(unsigned int x0, unsigned int y0, unsigned int r, Pixel p) {
+void Graphics::drawCircle(unsigned int x0, unsigned int y0, unsigned int r, RGB rgb) {
     unsigned int x = 0, y = r;  // init point
     while (x <= y) {
-        drawCirclePoint(x0, y0, x, y, p);
+        drawCirclePoint(x0, y0, x, y, rgb);
         // F(x + 1, y - 0.5)
         double F = x * x + 2 * x + 1 + y * y - y + 0.25 - r * r;
         if (F <= 0) {

@@ -1,15 +1,7 @@
 #include <tugui.hpp>
 
-using TUGUI::UEFIWrapper::SystemTable;
-using TUGUI::GOP;
-
-extern "C" void
-tugui_main(void *ImageHandle __attribute__ ((unused)), SystemTable::ESystemTable *systemTable) {
-    SystemTable::init(systemTable);
-    SystemTable::setWatchdogTimer(0, 0, 0, nullptr);
-
-    SystemTable::clearScreen();
-
+int tugui_main() {
+    
     TUGUI::Graphics g;
     
     // test Rect
@@ -20,4 +12,5 @@ tugui_main(void *ImageHandle __attribute__ ((unused)), SystemTable::ESystemTable
     g.drawRectangle(630, 390, 100, 150, {0xFF, 0xFF, 0xFF, 0});
 
     while (1);
+    return 0;
 }

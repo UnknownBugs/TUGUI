@@ -2,7 +2,7 @@
  * @Author: SPeak Shen 
  * @Date: 2021-11-13 23:13:58 
  * @Last Modified by: SPeak Shen
- * @Last Modified time: 2021-11-13 23:14:29
+ * @Last Modified time: 2021-11-20 00:41:11
  * 
  * Graphics Output Protocal Wrapper
  * 
@@ -11,15 +11,15 @@
 #ifndef __GOP_WRAPPER_HPP__
 #define __GOP_WRAPPER_HPP__
 
+#include <defs.h>
+#include <systemtable_wrapper.hpp>
+
 #define EFI_GRAPHICS_OUTPUT_PROTOCAL_GUID { \
     0x9042a9de, 0x23dc, 0x4a38, { \
         0x96, 0xfb, 0x7a, 0xde, 0xd0, 0x80, 0x51, 0x6a \
     }   \
 };
-
-namespace TUGUI {
 namespace UEFIWrapper {
-
 class GOP {
 private:
     enum EFI_GRAPHICS_PIXEL_FORMAT {
@@ -35,26 +35,18 @@ private:
         unsigned char green;
         unsigned char red;
         unsigned char reserved;
-
-        EFI_GRAPHICS_OUTPUT_BLT_PIXEL & operator=(const EFI_GRAPHICS_OUTPUT_BLT_PIXEL &pixel) {
-            blue = pixel.blue;
-            green = pixel.green;
-            red = pixel.red;
-            reserved = pixel.reserved;
-            return *this;
-        }
     };
 
     struct EFI_GRAPHICS_OUTPUT_MODE_INFORMATION {
-        unsigned int version;
-        unsigned int horizontalResolution;
-        unsigned int verticalResolution;
+        MUTILS::uint32_t version;
+        MUTILS::uint32_t horizontalResolution;
+        MUTILS::uint32_t verticalResolution;
         EFI_GRAPHICS_PIXEL_FORMAT pixelFormat;
     };
 
     struct EFI_GRAPHICS_OUTPUT_PROTOCOL_MODE {
-        unsigned int maxMode;
-        unsigned int mode;
+        MUTILS::uint32_t maxMode;
+        MUTILS::uint32_t mode;
         EFI_GRAPHICS_OUTPUT_MODE_INFORMATION *info;
         unsigned long long sizeOfInfo;
         unsigned long long frameBufferBase;
@@ -63,14 +55,14 @@ private:
     struct EFI_GRAPHICS_OUTPUT_PROTOCOL {
         unsigned long long (*queryMode)(
             struct EFI_GRAPHICS_OUTPUT_PROTOCOL *_this,
-            unsigned int modeID,
+            MUTILS::uint32_t modeID,
             unsigned long long *sizeOfInfo,
             struct EFI_GRAPHICS_OUTPUT_MODE_INFORMATION* *info  // equal InfoTypePointer &itp; get back to info  
         );
 
         unsigned long long (*setMode)(
             struct EFI_GRAPHICS_OUTPUT_PROTOCOL *_this,
-            unsigned int modeID
+            MUTILS::uint32_t modeID
         );
 
         EFI_GRAPHICS_OUTPUT_BLT_PIXEL blt;
@@ -96,37 +88,36 @@ public:
 
     PixelFormat getPixelFormat() const;
 
-    unsigned int getHorizontalResolution() const;
+    MUTILS::uint32_t getHorizontalResolution() const;
 
-    unsigned int getVerticalResolution() const;
+    MUTILS::uint32_t getVerticalResolution() const;
 
 private:
-    EGOP *_mGOP;  // not need to free
+    EGOP *_mEGOP;  // not need to free
 
 };  /* GOP end */
 
 GOP::GOP() {
     SystemTable::EGUID eguid = EFI_GRAPHICS_OUTPUT_PROTOCAL_GUID;
-    SystemTable::locateProtocol(&eguid, nullptr, (void **)&_mGOP);
+    SystemTable::locateProtocol(&eguid, nullptr, (void **)&_mEGOP);
 }
 
 unsigned long long GOP::getFrameBufferBase() const {
-    return _mGOP->mode->frameBufferBase;
+    return _mEGOP->mode->frameBufferBase;
 }
 
 GOP::PixelFormat GOP::getPixelFormat() const {
-    return _mGOP->mode->info->pixelFormat;
+    return _mEGOP->mode->info->pixelFormat;
 }
 
-unsigned int GOP::getHorizontalResolution() const {
-    return _mGOP->mode->info->horizontalResolution;
+MUTILS::uint32_t GOP::getHorizontalResolution() const {
+    return _mEGOP->mode->info->horizontalResolution;
 }
 
-unsigned int GOP::getVerticalResolution() const {
-    return _mGOP->mode->info->verticalResolution;
+MUTILS::uint32_t GOP::getVerticalResolution() const {
+    return _mEGOP->mode->info->verticalResolution;
 }
 
-};  /* UEFI_Wrapper end */
-};  /* TUGUI end */
+} //UEFIWrapper
 
-#endif
+#endif // __GOP_WRAPPER_HPP__

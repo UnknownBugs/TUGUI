@@ -1,14 +1,6 @@
 #include <tugui.hpp>
 
-using TUGUI::UEFIWrapper::SystemTable;
-using TUGUI::GOP;
-
-extern "C" void
-tugui_main(void *ImageHandle __attribute__ ((unused)), SystemTable::ESystemTable *systemTable) {
-    SystemTable::init(systemTable);
-    SystemTable::setWatchdogTimer(0, 0, 0, nullptr);
-
-    SystemTable::clearScreen();
+int tugui_main() {
 
     TUGUI::Graphics g;
 
