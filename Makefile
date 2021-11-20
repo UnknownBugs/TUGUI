@@ -10,14 +10,14 @@ BIN_DIR := $(TOP_DIR)/bin
 
 LIBS 	:= libs/MUTILS \
            libs/TDEBUG \
-		   libs/TMATH
+		   libs/TMATH \
+		   libs/Uefi
 
 # include
 INC_DIR := $(LIBS) \
-           src \
-           src/colors \
 		   platform \
-		   $(PLATFORM_INC_DIR)
+		   core \
+		   ./
 
 INC_DIR := $(addprefix $(TOP_DIR)/,$(INC_DIR))
 
