@@ -2,7 +2,7 @@
  * @Author: SPeak Shen 
  * @Date: 2021-11-13 23:13:58 
  * @Last Modified by: SPeak Shen
- * @Last Modified time: 2021-11-20 00:41:11
+ * @Last Modified time: 2021-11-20 23:36:21
  * 
  * Graphics Output Protocal Wrapper
  * 
@@ -11,8 +11,8 @@
 #ifndef __GOP_WRAPPER_HPP__
 #define __GOP_WRAPPER_HPP__
 
-#include <defs.h>
-#include <systemtable_wrapper.hpp>
+#include <defs.hpp>
+#include <uefi/wrapper/systemtable_wrapper.hpp>
 
 #define EFI_GRAPHICS_OUTPUT_PROTOCAL_GUID { \
     0x9042a9de, 0x23dc, 0x4a38, { \
@@ -38,15 +38,15 @@ private:
     };
 
     struct EFI_GRAPHICS_OUTPUT_MODE_INFORMATION {
-        MUTILS::uint32_t version;
-        MUTILS::uint32_t horizontalResolution;
-        MUTILS::uint32_t verticalResolution;
+        uint32_t version;
+        uint32_t horizontalResolution;
+        uint32_t verticalResolution;
         EFI_GRAPHICS_PIXEL_FORMAT pixelFormat;
     };
 
     struct EFI_GRAPHICS_OUTPUT_PROTOCOL_MODE {
-        MUTILS::uint32_t maxMode;
-        MUTILS::uint32_t mode;
+        uint32_t maxMode;
+        uint32_t mode;
         EFI_GRAPHICS_OUTPUT_MODE_INFORMATION *info;
         unsigned long long sizeOfInfo;
         unsigned long long frameBufferBase;
@@ -55,14 +55,14 @@ private:
     struct EFI_GRAPHICS_OUTPUT_PROTOCOL {
         unsigned long long (*queryMode)(
             struct EFI_GRAPHICS_OUTPUT_PROTOCOL *_this,
-            MUTILS::uint32_t modeID,
+            uint32_t modeID,
             unsigned long long *sizeOfInfo,
             struct EFI_GRAPHICS_OUTPUT_MODE_INFORMATION* *info  // equal InfoTypePointer &itp; get back to info  
         );
 
         unsigned long long (*setMode)(
             struct EFI_GRAPHICS_OUTPUT_PROTOCOL *_this,
-            MUTILS::uint32_t modeID
+            uint32_t modeID
         );
 
         EFI_GRAPHICS_OUTPUT_BLT_PIXEL blt;
@@ -88,9 +88,9 @@ public:
 
     PixelFormat getPixelFormat() const;
 
-    MUTILS::uint32_t getHorizontalResolution() const;
+    uint32_t getHorizontalResolution() const;
 
-    MUTILS::uint32_t getVerticalResolution() const;
+    uint32_t getVerticalResolution() const;
 
 private:
     EGOP *_mEGOP;  // not need to free
@@ -110,11 +110,11 @@ GOP::PixelFormat GOP::getPixelFormat() const {
     return _mEGOP->mode->info->pixelFormat;
 }
 
-MUTILS::uint32_t GOP::getHorizontalResolution() const {
+uint32_t GOP::getHorizontalResolution() const {
     return _mEGOP->mode->info->horizontalResolution;
 }
 
-MUTILS::uint32_t GOP::getVerticalResolution() const {
+uint32_t GOP::getVerticalResolution() const {
     return _mEGOP->mode->info->verticalResolution;
 }
 

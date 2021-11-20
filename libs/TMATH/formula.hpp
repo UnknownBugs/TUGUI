@@ -1,14 +1,14 @@
 /*
  * @Author: SPeak Shen 
  * @Date: 2021-11-13 23:12:19 
- * @Last Modified by:   SPeak Shen 
- * @Last Modified time: 2021-11-13 23:12:19 
+ * @Last Modified by: SPeak Shen
+ * @Last Modified time: 2021-11-21 00:51:26
  */
 
 #ifndef __FORMULA_HPP__
 #define __FORMULA_HPP__
 
-#include "../TDEBUG/tdebug.hpp"
+#include "tdebug.hpp"
 
 #define DOUBLE_MAX (1.79769e+308)
 
@@ -65,7 +65,13 @@ private:
     }
 };
 
-}
+class MonadicEquation {
+private:
+        
+};
+
+
+} // Formula
 };  /* Math end */
 
 #endif  /* __FORMULA_HPP__ end */
