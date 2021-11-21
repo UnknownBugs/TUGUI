@@ -2,6 +2,7 @@
 #define __UEFI_BASE_INTERFACE_HPP__
 
 #include <base_interface.hpp>
+#include <tdebug.hpp>
 
 #include <uefi/wrapper/gop_wrapper.hpp>
 #include <uefi/wrapper/systemtable_wrapper.hpp>
@@ -44,7 +45,12 @@ public:
         pixel->reserved = rgb.S;
     }
 
-    void * malloc(uint64_t size) override {
+    TDEBUG::RT clearScrean() override {
+        UEFIWrapper::SystemTable::clearScreen();
+        return TDEBUG::RT::SUCCESS;
+    }
+
+    void * tuguiMalloc(uint64_t size) override {
         return UEFIWrapper::SystemTable::allocatePool(EfiConventionalMemory, size);
     }
 
@@ -54,6 +60,28 @@ private:
 
 void * operator new(uint64_t size) {
     return UEFIWrapper::SystemTable::allocatePool(EfiConventionalMemory, size);
+}
+
+void * operator new[](uint64_t size) {
+    return UEFIWrapper::SystemTable::allocatePool(EfiConventionalMemory, size);
+}
+
+void operator delete(void *ptr) {
+    UEFIWrapper::SystemTable::freePool(ptr);
+}
+
+void operator delete[](void *ptr) {
+    UEFIWrapper::SystemTable::freePool(ptr);
+}
+
+void operator delete(void* ptr, uint64_t size) {
+     size -= size;  // remove warning: unused parameter
+    UEFIWrapper::SystemTable::freePool(ptr);
+}
+
+void operator delete[](void* ptr, uint64_t size) {
+    size -= size;   // remove warning: unused parameter
+    UEFIWrapper::SystemTable::freePool(ptr);
 }
 
 #endif // __UEFI_BASE_INTERFACE_HPP__

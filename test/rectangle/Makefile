@@ -3,12 +3,12 @@ EFI := $(addprefix $(BIN_DIR)/,$(MODULE))
 
 SRCS:= test_rectangle.cpp
 
-INC := $(addprefix -I,$(INC_DIR))
+LOCAL_INC := $(addprefix -I,$(INC_DIR))
 
 OBJS := $(SRCS:.cpp=.o)
 OBJS := $(addprefix $(OBJ_DIR)/,$(OBJS))
 
-$(EFI): $(SRCS)
+$(EFI): $(SRCS) $(TUGUI_INCLUDE_FILE)
 	@echo + $@
-	$(CXX) -c $^ $(CXX_FLAGS) -o $(OBJS) $(INC)
+	$(CXX) -c $(SRCS) $(CXX_FLAGS) -o $(OBJS) $(LOCAL_INC)
 	$(LD) $(LD_FLAGS) $(BOOTMAIN_OBJS) $(OBJS) -o $@ -subsystem=10

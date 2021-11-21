@@ -1,6 +1,6 @@
 #include <tugui.hpp>
 
-int tugui_main() {
+int tuguiMain() {
 
     TUGUI::Graphics g;
     

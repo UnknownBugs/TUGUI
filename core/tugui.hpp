@@ -30,6 +30,10 @@ public:
 
     Base() = default;
 
+    void clearScreen() {
+        gBaseInterfacePtr->clearScrean();
+    }
+
     void drawPixel(unsigned int x, unsigned int y, RGB rgb) {
         gBaseInterfacePtr->drawPixel(x, y, rgb);
     }

@@ -31,14 +31,14 @@ public:
         return RT::ERROR;
     }
 
-    virtual void * malloc(uint64_t size);
+    virtual void * tuguiMalloc(uint64_t size) = 0;
 };
 
 extern BaseInterface *gBaseInterfacePtr;
 
 }; // TUGUI
 
-int tugui_main();
+int tuguiMain();
 
 // Memory Alloc
 void * operator new(uint64_t size);
@@ -50,5 +50,8 @@ void * operator new[](uint64_t size, void *ptr);
 
 void operator delete(void *ptr);
 void operator delete[](void *ptr);
+
+void operator delete(void* ptr, uint64_t size);
+void operator delete[](void* ptr, uint64_t size);
 
 #endif // __BASE_INTERFACE_HPP__

@@ -3,11 +3,10 @@ a tiny uefi graphical user interfaces libaray......
 
 ## 1.最近动态
 
-> 优化目录结构
+> 优化代码结构
 >
-> 添加基础的圆算法
+> 接口设计/封装
 >
-> 添加画矩形的测试用例
 
 ## 2.功能展示
 

@@ -10,5 +10,5 @@ tugui_bootmain(void *ImageHandle __attribute__ ((unused)), SystemTable::ESystemT
     BaseInterfaceImpl base;
     base.init(systemTable);
     TUGUI::gBaseInterfacePtr = &base;
-    tugui_main();
+    tuguiMain();
 }

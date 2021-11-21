@@ -4,33 +4,6 @@ include platform/bootmain.mk
 # project dir
 TOP_DIR := $(shell pwd)
 
-# obj, bin dir
-OBJ_DIR := $(TOP_DIR)/obj
-BIN_DIR := $(TOP_DIR)/bin
-
-LIBS 	:= libs/MUTILS \
-           libs/TDEBUG \
-		   libs/TMATH \
-		   libs/Uefi
-
-# include
-INC_DIR := $(LIBS) \
-		   platform \
-		   core \
-		   ./
-
-INC_DIR := $(addprefix $(TOP_DIR)/,$(INC_DIR))
-
-SUBDIRS := platform/uefi
-ifeq ($(modules),)
-SUBDIRS += 	test/coordinate_line \
-			test/straight_line \
-			test/circle \
-			test/rectangle
-else
-SUBDIRS += $($(modules))
-endif
-
 LD := x86_64-w64-mingw32-ld
 LD_FLAGS := -e tugui_bootmain \
 			-nostdinc -nostdinc++ -nostdlib
@@ -51,9 +24,41 @@ CXX_FLAGS := -Wall -Wextra \
 
 UEFI_APP_CXX_FLAGS := -Wl,--subsystem,10
 
+
+# obj, bin dir
+OBJ_DIR := $(TOP_DIR)/obj
+BIN_DIR := $(TOP_DIR)/bin
+
+LIBS 	:= libs/MUTILS \
+           libs/TDEBUG \
+		   libs/TMATH \
+		   libs/Uefi
+
+# include
+INC_DIR := $(LIBS) \
+		   platform \
+		   core \
+		   ./
+
+INC_DIR := $(addprefix $(TOP_DIR)/,$(INC_DIR))
+
+SUBDIRS := platform/uefi
+ifeq ($(modules),)
+SUBDIRS += 	test/base \
+			test/coordinate_line \
+			test/straight_line \
+			test/circle \
+			test/rectangle
+else
+SUBDIRS += $($(modules))
+endif
+
+TUGUI_INCLUDE_FILE := $(TOP_DIR)/core/tugui.hpp
+
 export LD LD_FLAGS UEFI_APP_LD_FLAGS
 export CXX CXX_FLAGS UEFI_APP_CXX_FLAGS
 
+export TUGUI_INCLUDE_FILE
 export LIBS
 export SRCS
 export TOP_DIR
