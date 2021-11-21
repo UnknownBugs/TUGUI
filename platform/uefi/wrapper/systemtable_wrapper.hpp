@@ -46,6 +46,10 @@ public:
         return mPtr;
     }
 
+    static void freePool(void *mPtr) {
+        __mST->BootServices->FreePool(mPtr);
+    }
+
     static void
     clearScreen()  {
         __mST->ConOut->ClearScreen(__mST->ConOut);
@@ -54,7 +58,7 @@ public:
 private:
     static EFI_SYSTEM_TABLE  *__mST;
 
-};  /* SystemTable end */
+};  // SystemTable
 
 }; // UEFIWrapper
 

@@ -1,11 +1,14 @@
 #include <tugui.hpp>
 
-int tugui_main() {
+int tuguiMain() {
     TUGUI::Base base;
+
     base.drawXLine(100, 100, 260, {0, 0, 0xFF, 0});
     base.drawXLine(102, 150, 360, {0xFF, 0xFF, 0xFF, 0});
     base.drawYLine(104, 200, 460, {0, 0xFF, 0xFF, 0});
     base.drawYLine(106, 250, 560, {0xFF, 0, 0xFF, 0});
+    
+    base.clearScreen();
 
     TUGUI::Graphics g;
     // coordinate

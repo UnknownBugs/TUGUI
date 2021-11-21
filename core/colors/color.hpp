@@ -11,6 +11,7 @@
 #include <defs.hpp>
 
 #define PIXEL_WHITE {0xFF, 0xFF, 0xFF, 0}
+#define PIXEL_RED   {0xFF, 0, 0, 0}
 
 namespace TUGUI {
 

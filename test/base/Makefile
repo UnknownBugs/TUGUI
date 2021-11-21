@@ -1,7 +1,10 @@
-MODULE := straight_line
-EFI := $(addprefix $(BIN_DIR)/,$(MODULE))
+MODULE := base
 
-SRCS:= test_straight_line.cpp
+CASES := memory_alloc
+
+EFI := $(addprefix $(BIN_DIR)/,$(CASES))
+
+SRCS := memory_alloc.cpp
 
 LOCAL_INC := $(addprefix -I,$(INC_DIR))
 
