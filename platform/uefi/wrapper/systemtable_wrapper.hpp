@@ -24,41 +24,37 @@ public:
     using EGUID        = EFI_GUID;
 
     static void 
-    init(ESystemTable * st);
+    init(ESystemTable * st) {
+        __mST = st;
+    }
 
     static void 
-    setWatchdogTimer(uint64_t, uint64_t, uint64_t, unsigned short *);
+    setWatchdogTimer(uint64_t timeout, uint64_t watchdogCode, uint64_t dataSize, unsigned short *watchdogData) {
+        __mST->BootServices->SetWatchdogTimer(timeout, watchdogCode, dataSize, watchdogData);
+    }
 
     static void
-    locateProtocol(EFI_GUID *protocol, void *registration, void **interface);
+    locateProtocol(EFI_GUID *protocol, void *registration, void **interface) {
+        __mST->BootServices->LocateProtocol(protocol, registration, interface);
+    }
+
+    static void *
+    allocatePool(EFI_MEMORY_TYPE poolType, uint32_t size) {
+        void *mPtr = nullptr;
+        uint64_t status = __mST->BootServices->AllocatePool(poolType, size, (void **)&mPtr);
+        if (status == 0) while (1);
+        return mPtr;
+    }
 
     static void
-    clearScreen();
+    clearScreen()  {
+        __mST->ConOut->ClearScreen(__mST->ConOut);
+    }
 
 private:
     static EFI_SYSTEM_TABLE  *__mST;
 
 };  /* SystemTable end */
-
-inline void
-SystemTable::init(ESystemTable * st) {
-    __mST = st;
-}
-
-inline void
-SystemTable::setWatchdogTimer(uint64_t timeout, uint64_t watchdogCode, uint64_t dataSize, unsigned short *watchdogData) {
-    __mST->BootServices->SetWatchdogTimer(timeout, watchdogCode, dataSize, watchdogData);
-}
-
-inline void
-SystemTable::locateProtocol(EFI_GUID *protocol, void *registration, void **interface) {
-    __mST->BootServices->LocateProtocol(protocol, registration, interface);
-}
-
-inline void
-SystemTable::clearScreen() {
-    __mST->ConOut->ClearScreen(__mST->ConOut);
-}
 
 }; // UEFIWrapper
 

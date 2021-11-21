@@ -20,6 +20,13 @@ crash() {
     *((char *)0) = 'E';
 }
 
+// static_assert(x) will generate a compile-time error if 'x' is false.
+#define static_assert(x)                                \
+    switch (x) {                                        \
+        case 0:  case (x): ;                            \
+    }
+
+
 }; /* TDEBUG end */
 
 #endif

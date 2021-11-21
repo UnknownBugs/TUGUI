@@ -30,6 +30,8 @@ public:
     virtual RT clearScrean() {
         return RT::ERROR;
     }
+
+    virtual void * malloc(uint64_t size);
 };
 
 extern BaseInterface *gBaseInterfacePtr;
