@@ -80,6 +80,11 @@ public:
         return c[i];
     }
 
+    T operator[](const unsigned int i) const {
+        if (i >= N) while(1);
+        return c[i];
+    }
+
 private:
     T c[N == 0 ? 1 : N];
 };  // Vector
