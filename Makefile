@@ -78,6 +78,7 @@ BOOTMAIN_OBJS := $(addprefix $(OBJ_DIR)/,$(BOOTMAIN_OBJS))
 #OBJS := $(addprefix $(OBJ_DIR)/,$(OBJS))
 
 all : CreateDir $(SUBDIRS)
+	@echo -e $(Info)
 
 CreateDir:
 	@echo + dir: obj bin
@@ -91,6 +92,10 @@ $(SUBDIRS): NULL
 NULL:
 
 
-.PHONY : clean
+.PHONY : modules clean
+
+modules :
+	@echo "$(MODULES_INFO)"
+
 clean :
 	rm -rf obj bin
