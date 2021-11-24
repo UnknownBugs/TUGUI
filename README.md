@@ -71,7 +71,7 @@ obj # 编译中间产物
 
 **VirtualBox:**
 
--  1) VirtualBox新建虚拟机
+- VirtualBox新建虚拟机
 
   > name:xxx
   >
@@ -83,11 +83,11 @@ obj # 编译中间产物
   >
   > 磁盘固定大小模式
 
-- 2) 配置虚拟机
+- 配置虚拟机
 
   > setting -> system -> Enable EFI
 
-- 3) 格式化虚拟磁盘
+- 格式化虚拟磁盘
 
   ```
   $ sudo fdisk [topath]/xxx.vhd
@@ -123,13 +123,13 @@ obj # 编译中间产物
   $ sudo mkfs.vfat -F 32 [topath]/xxx.vhd    # 格式化分区
   ```
 
-- 4) 把目标程序放入磁盘
+- 把目标程序放入磁盘
 
   ```
   ./tools/install_to_disk.sh bin/[moduleName] [topath]/xxx.vhd
   ```
 
-- 5) 运行虚拟机
+-  运行虚拟机
 
 
 
