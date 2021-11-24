@@ -43,7 +43,7 @@ sudo apt-get install g++-mingw-w64-x86-64 -y
 #### 2.2.1 获取源码
 
 ```shell
-git clone git@github.com:Sunrisepeak/TUGUI.git
+git clone -b dev git@github.com:Sunrisepeak/TUGUI.git
 ```
 
 #### 2.2.2 编译源码(目前仅支持测试Demo代码编译)
