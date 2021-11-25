@@ -1,0 +1,25 @@
+name: Makefile CI
+
+on:
+  push:
+    branches: [ main dev ]
+  pull_request:
+    branches: [ main dev ]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    
+    - name: 配置环境
+      run: sudo apt-get install g++-mingw-w64-x86-64 -y
+       
+    - name: 编译所有模块
+      run: make
+    - uses: actions/upload-artifact@master
+      with:
+        name: 导出二进制文件
+        path: ./bin
