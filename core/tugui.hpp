@@ -15,8 +15,8 @@
 #include <vector.hpp>
 #include <utils.hpp>
 
-#include "platform/base_interface.hpp"
-#include "core/colors/color.hpp"
+#include <platform/base_interface.hpp>
+#include <core/colors/color.hpp>
 
 namespace TUGUI {
 

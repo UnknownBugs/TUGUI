@@ -6,7 +6,7 @@ TOP_DIR := $(shell pwd)
 
 LD := x86_64-w64-mingw32-ld
 LD_FLAGS := -e tugui_bootmain \
-			-nostdinc -nostdinc++ -nostdlib
+            -nostdinc -nostdinc++ -nostdlib
 UEFI_APP_LD_FLAGS := -subsystem=10
 
 # compilers & app
@@ -18,9 +18,9 @@ MAKE := make
 # flag
 # -ffreestanding : __main
 CXX_FLAGS := -Wall -Wextra \
-        	 -fno-builtin  \
-			 -nostdinc -nostdlib \
-			 -fno-rtti
+             -fno-builtin  \
+             -nostdinc -nostdlib \
+             -fno-rtti
 
 UEFI_APP_CXX_FLAGS := -Wl,--subsystem,10
 
@@ -29,26 +29,26 @@ UEFI_APP_CXX_FLAGS := -Wl,--subsystem,10
 OBJ_DIR := $(TOP_DIR)/obj
 BIN_DIR := $(TOP_DIR)/bin
 
-LIBS 	:= libs/MUTILS \
+LIBS    := libs/MUTILS \
            libs/TDEBUG \
-		   libs/TMATH \
-		   libs/Uefi
+           libs/TMATH \
+           libs/Uefi
 
 # include
 INC_DIR := $(LIBS) \
-		   platform \
-		   core \
-		   ./
+           platform \
+           core \
+           ./
 
 INC_DIR := $(addprefix $(TOP_DIR)/,$(INC_DIR))
 
 SUBDIRS := platform/uefi
 ifeq ($(modules),)
 SUBDIRS += 	test/base \
-			test/coordinate_line \
-			test/straight_line \
-			test/circle \
-			test/rectangle
+            test/coordinate_line \
+            test/straight_line \
+            test/circle \
+            test/rectangle
 else
 SUBDIRS += $($(modules))
 endif

@@ -19,11 +19,11 @@ a tiny uefi graphical user interfaces libaray......
 
 ### 2.1 开发环境
 
-- *****编译工具链: gcc-mingw-w64-x86-64
-- *****编译工具: make
+- 编译工具链: g++-mingw-w64-x86-64
+- 编译工具: make
 - 编辑工具: vs code
-- *****测试机器: VirtualBox 虚拟机
-- *****存储器: U盘
+- 测试机器: VirtualBox 虚拟机
+- 存储器: U盘/vhd虚拟磁盘
 - other:
   - git
   - mount/umount
@@ -43,7 +43,7 @@ sudo apt-get install g++-mingw-w64-x86-64 -y
 #### 2.2.1 获取源码
 
 ```shell
-git clone -b dev git@github.com:Sunrisepeak/TUGUI.git
+git clone -b dev git@github.com:UnknownBugs/TUGUI.git
 ```
 
 #### 2.2.2 编译源码(目前仅支持测试Demo代码编译)
