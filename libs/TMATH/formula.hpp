@@ -8,7 +8,7 @@
 #ifndef __FORMULA_HPP__
 #define __FORMULA_HPP__
 
-#include "tdebug.hpp"
+#include <tdebug.hpp>
 
 #define DOUBLE_MAX (1.79769e+308)
 
