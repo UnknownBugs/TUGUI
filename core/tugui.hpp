@@ -159,7 +159,7 @@ void drawTriangle(unsigned int x1,unsigned int y1,unsigned int x2,unsigned int y
     drawLine(x3, y3, x1, y1, rgb);
 }
 
-void fillTriangle(unsigned int x1, unsigned int y1, unsigned int x2, unsigned int y2, unsigned int x3, unsigned int y3, const u32 rgba)
+void fillTriangle(unsigned int x1, unsigned int y1, unsigned int x2, unsigned int y2, unsigned int x3, unsigned int y3, RGB rgb = PIXEL_WHITE)
 {
     auto SWAP = [](unsigned int &x, unsigned int &y)
     {
