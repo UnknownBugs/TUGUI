@@ -11,4 +11,4 @@ OBJS := $(addprefix $(OBJ_DIR)/,$(OBJS))
 $(EFI): $(SRCS) $(TUGUI_INCLUDE_FILE)
 	@echo + $@
 	$(CXX) -c $(SRCS) $(CXX_FLAGS) -o $(OBJS) $(LOCAL_INC)
-	$(CXX) $(LD_FLAGS) $(CXX_FLAGS) $(BOOTMAIN_OBJS) $(OBJS) -o $@ $(UEFI_APP_CXX_FLAGS)
+	$(LD) $(LD_FLAGS) $(BOOTMAIN_OBJS) $(OBJS) -o $@ -subsystem=10
