@@ -59,18 +59,20 @@ public:
     void drawLine(unsigned int x1, unsigned int y1, unsigned int x2, unsigned int y2, RGB rgb = PIXEL_WHITE) {
         if (x1 == x2) drawYLine(x1, y1, y2, rgb);
         if (y1 == y2) drawXLine(y1, x1, x2, rgb);
+
         __mLinearEquation.set(x1, y1, x2, y2);
-        double x = x1;
-        double deltaX{1};
-        if (__mLinearEquation.getSlope() > 1) // deltaY = 1
-            deltaX = 1. / __mLinearEquation.getSlope();
-        double tx = x2;
-        if (x > tx)
-            swap(x, tx);
-        while (x < tx)
-        {
-            drawPixel(x, __mLinearEquation.getY(x), rgb);
-            x += deltaX;
+        
+        double sX { x1 * 1. }, dX { x2 * 1. };
+        double deltaX { 1 };
+
+        if (sX > dX) swap(sX, dX);
+        
+        if (__mLinearEquation.getSlope() > 1 || __mLinearEquation.getSlope() < -1) // deltaY = 1 or -1
+            deltaX = 1. / MUTILS::abs(__mLinearEquation.getSlope());
+
+        while (sX < dX) {
+            drawPixel(sX, __mLinearEquation.getY(sX), rgb);
+            sX += deltaX;
         }
     }
 
