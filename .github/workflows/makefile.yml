@@ -22,9 +22,9 @@ jobs:
     - name: 编译所有测试模块
       run: make
     - name: 生成镜像文件
-      run: dd if=/dev/zero of=~/hda.img bs=1 count=10M &&
-            mkfs -t vfat hda.img &&
-            sudo losetup /dev/loop0 hda.img &&
+      run: dd if=/dev/zero of=./hda.img bs=1 count=10M &&
+            mkfs -t vfat ./hda.img &&
+            sudo losetup /dev/loop0 ./hda.img &&
             sudo mount /dev/loop0 /mnt/image &&
             sudo mkdir -p /mnt/image/EFI/BOOT &&
             sudo cp -f ./bin/triangle /mnt/image/EFI/BOOT/bootx64.efi &&
