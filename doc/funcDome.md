@@ -42,3 +42,6 @@
 
 ![](images/test_pic/coordinate_line.png)
 
+#### 三角形 [sourceCode](../test/coordinate_line/test_triangle.cpp)
+
+![](images/test_pic/tugui_triangle.png)
