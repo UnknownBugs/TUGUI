@@ -48,7 +48,8 @@ SUBDIRS += 	test/base \
             test/coordinate_line \
             test/straight_line \
             test/circle \
-            test/rectangle
+            test/rectangle \
+            test/triangle
 else
 SUBDIRS += $($(modules))
 endif
