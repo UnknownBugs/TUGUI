@@ -28,8 +28,7 @@ jobs:
             sudo mount /dev/loop0 /mnt/image &&
             sudo mkdir -p /mnt/image/EFI/BOOT &&
             sudo cp -f ./bin/triangle /mnt/image/EFI/BOOT/bootx64.efi &&
-            sudo umount /mnt/image &&
-            sudo losetup -d /dev/loop0
+            sudo umount /mnt/image 
     - uses: actions/upload-artifact@master
       with:
         name: 导出二进制文件
