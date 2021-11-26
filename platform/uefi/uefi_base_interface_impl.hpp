@@ -7,7 +7,7 @@
 #include <uefi/wrapper/gop_wrapper.hpp>
 #include <uefi/wrapper/systemtable_wrapper.hpp>
 
-class BaseInterfaceImpl : public TUGUI::BaseInterface {
+class BaseInterfaceImpl : public TUGUI::INTERFACE::BaseInterface {
 
     using ST  = UEFIWrapper::SystemTable;
     using EST = UEFIWrapper::SystemTable::ESystemTable;
