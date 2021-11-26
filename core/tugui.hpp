@@ -31,16 +31,16 @@ public:
     Base() = default;
 
     void clearScreen() {
-        gBaseInterfacePtr->clearScrean();
+        INTERFACE::gBaseInterfacePtr->clearScrean();
     }
 
     void drawPixel(unsigned int x, unsigned int y, RGB rgb) {
-        gBaseInterfacePtr->drawPixel(x, y, rgb);
+        INTERFACE::gBaseInterfacePtr->drawPixel(x, y, rgb);
     }
 
     void drawXLine(unsigned int y, unsigned int x1, unsigned int x2, RGB rgb = PIXEL_WHITE) {
         if (x1 > x2) swap(x1, x2);
-        unsigned int end = min(x2, gBaseInterfacePtr->getHorizontalResolution());
+        unsigned int end = min(x2, INTERFACE::gBaseInterfacePtr->getHorizontalResolution());
         while (x1 <= end) {
             drawPixel(x1, y, rgb);
             x1++;
@@ -49,7 +49,7 @@ public:
 
     void drawYLine(const unsigned int &x, unsigned int y1, unsigned int y2, RGB rgb = PIXEL_WHITE) {
         if (y1 > y2) swap(y1, y2);
-        unsigned int end = min(y2, gBaseInterfacePtr->getVerticalResolution());
+        unsigned int end = min(y2, INTERFACE::gBaseInterfacePtr->getVerticalResolution());
         while (y1 <= end) {
             drawPixel(x, y1, rgb);
             y1++;

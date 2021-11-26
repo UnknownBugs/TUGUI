@@ -5,36 +5,48 @@
  * @Last Modified time: 2021-11-21 00:37:49
  */
 
-#ifndef __DEFS_H__
-#define __DEFS_H__
+#ifndef __DEFS_HPP__
+#define __DEFS_HPP__
 
-#define nullptr 0
+using uint8_t  = unsigned char;
+using uint16_t = unsigned short;
+using uint32_t = unsigned int;
+using uint64_t = unsigned long long;
 
-typedef unsigned char uint8_t;
-typedef unsigned short uint16_t;
-typedef unsigned int uint32_t;
-typedef unsigned long long uint64_t;
+using UINT8  = uint8_t;
+using UINT16 = uint16_t;
+using UINT32 = uint32_t;
+using UINT64 = uint64_t;
+
+using int8_t  = char;
+using int16_t = short;
+using int32_t = int;
+using int64_t = long long;
 
 // address
 typedef unsigned int uptr32_t;
 
 // char
-typedef unsigned char uchar8_t;
+using uchar8_t   = unsigned char;
+using uwchar16_t = unsigned short;
+
+using char8_t   = char;
+using wchar16_t = short;
 
 //cstring, ccstring     c style string
 typedef char *cstring;
 typedef const char *ccstring;
 
-using UINT8 = uint8_t;
-using UINT16 = uint16_t;
-using UINT32 = uint32_t;
-using UINT64 = uint64_t;
 
 #ifndef __cplusplus
+
+#define nullptr 0
+
 enum {
     false 0,
     true 1,
 } bool；
-#endif
 
-#endif
+#endif // __cplusplus
+
+#endif // __DEFS_HPP__
