@@ -49,5 +49,3 @@
 
 
 ### 坐标线 [sourceCode](../test/coordinate_line/test_coordinate_line.cpp)
-
-![](images/test_pic/coordinate_line.png)
