@@ -53,7 +53,7 @@ public:
       return key;
     }
 
-    static void OutputString(EFI_INPUT_KEY key) {
+    static void OutputString(EFI_INPUT_KEY &key) {
       uint16_t str[3];
       if (key.UnicodeChar != L'\r') {
         str[0] = key.UnicodeChar;
@@ -66,7 +66,7 @@ public:
       __mST->ConOut->OutputString(__mST->ConOut, str);
     }
     // TODO: END
-    
+
     static void freePool(void *mPtr) {
         __mST->BootServices->FreePool(mPtr);
     }
