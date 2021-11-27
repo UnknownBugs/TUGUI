@@ -1,5 +1,4 @@
 #include "uefi_base_interface_impl.hpp"
-
 using UEFIWrapper::SystemTable;
 
 TUGUI::INTERFACE::BaseInterface *TUGUI::INTERFACE::gBaseInterfacePtr = nullptr;

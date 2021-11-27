@@ -46,6 +46,10 @@ public:
         return mPtr;
     }
 
+    static void OutputString(uint16_t* s) {
+      __mST->ConOut->OutputString(__mST->ConOut, s);
+    }
+
     static void freePool(void *mPtr) {
         __mST->BootServices->FreePool(mPtr);
     }
