@@ -46,6 +46,27 @@ public:
         return mPtr;
     }
 
+    // TODO: START
+    static EFI_INPUT_KEY ReadKeyStroke() {
+      EFI_INPUT_KEY key;
+      __mST->ConIn->ReadKeyStroke(__mST->ConIn, &key);
+      return key;
+    }
+
+    static void OutputString(EFI_INPUT_KEY key) {
+      uint16_t str[3];
+      if (key.UnicodeChar != L'\r') {
+        str[0] = key.UnicodeChar;
+        str[1] = L'\0';
+      } else {
+        str[0] = L'\r';
+        str[1] = L'\n';
+        str[2] = L'\0';
+      }
+      __mST->ConOut->OutputString(__mST->ConOut, str);
+    }
+    // TODO: END
+    
     static void freePool(void *mPtr) {
         __mST->BootServices->FreePool(mPtr);
     }

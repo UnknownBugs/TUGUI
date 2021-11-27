@@ -54,9 +54,20 @@ public:
         return UEFIWrapper::SystemTable::allocatePool(EfiConventionalMemory, size);
     }
 
-private:
+    // TODO: START
+    void tuguiReadKeyStroke() override {
+      _key = UEFIWrapper::SystemTable::ReadKeyStroke();
+    }
+
+    void tuguiOutputString() override {
+      UEFIWrapper::SystemTable::OutputString(_key);
+    }
+    // TODO: END
+
+   private:
     static UEFIWrapper::GOP __mGOP;
-}; // BaseInterfaceImpl
+    EFI_INPUT_KEY _key;
+};  // BaseInterfaceImpl
 
 void * operator new(uint64_t size) {
     return UEFIWrapper::SystemTable::allocatePool(EfiConventionalMemory, size);
