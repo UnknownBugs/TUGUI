@@ -1,4 +1,4 @@
-include tools/module_name.mk
+include modules_info.mk
 include platform/bootmain.mk
 
 # project dir
@@ -44,12 +44,7 @@ INC_DIR := $(addprefix $(TOP_DIR)/,$(INC_DIR))
 
 SUBDIRS := platform/uefi
 ifeq ($(modules),)
-SUBDIRS += 	test/base \
-            test/coordinate_line \
-            test/straight_line \
-            test/circle \
-            test/rectangle \
-            test/triangle
+SUBDIRS += 	$(ALL_MODULES)
 else
 SUBDIRS += $($(modules))
 endif

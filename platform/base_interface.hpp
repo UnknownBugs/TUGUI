@@ -17,9 +17,11 @@ namespace TUGUI {
 
 using TDEBUG::RT;
 
+namespace INTERFACE {
+
 class BaseInterface {
 public:
-    virtual void drawPixel(unsigned int x, unsigned int y, RGB rgb) = 0;
+    virtual void drawPixel(uint32_t x, uint32_t y, RGB rgb) = 0;
 
     virtual uint32_t getFrameBufferBase() const = 0;
 
@@ -34,7 +36,33 @@ public:
     virtual void * tuguiMalloc(uint64_t size) = 0;
 };
 
+class EventInterface {
+
+    using voidFunc = void (*) ();
+
+public:
+
+    virtual void waitEvent() {
+
+    }
+
+    virtual void timerEvent(voidFunc vfunc, uint32_t ns) {
+        
+    }
+
+    virtual void keyboardEvent() {
+
+    }
+
+};
+
+extern EventInterface *gEventInterfacePtr;
+
 extern BaseInterface *gBaseInterfacePtr;
+
+
+}; // INTERFACE
+
 
 }; // TUGUI
 
