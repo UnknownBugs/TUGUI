@@ -4,6 +4,7 @@ using UEFIWrapper::SystemTable;
 
 TUGUI::INTERFACE::BaseInterface *TUGUI::INTERFACE::gBaseInterfacePtr = nullptr;
 UEFIWrapper::GOP BaseInterfaceImpl::__mGOP;
+EFI_INPUT_KEY BaseInterfaceImpl::__key;
 
 extern "C" void
 tugui_bootmain(void *ImageHandle __attribute__ ((unused)), SystemTable::ESystemTable *systemTable) {

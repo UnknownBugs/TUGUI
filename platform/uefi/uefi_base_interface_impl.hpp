@@ -19,6 +19,7 @@ public:
         ST::setWatchdogTimer(0, 0, 0, nullptr);
         ST::clearScreen();
         __mGOP = UEFIWrapper::GOP(); // init gop ptr
+        
     }
 
     uint32_t getFrameBufferBase() const override {
@@ -56,17 +57,17 @@ public:
 
     // TODO: START
     void tuguiReadKeyStroke() override {
-      _key = UEFIWrapper::SystemTable::ReadKeyStroke();
+      __key = UEFIWrapper::SystemTable::ReadKeyStroke();
     }
 
     void tuguiOutputString() override {
-      UEFIWrapper::SystemTable::OutputString(_key);
+      UEFIWrapper::SystemTable::OutputString(__key);
     }
     // TODO: END
 
    private:
     static UEFIWrapper::GOP __mGOP;
-    static EFI_INPUT_KEY _key;
+    static EFI_INPUT_KEY __key;
 };  // BaseInterfaceImpl
 
 void * operator new(uint64_t size) {
