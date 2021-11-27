@@ -30,6 +30,11 @@ void swap(T &a, T &b) {
     b = t;
 }
 
+template<typename T>
+T abs(const T &num) {
+    return num > 0 ? num : -num;
+}
+
 }; /* TUGUI end */
 
 #endif
