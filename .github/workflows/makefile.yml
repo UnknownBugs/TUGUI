@@ -24,4 +24,4 @@ jobs:
     - uses: actions/upload-artifact@master
       with:
         name: 导出二进制文件
-        path: ./bin ~/hda.img
+        path: ./bin
