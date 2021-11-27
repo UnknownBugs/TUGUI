@@ -6,7 +6,7 @@ TOP_DIR := $(shell pwd)
 
 LD := x86_64-w64-mingw32-ld
 LD_FLAGS := -e tugui_bootmain \
-           #  -nostdinc -nostdinc++ -nostdlib
+            -nostdinc -nostdinc++ -nostdlib
 UEFI_APP_LD_FLAGS := -subsystem=10
 
 # compilers & app

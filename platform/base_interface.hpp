@@ -35,11 +35,7 @@ public:
 
     virtual void * tuguiMalloc(uint64_t size) = 0;
 
-    // TODO: START
-    virtual void tuguiReadKeyStroke() = 0;
-
-    virtual void tuguiOutputString() = 0;
-    // TODO: END
+    virtual void tuguiOutputString(uint16_t *s) = 0;
 };
 
 class EventInterface {
