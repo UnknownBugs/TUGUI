@@ -66,7 +66,7 @@ public:
 
    private:
     static UEFIWrapper::GOP __mGOP;
-    EFI_INPUT_KEY _key;
+    static EFI_INPUT_KEY _key;
 };  // BaseInterfaceImpl
 
 void * operator new(uint64_t size) {
