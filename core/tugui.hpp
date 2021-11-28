@@ -16,6 +16,7 @@
 #include <utils.hpp>
 
 #include <platform/base_interface.hpp>
+#include <platform/event_interface.hpp>
 #include <core/colors/color.hpp>
 
 namespace TUGUI {
