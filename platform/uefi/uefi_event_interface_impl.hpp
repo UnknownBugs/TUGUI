@@ -21,8 +21,7 @@ public:
         __mSTIEP = UEFIWrapper::STIEP(); // init stiep ptr
         }
 
-        unsigned long long keyboardEvent(EFI_KEY_DATA *key, keyFucntion key_notice, void **notify_handle) override
-        {
+        unsigned long long keyboardEvent(EFI_KEY_DATA *key, keyFucntion key_notice, void **notify_handle) override{
            return  __mSTIEP.RegisterKeyNotify(key,key_notice, notify_handle);
         }
 
