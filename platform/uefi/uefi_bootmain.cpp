@@ -10,8 +10,7 @@ UEFIWrapper::GOP BaseInterfaceImpl::__mGOP;
 UEFIWrapper::STIEP EventInterfaceImpl::__mSTIEP;
 
 extern "C" void
-tugui_bootmain(void *ImageHandle __attribute__((unused)), SystemTable::ESystemTable *systemTable)
-{
+tugui_bootmain(void *ImageHandle __attribute__((unused)), SystemTable::ESystemTable *systemTable){
     BaseInterfaceImpl base;
     base.init(systemTable);
     TUGUI::INTERFACE::gBaseInterfacePtr = &base;
