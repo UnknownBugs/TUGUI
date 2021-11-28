@@ -2,8 +2,7 @@
 
 unsigned char is_exit = FALSE;
 
-unsigned long long key_notice(EFI_KEY_DATA *KeyData __attribute__((unused)))
-{
+unsigned long long key_notice(EFI_KEY_DATA *KeyData __attribute__((unused))){
     is_exit = TRUE;
 
     return EFI_SUCCESS;
