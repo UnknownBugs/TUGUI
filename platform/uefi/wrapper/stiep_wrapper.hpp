@@ -66,8 +66,7 @@ STIEP::STIEP() {
 }
 
 unsigned long long STIEP::RegisterKeyNotify(EFI_KEY_DATA *key,
-                                            keyFucntion key_notice, void **notify_handle)
-{
+                                            keyFucntion key_notice, void **notify_handle){
    return  _mESTIEP->RegisterKeyNotify(_mESTIEP, key, key_notice, notify_handle);
 }
 
