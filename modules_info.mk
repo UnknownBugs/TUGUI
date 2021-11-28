@@ -5,6 +5,7 @@ circle          := test/circle
 rectangle       := test/rectangle
 triangle        := test/triangle
 keyboard        := test/keyboard
+keyevent        := test/keyevent
 
 ALL_MODULES := $(base) \
                $(coordinate_line) \
@@ -12,7 +13,8 @@ ALL_MODULES := $(base) \
                $(circle) \
                $(rectangle) \
                $(triangle) \
-               $(keyboard)
+               $(keyboard) \
+               $(keyevent)
 
 
 MODULES_LIST := moduels: \

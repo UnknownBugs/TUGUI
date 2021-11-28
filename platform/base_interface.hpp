@@ -1,8 +1,8 @@
 /*
  * @Author: SPeak Shen 
  * @Date: 2021-11-16 23:55:54 
- * @Last Modified by: SPeak Shen
- * @Last Modified time: 2021-11-21 00:12:48
+ * @Last Modified by: tiansongyu
+ * @Last Modified time: 2021-11-29 00:12:48
  */
 
 #ifndef __BASE_INTERFACE_HPP__
@@ -37,28 +37,6 @@ public:
 
     virtual void tuguiOutputString(uint16_t *s) = 0;
 };
-
-class EventInterface {
-
-    using voidFunc = void (*) ();
-
-public:
-
-    virtual void waitEvent() {
-
-    }
-
-    virtual void timerEvent(voidFunc vfunc, uint32_t ns) {
-        
-    }
-
-    virtual void keyboardEvent() {
-
-    }
-
-};
-
-extern EventInterface *gEventInterfacePtr;
 
 extern BaseInterface *gBaseInterfacePtr;
 
