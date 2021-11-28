@@ -33,8 +33,7 @@ public:
         
     }
     // TODO: EFI_KEY_DATA should not use here  ,just temporary ues
-    virtual unsigned long long keyboardEvent(EFI_KEY_DATA *key, unsigned long long (*key_notice)(EFI_KEY_DATA *KeyData), void **notify_handle)
-    {
+    virtual unsigned long long keyboardEvent(EFI_KEY_DATA *key, unsigned long long (*key_notice)(EFI_KEY_DATA *KeyData), void **notify_handle){
     }
     
 };
