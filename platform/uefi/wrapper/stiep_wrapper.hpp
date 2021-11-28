@@ -23,23 +23,6 @@
 namespace UEFIWrapper {
 class STIEP {
  private:
-  struct EFI_SIMPLE_TEXT_INPUT_EX_PROTOCOL {
-    unsigned long long (*Reset)(struct EFI_SIMPLE_TEXT_INPUT_EX_PROTOCOL *This,
-                                unsigned char ExtendedVerification);
-    unsigned long long (*ReadKeyStrokeEx)(
-        struct EFI_SIMPLE_TEXT_INPUT_EX_PROTOCOL *This, EFI_KEY_DATA *KeyData);
-    void *WaitForKeyEx;
-    unsigned long long (*SetState)(
-        struct EFI_SIMPLE_TEXT_INPUT_EX_PROTOCOL *This,
-        unsigned char *KeyToggleState);
-    unsigned long long (*RegisterKeyNotify)(
-        struct EFI_SIMPLE_TEXT_INPUT_EX_PROTOCOL *This, EFI_KEY_DATA *KeyData,
-        unsigned long long (*KeyNotificationFunction)(EFI_KEY_DATA *KeyData),
-        void **NotifyHandle);
-    unsigned long long (*UnregisterKeyNotify)(
-        struct EFI_SIMPLE_TEXT_INPUT_EX_PROTOCOL *This,
-        void *NotificationHandle);
-  };
 
  public:
   using ESTIEP = EFI_SIMPLE_TEXT_INPUT_EX_PROTOCOL;
