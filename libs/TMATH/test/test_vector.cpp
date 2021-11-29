@@ -2,7 +2,7 @@
 #include <vector.hpp>
 
 int main() {
-    TMATH::Vector<int, 3> a(1), b(2);
+    TMATH::Vector<int, 3> a(1), b {2, 2, 2};
     for (int i = 0; i < a.size(); i++) {
         std::cout << "a = " << a[i] << ", b = " << b[i] << std::endl;
     }
