@@ -13,24 +13,10 @@ public:
     }
 
     template <typename... Targs>
-    HomoCoordinates(const double n, const Targs... ns) : Vector<double, N>(0) {
-        unsigned pos = 0;
-        init(pos, n, ns...);
-    }
-
-private:
-
-    template <typename... Targs>
-    void init(unsigned int pos, const double n, const Targs... ns) {
-        (*this)[pos] = n;
-        init(pos + 1, ns...);
-    }
-
-    void init(unsigned int pos, const double n) {
-        (*this)[pos] = n;
-        if (n != 0) {
+    HomoCoordinates(const double n, const Targs... ns) : Vector<double, N>(n, ns...) {
+        if ((*this)[N -1] != 0) {
             for (int i = 0; i < N; i++) {
-                (*this)[i] = (*this)[i] / n;
+                (*this)[i] = (*this)[i] / (*this)[N -1];
             }
         }
     }
