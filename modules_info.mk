@@ -6,8 +6,8 @@ rectangle           := test/rectangle
 triangle            := test/triangle
 echo-wait           := test/echo-wait
 registerKeyNotify   := test/registerKeyNotify
-timer_wait	        := test/timer_wait
-timer_sync	        := test/timer_sync
+timer_wait          := test/timer_wait
+timer_sync          := test/timer_sync
 
 ALL_MODULES := $(base) \
                $(coordinate_line) \
