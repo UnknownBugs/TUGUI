@@ -1,7 +1,7 @@
-MODULE := keyevent
+MODULE := echo-wait
 EFI := $(addprefix $(BIN_DIR)/,$(MODULE))
 
-SRCS := keyevent.cpp
+SRCS := echo-wait.cpp
 
 LOCAL_INC := $(addprefix -I,$(INC_DIR))
 
