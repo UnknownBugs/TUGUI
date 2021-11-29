@@ -1,6 +1,6 @@
 /*
  * @Author: tiansongyu
- * @Date: 2021-11-29 23:55:54 
+ * @Date: 2021-11-29 23:55:54
  * @Last Modified by: tiansongyu
  * @Last Modified time: 2021-11-29 00:12:48
  */
@@ -21,26 +21,29 @@ namespace TUGUI {
 namespace INTERFACE {
 
 class EventInterface {
+ public:
+  virtual void waitEvent() {}
 
+  virtual void timerEvent() {}
 
-public:
+  // TODO: EFI_KEY_DATA should not use here  ,just temporary ues
+  virtual unsigned long long registerKeyNotify(
+      EFI_KEY_DATA *key,
+      unsigned long long (*key_notice)(EFI_KEY_DATA *KeyData),
+      void **notify_handle) = 0;
 
-    virtual void waitEvent() {
+  // blockkeyboardevent
+  virtual void waitForKeyEvent(unsigned long long numberOfEvents,
+                               unsigned long long *index) = 0;
 
-    }
+  // noblockkeyboardevent
+  virtual unsigned long long readKeyStrokeEvent(EFI_INPUT_KEY *key) = 0;
 
-    virtual void timerEvent() {
-        
-    }
-    // TODO: EFI_KEY_DATA should not use here  ,just temporary ues
-    virtual unsigned long long keyboardEvent(EFI_KEY_DATA *key, unsigned long long (*key_notice)(EFI_KEY_DATA *KeyData), void **notify_handle){
-    }
-    
 };
 
 extern EventInterface *gEventInterfacePtr;
 
-}; // INTERFACE
+};  // namespace INTERFACE
 
-}; // TUGUI
-#endif // __EVENT_INTERFACE_HPP__
+};      // namespace TUGUI
+#endif  // __EVENT_INTERFACE_HPP__

@@ -1,7 +1,7 @@
-MODULE := keyboard
+MODULE := registerKeyNotify
 EFI := $(addprefix $(BIN_DIR)/,$(MODULE))
 
-SRCS := keyboard.cpp
+SRCS := registerKeyNotify.cpp
 
 LOCAL_INC := $(addprefix -I,$(INC_DIR))
 

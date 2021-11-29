@@ -4,8 +4,8 @@ straight_line   := test/straight_line
 circle          := test/circle
 rectangle       := test/rectangle
 triangle        := test/triangle
-keyboard        := test/keyboard
-keyevent        := test/keyevent
+echo-wait        := test/echo-wait
+registerKeyNotify        := test/registerKeyNotify
 
 ALL_MODULES := $(base) \
                $(coordinate_line) \
@@ -13,8 +13,8 @@ ALL_MODULES := $(base) \
                $(circle) \
                $(rectangle) \
                $(triangle) \
-               $(keyboard) \
-               $(keyevent)
+               $(echo-wait) \
+               $(registerKeyNotify)
 
 
 MODULES_LIST := moduels: \
@@ -24,6 +24,7 @@ MODULES_LIST := moduels: \
                 circle \
                 rectangle \
                 triangle \
-                keyboard
+                echo-wait \
+                registerKeyNotify
 
 MODULES_INFO := $(addsuffix \n,$(MODULES_LIST))
