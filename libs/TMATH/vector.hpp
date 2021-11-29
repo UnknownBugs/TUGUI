@@ -2,7 +2,7 @@
  * @Author: SPeak Shen 
  * @Date: 2021-11-13 23:11:28 
  * @Last Modified by: SPeak Shen
- * @Last Modified time: 2021-11-21 17:08:04
+ * @Last Modified time: 2021-11-29 10:11:32
  */
 
 #ifndef __VECTOR_HPP__
@@ -66,6 +66,12 @@ public:
             c[i] = val;
         }
     }
+
+    template <typename... Targs>
+    Vector(const double n, const Targs... ns) {
+        unsigned int pos { 0 };
+        init(pos, n, ns...);
+    }
     
     unsigned int getDimension() const {
         return N;
@@ -87,6 +93,17 @@ public:
 
 private:
     T c[N == 0 ? 1 : N];
+
+    template <typename... Targs>
+    void init(unsigned int pos, const T &n, const Targs... ns) {
+        c[pos] = n;
+        init(pos + 1, ns...);
+    }
+
+    void init(unsigned int pos, const T &n) {
+        if (N - 1 != pos) while(1);
+        c[pos] = n;
+    }
 };  // Vector
 
 }   // TMATH 
