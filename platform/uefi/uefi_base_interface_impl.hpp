@@ -19,6 +19,7 @@ public:
         ST::setWatchdogTimer(0, 0, 0, nullptr);
         ST::clearScreen();
         __mGOP = UEFIWrapper::GOP(); // init gop ptr
+        
     }
 
     uint32_t getFrameBufferBase() const override {
@@ -54,9 +55,13 @@ public:
         return UEFIWrapper::SystemTable::allocatePool(EfiConventionalMemory, size);
     }
 
-private:
+    void tuguiOutputString(uint16_t *s) override {
+      UEFIWrapper::SystemTable::OutputString(s);
+    }
+
+   private:
     static UEFIWrapper::GOP __mGOP;
-}; // BaseInterfaceImpl
+};  // BaseInterfaceImpl
 
 void * operator new(uint64_t size) {
     return UEFIWrapper::SystemTable::allocatePool(EfiConventionalMemory, size);

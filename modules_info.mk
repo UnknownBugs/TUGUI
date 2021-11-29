@@ -4,13 +4,17 @@ straight_line   := test/straight_line
 circle          := test/circle
 rectangle       := test/rectangle
 triangle        := test/triangle
+keyboard        := test/keyboard
+keyevent        := test/keyevent
 
 ALL_MODULES := $(base) \
                $(coordinate_line) \
                $(straight_line) \
                $(circle) \
                $(rectangle) \
-               $(triangle)
+               $(triangle) \
+               $(keyboard) \
+               $(keyevent)
 
 
 MODULES_LIST := moduels: \
@@ -19,6 +23,7 @@ MODULES_LIST := moduels: \
                 straight_line \
                 circle \
                 rectangle \
-                triangle
+                triangle \
+                keyboard
 
 MODULES_INFO := $(addsuffix \n,$(MODULES_LIST))
