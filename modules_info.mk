@@ -6,7 +6,8 @@ rectangle       		 := test/rectangle
 triangle        		 := test/triangle
 echo-wait          	     := test/echo-wait
 registerKeyNotify        := test/registerKeyNotify
-
+timer_wait				 := test/timer_wait
+timer_sync				 := test/timer_sync
 ALL_MODULES := $(base) \
                $(coordinate_line) \
                $(straight_line) \
@@ -14,7 +15,9 @@ ALL_MODULES := $(base) \
                $(rectangle) \
                $(triangle) \
                $(echo-wait) \
-               $(registerKeyNotify)
+               $(registerKeyNotify) \
+			   $(timer_wait) \
+			   $(timer_sync)
 
 MODULES_LIST := moduels: \
                 base \
