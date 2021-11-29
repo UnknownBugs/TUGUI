@@ -50,6 +50,20 @@ public:
       __mST->ConOut->OutputString(__mST->ConOut, s);
     }
 
+    // blockkeyboardevent
+    static void waitForKey(unsigned long long numberOfEvents,
+                           unsigned long long *index)
+    {
+        __mST->BootServices->WaitForEvent(numberOfEvents,
+                                          &(__mST->ConIn->WaitForKey), index);
+    }
+
+    // noblockkeyboardevent
+    static unsigned long long readKeyStroke(EFI_INPUT_KEY *key)
+    {
+        return __mST->ConIn->ReadKeyStroke(__mST->ConIn, key);
+    }
+
     static void freePool(void *mPtr) {
         __mST->BootServices->FreePool(mPtr);
     }

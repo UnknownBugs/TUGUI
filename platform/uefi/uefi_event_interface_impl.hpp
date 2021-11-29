@@ -21,8 +21,23 @@ public:
         __mSTIEP = UEFIWrapper::STIEP(); // init stiep ptr
         }
 
-        unsigned long long keyboardEvent(EFI_KEY_DATA *key, keyFucntion key_notice, void **notify_handle) override{
-           return  __mSTIEP.RegisterKeyNotify(key,key_notice, notify_handle);
+        unsigned long long registerKeyNotify(EFI_KEY_DATA *key,
+                                             keyFucntion key_notice,
+                                             void **notify_handle) override
+        {
+            return __mSTIEP.RegisterKeyNotify(key, key_notice, notify_handle);
+        }
+        // blockkeyboardevent
+        void waitForKeyEvent(unsigned long long numberOfEvents,
+                             unsigned long long *index) override
+        {
+            UEFIWrapper::SystemTable::waitForKey(numberOfEvents, index);
+        }
+
+        // noblockkeyboardevent
+        unsigned long long readKeyStrokeEvent(EFI_INPUT_KEY *key) override
+        {
+            return UEFIWrapper::SystemTable::readKeyStroke(key);
         }
 
    private:

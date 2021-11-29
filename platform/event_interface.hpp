@@ -33,9 +33,17 @@ public:
         
     }
     // TODO: EFI_KEY_DATA should not use here  ,just temporary ues
-    virtual unsigned long long keyboardEvent(EFI_KEY_DATA *key, unsigned long long (*key_notice)(EFI_KEY_DATA *KeyData), void **notify_handle){
-    }
-    
+    virtual unsigned long long registerKeyNotify(
+        EFI_KEY_DATA *key,
+        unsigned long long (*key_notice)(EFI_KEY_DATA *KeyData),
+        void **notify_handle) = 0;
+
+    // blockkeyboardevent
+    virtual void waitForKeyEvent(unsigned long long numberOfEvents,
+                                 unsigned long long *index) = 0;
+
+    // noblockkeyboardevent
+    virtual unsigned long long readKeyStrokeEvent(EFI_INPUT_KEY *key) = 0;
 };
 
 extern EventInterface *gEventInterfacePtr;
