@@ -39,11 +39,28 @@ public:
         void **notify_handle) = 0;
 
     // blockkeyboardevent
-    virtual void waitForKeyEvent(unsigned long long numberOfEvents,
-                                 unsigned long long *index) = 0;
+    virtual unsigned long long waitForEvent(unsigned long long numberOfEvents,
+                                            void **Event,
+                                            unsigned long long *index) = 0;
+
+    // blockkeyboardevent
+    virtual unsigned long long waitForKeyEvent(unsigned long long numberOfEvents,
+                                            unsigned long long *index) = 0;
 
     // noblockkeyboardevent
     virtual unsigned long long readKeyStrokeEvent(EFI_INPUT_KEY *key) = 0;
+
+    // createevent
+    virtual unsigned long long createEvent(
+                                    unsigned int Type, 
+                                    unsigned long long NotifyTpl,
+                                    void (*NotifyFunction)(void *Event, void *Context), 
+                                    void *NotifyContext,
+                                    void **Event) = 0;
+    // setTimer  TODO: EFI_TIMER_DELAY should not use here
+    virtual unsigned long long setTimer(void *Event, 
+                                        EFI_TIMER_DELAY Type,
+                                        unsigned long long TriggerTime) = 0;
 };
 
 extern EventInterface *gEventInterfacePtr;

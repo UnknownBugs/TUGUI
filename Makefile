@@ -5,8 +5,12 @@ include platform/bootmain.mk
 TOP_DIR := $(shell pwd)
 
 LD := x86_64-w64-mingw32-ld
-LD_FLAGS := -e tugui_bootmain \
-            -nostdinc -nostdinc++ -nostdlib
+LD_FLAGS := -e tugui_bootmain 
+
+ifneq ($(shell echo $(shell uname -r) | awk -F '-' '{ print $$3 }'),MANJARO)
+LD_FLAGS +=  -nostdinc -nostdinc++ -nostdlib
+endif
+
 UEFI_APP_LD_FLAGS := -subsystem=10
 
 # compilers & app
