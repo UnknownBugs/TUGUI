@@ -50,6 +50,41 @@ public:
       __mST->ConOut->OutputString(__mST->ConOut, s);
     }
 
+    // createevent
+    static unsigned long long createEvent(unsigned int Type,
+                                          unsigned long long NotifyTpl,
+                                          void (*NotifyFunction)(void *Event,
+                                                                 void *Context),
+                                          void *NotifyContext, 
+                                          void **Event) {
+        return __mST->BootServices->CreateEvent(Type, NotifyTpl, NotifyFunction,
+                                                NotifyContext, Event);
+    }
+    // setTimer
+    static unsigned long long setTimer(void *Event, EFI_TIMER_DELAY Type,
+                                       unsigned long long TriggerTime) {
+        return __mST->BootServices->SetTimer(Event, Type, TriggerTime);
+    }
+
+    // blockkeyboardevent
+    static unsigned long long waitForKeyEvent(unsigned long long numberOfEvents,
+                                           unsigned long long *index) {
+        return __mST->BootServices->WaitForEvent(numberOfEvents, &(__mST->ConIn->WaitForKey), index);
+    }
+
+    // blockdevent
+    static unsigned long long waitForEvent(unsigned long long numberOfEvents,
+                                           void **Event,
+                                           unsigned long long *index) {
+        return __mST->BootServices->WaitForEvent(numberOfEvents, Event, index);
+    }
+
+    // noblockkeyboardevent
+    static unsigned long long readKeyStroke(EFI_INPUT_KEY *key)
+    {
+        return __mST->ConIn->ReadKeyStroke(__mST->ConIn, key);
+    }
+
     static void freePool(void *mPtr) {
         __mST->BootServices->FreePool(mPtr);
     }

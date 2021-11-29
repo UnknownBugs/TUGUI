@@ -1,7 +1,7 @@
-MODULE := keyboard
+MODULE := echo-wait
 EFI := $(addprefix $(BIN_DIR)/,$(MODULE))
 
-SRCS := keyboard.cpp
+SRCS := echo-wait.cpp
 
 LOCAL_INC := $(addprefix -I,$(INC_DIR))
 
