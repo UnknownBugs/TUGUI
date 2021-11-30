@@ -409,6 +409,13 @@ void Graphics::drawCircle(unsigned int x0, unsigned int y0, unsigned int r, RGB 
     }
 }
 
+void Graphics::tuguiblt(unsigned char img[], unsigned int img_width,
+                        unsigned int img_height, unsigned int posX,
+                        unsigned int posY) {
+    INTERFACE::gBaseInterfacePtr->tuguiblt(img, img_width, img_height, posX,
+                                           posY);
+}
+
 /**
  * 
  * init global(static) var
