@@ -2,12 +2,16 @@
  * @Author: SPeak Shen 
  * @Date: 2021-11-29 09:44:36 
  * @Last Modified by: SPeak Shen
- * @Last Modified time: 2021-11-29 10:19:22
+ * @Last Modified time: 2021-11-30 12:24:31
  */
+
 #ifndef __MATRIX_HPP__
 #define __MATRIX_HPP__
 
+// TDEBUG
 #include <tdebug.hpp>
+// std
+#include <initializer_list.hpp>
 
 #include <vector.hpp>
 
@@ -15,12 +19,24 @@ namespace TMATH {
 
 template<typename T, unsigned int N = 1, unsigned int M = 1>
 class Matrix {
-public:
+
+public: // Type
 
     enum class RC {
         ROW = false,
         COL = true,
     };
+
+public: // Operater
+    Vector<T, M> & operator[](const unsigned int index) {
+        if (index >= N) TDEBUG::crash();
+        return __mVector[index];
+    }
+
+    Vector<T, M> operator[](const unsigned int index) const {
+        if (index >= N) TDEBUG::crash();
+        return __mVector[index];
+    }
 
 public:
 
@@ -32,31 +48,26 @@ public:
         }
     }    
 
-    template <typename... Targs>
-    Matrix(const Vector<T, M> &v /*, const Targs... vs */) {
-        int pos = 0;
-        //init(pos, vs...);
+    Matrix(const std::initializer_list<Vector<T, M> > &vecList) {
+        if (vecList.size() > N) TDEBUG::crash();
+
+        for (int i = 0; i < vecList.size() && vecList.begin() + i != vecList.end(); i++) {
+            __mVector[i] = *(vecList.begin() + i);
+        }
+
     }
 
-    auto & operator[](const unsigned int index) {
-        if (index >= N) TDEBUG::crash();
-        return __mVector[index];
+    unsigned int getRow() const {
+        return N;
+    }
+
+    unsigned int getCol() const {
+        return M;
     }
 
 private:
 
     Vector<T, M> __mVector[N];
-
-    template <typename... Targs>
-    void init(unsigned int pos, const Vector<T, M> &v, const Targs & ...vs) {
-        __mVector[pos] = v;
-        init(pos + 1, vs...);
-    }
-
-    void init(unsigned int pos, const Vector<T, M> &v) {
-        if (N - 1 != pos) TDEBUG::crash();
-        __mVector[pos] = v;
-    }
 
     Vector<T, M> & getRow(const unsigned int index) {
         if (index >= M) TDEBUG::crash();
