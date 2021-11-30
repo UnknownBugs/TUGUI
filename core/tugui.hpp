@@ -77,7 +77,18 @@ public:
         }
     }
 
-private:
+    void puts(wchar_t* s) {
+        INTERFACE::gBaseInterfacePtr->tuguiOutputString(s);
+    }
+
+    void putc(wchar_t c) {
+        wchar_t str[2] = L" ";
+        str[0] = c;
+        INTERFACE::gBaseInterfacePtr->tuguiOutputString(str);
+    }
+
+
+   private:
     static LinearEquation __mLinearEquation;
 
 };  /* GUI end */

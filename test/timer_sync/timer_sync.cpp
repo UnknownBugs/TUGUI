@@ -7,17 +7,18 @@ void timer_callback(void *event __attribute__((unused)),
 }
 int tuguiMain()
 {
+    TUGUI::Base b;
     unsigned long long status;
     void *tevent;
 
     status = TUGUI::INTERFACE::gEventInterfacePtr->createEvent(
         EVT_TIMER | EVT_NOTIFY_SIGNAL, TPL_CALLBACK, timer_callback, NULL,&tevent);
 
-    TUGUI::INTERFACE::gBaseInterfacePtr->tuguiOutputString(L"\r\n");
+    b.puts(L"\r\n");
 
     status = TUGUI::INTERFACE::gEventInterfacePtr->setTimer(
         tevent, TimerPeriodic, 10000000);
-    TUGUI::INTERFACE::gBaseInterfacePtr->tuguiOutputString(L"\r\n");
+    b.puts(L"\r\n");
 
     while(true)
     {
