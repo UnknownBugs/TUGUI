@@ -83,8 +83,10 @@ public:
 
     void putc(wchar_t c) {
         wchar_t str[2] = {L" "};
+        str[0] = c;
+        INTERFACE::gBaseInterfacePtr->tuguiOutputString(str);
     }
-    
+
     wchar_t getc(void) {
         EFI_INPUT_KEY key;
         unsigned long long waitidx;
