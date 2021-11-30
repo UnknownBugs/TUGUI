@@ -13,7 +13,7 @@ int tuguiMain() {
   void *notify_handle;
 
   TUGUI::INTERFACE::gBaseInterfacePtr->tuguiOutputString(
-      (uint16_t *)L"Waiting for the 'q' key input...\r\n");
+      L"Waiting for the 'q' key input...\r\n");
 
   // unsigned long long status;
   /*status = */ TUGUI::INTERFACE::gEventInterfacePtr->registerKeyNotify(
@@ -22,7 +22,7 @@ int tuguiMain() {
   while (!is_exit)
     ;
   TUGUI::INTERFACE::gBaseInterfacePtr->tuguiOutputString(
-      (uint16_t *)L"success...\r\n");
+      L"success...\r\n");
 
   while (1)
     ;

@@ -27,16 +27,16 @@ int tuguiMain() {
             tevent, TimerRelative, 10000000);
 
         TUGUI::INTERFACE::gBaseInterfacePtr->tuguiOutputString(
-            (uint16_t *)L"SetTimer\r\n");
+            L"SetTimer\r\n");
         TUGUI::INTERFACE::gBaseInterfacePtr->tuguiOutputString(
-            (uint16_t *)L"wait for 3s\r\n");
+            L"wait for 3s\r\n");
 
         /* 等待tevent发生 */
         status = TUGUI::INTERFACE::gEventInterfacePtr->waitForEvent(
             1, wait_list, &idx);
 
         TUGUI::INTERFACE::gBaseInterfacePtr->tuguiOutputString(
-            (uint16_t *)L"success...\r\n");
+            L"success...\r\n");
     }
 
     return 0;

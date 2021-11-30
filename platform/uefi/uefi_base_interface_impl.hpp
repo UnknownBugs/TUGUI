@@ -55,8 +55,8 @@ public:
         return UEFIWrapper::SystemTable::allocatePool(EfiConventionalMemory, size);
     }
 
-    void tuguiOutputString(uint16_t *s) override {
-      UEFIWrapper::SystemTable::OutputString(s);
+    void tuguiOutputString(wchar_t *s) override {
+        UEFIWrapper::SystemTable::OutputString(s);
     }
 
    private:

@@ -2,16 +2,16 @@
 
 int tuguiMain() {
   TUGUI::INTERFACE::gBaseInterfacePtr->tuguiOutputString(
-      (uint16_t*)L"hello world\r\n");
+      L"hello world\r\n");
   EFI_INPUT_KEY key;
-  unsigned short str[3];
+  wchar_t str[3];
   unsigned long long waitindex;
   while (1) {
     // 程序会在这里阻塞
     TUGUI::INTERFACE::gEventInterfacePtr->waitForKeyEvent(1,&waitindex);
 
     TUGUI::INTERFACE::gBaseInterfacePtr->tuguiOutputString(
-        (uint16_t *)L"hello world\r\n");
+         L"hello world\r\n");
 
     if (!TUGUI::INTERFACE::gEventInterfacePtr->readKeyStrokeEvent(&key)) {
       if (key.UnicodeChar != L'\r') {
