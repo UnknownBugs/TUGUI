@@ -82,11 +82,35 @@ public:
     }
 
     void putc(wchar_t c) {
-        wchar_t str[2] = L" ";
-        str[0] = c;
-        INTERFACE::gBaseInterfacePtr->tuguiOutputString(str);
+        wchar_t str[2] = {L" "};
+
+    wchar_t getc(void) {
+        EFI_INPUT_KEY key;
+        unsigned long long waitidx;
+
+        INTERFACE::gEventInterfacePtr->waitForKeyEvent(1, &waitidx);
+        while (INTERFACE::gEventInterfacePtr->readKeyStrokeEvent(&key))
+            ;
+
+        return static_cast<wchar_t>(key.UnicodeChar);
     }
 
+    unsigned int gets(wchar_t *buf, unsigned int buf_size) {
+        unsigned int i;
+
+        for (i = 0; i < buf_size - 1;) {
+            buf[i] = getc();
+            putc(buf[i]);
+            if (buf[i] == L'\r') {
+                putc(L'\n');
+                break;
+            }
+            i++;
+        }
+        buf[i] = L'\0';
+
+        return i;
+    }
 
    private:
     static LinearEquation __mLinearEquation;

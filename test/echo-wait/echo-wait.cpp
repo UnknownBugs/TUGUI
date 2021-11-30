@@ -1,27 +1,26 @@
 #include <tugui.hpp>
 
 int tuguiMain() {
+    // 阻塞键盘
     TUGUI::Base b;
-    b.puts(L"hello world\r\n");
-    EFI_INPUT_KEY key;
-    wchar_t str[3];
-    unsigned long long waitindex;
-    while (1) {
-        // 程序会在这里阻塞
-        TUGUI::INTERFACE::gEventInterfacePtr->waitForKeyEvent(1, &waitindex);
+    wchar_t str[30] = {L" "};
+    wchar_t tchar = 'L';
+    unsigned int number;
+    b.puts(L"input one key, waiting.....\r\n");
+    tchar = b.getc();
 
-        if (!TUGUI::INTERFACE::gEventInterfacePtr->readKeyStrokeEvent(&key)) {
-            if (key.UnicodeChar != L'\r') {
-                str[0] = key.UnicodeChar;
-                str[1] = L'\0';
-            } else {
-                str[0] = L'\r';
-                str[1] = L'\n';
-                str[2] = L'\0';
-            }
-            TUGUI::INTERFACE::gBaseInterfacePtr->tuguiOutputString(str);
-        }
-  }
+    b.puts(L"catch the key  the key is \r\n");
+    b.putc(tchar);
+    b.puts(L"\r\n");
+    b.puts(L"now input  9 words   \r\n");
 
-  return 0;
+    // 这里10个字符包括 \0 所以是9个字符
+    number = b.gets(str, 10);
+
+    b.puts(L"\r\ncatch the key the words are ");
+    b.puts(str);
+
+    while (1)
+        ;
+    return 0;
 }
