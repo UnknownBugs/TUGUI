@@ -158,7 +158,11 @@ public:
     */
     void drawCircle(unsigned int x0, unsigned int y0, unsigned int r, RGB rgb = PIXEL_WHITE);
 
-private:
+    void tuguiblt(unsigned char img[], unsigned int img_width,
+                  unsigned int img_height, unsigned int posX,
+                  unsigned int posY);
+
+   private:
     /**
      *  1.x
      *  2.y 
