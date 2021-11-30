@@ -2,7 +2,7 @@
  * @Author: SPeak Shen 
  * @Date: 2020-03-19 21:19:26 
  * @Last Modified by: SPeak Shen
- * @Last Modified time: 2021-11-21 00:37:49
+ * @Last Modified time: 2021-11-30 10:34:37
  */
 
 #ifndef __DEFS_HPP__
@@ -22,6 +22,8 @@ using int8_t  = char;
 using int16_t = short;
 using int32_t = int;
 using int64_t = long long;
+
+using size_t = uint32_t;
 
 // address
 typedef unsigned int uptr32_t;
