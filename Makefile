@@ -36,7 +36,8 @@ BIN_DIR := $(TOP_DIR)/bin
 LIBS    := libs/MUTILS \
            libs/TDEBUG \
            libs/TMATH \
-           libs/Uefi
+           libs/Uefi \
+           libs/std
 
 # include
 INC_DIR := $(LIBS) \
