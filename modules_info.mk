@@ -8,7 +8,7 @@ echo-wait           := test/echo-wait
 registerKeyNotify   := test/registerKeyNotify
 timer_wait          := test/timer_wait
 timer_sync          := test/timer_sync
-displayPicture		:= test/displayPicture
+displayPicture      := test/displayPicture
 ALL_MODULES := $(base) \
                $(coordinate_line) \
                $(straight_line) \
