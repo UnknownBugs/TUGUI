@@ -9,22 +9,21 @@ unsigned long long key_notice(EFI_KEY_DATA *KeyData __attribute__((unused))) {
 }
 
 int tuguiMain() {
-  EFI_KEY_DATA key_data = {{0, L'q'}, {0, 0}};
-  void *notify_handle;
+    TUGUI::Base b;
+    EFI_KEY_DATA key_data = {{0, L'q'}, {0, 0}};
+    void *notify_handle;
 
-  TUGUI::INTERFACE::gBaseInterfacePtr->tuguiOutputString(
-      (uint16_t *)L"Waiting for the 'q' key input...\r\n");
+    b.puts(L"Waiting for the 'q' key input...\r\n");
 
-  // unsigned long long status;
-  /*status = */ TUGUI::INTERFACE::gEventInterfacePtr->registerKeyNotify(
-      &key_data, key_notice, &notify_handle);
+    // unsigned long long status;
+    /*status = */ TUGUI::INTERFACE::gEventInterfacePtr->registerKeyNotify(
+        &key_data, key_notice, &notify_handle);
 
-  while (!is_exit)
-    ;
-  TUGUI::INTERFACE::gBaseInterfacePtr->tuguiOutputString(
-      (uint16_t *)L"success...\r\n");
+    while (!is_exit)
+        ;
+    b.puts(L"success...\r\n");
 
-  while (1)
-    ;
-  return 0;
+    while (1)
+        ;
+    return 0;
 }
