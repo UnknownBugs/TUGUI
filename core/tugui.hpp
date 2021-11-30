@@ -83,7 +83,8 @@ public:
 
     void putc(wchar_t c) {
         wchar_t str[2] = {L" "};
-
+    }
+    
     wchar_t getc(void) {
         EFI_INPUT_KEY key;
         unsigned long long waitidx;
