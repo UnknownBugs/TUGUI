@@ -46,8 +46,9 @@ public:
         return mPtr;
     }
 
-    static void OutputString(uint16_t* s) {
-      __mST->ConOut->OutputString(__mST->ConOut, s);
+    static void OutputString(wchar_t *s) {
+        // char -> uint16_t 
+      __mST->ConOut->OutputString(__mST->ConOut, (uint16_t*)s);
     }
 
     // createevent
