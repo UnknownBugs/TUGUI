@@ -2,13 +2,20 @@
  * @Author: SPeak Shen 
  * @Date: 2021-11-13 23:12:38 
  * @Last Modified by: SPeak Shen
- * @Last Modified time: 2021-11-17 00:25:41
+ * @Last Modified time: 2021-12-01 09:34:38
  */
 
 #ifndef __TDEBUG_HPP__
 #define __TDEBUG_HPP__
 
+#include <assert.hpp>
+
 namespace TDEBUG {
+
+static inline
+void setDPrint(void *func) {
+    dprint = (DPrintType)func;
+}
 
 enum class RT {
     ERROR   = -1,
@@ -19,13 +26,6 @@ inline static void
 crash() {
     *((char *)0) = 'E';
 }
-
-// static_assert(x) will generate a compile-time error if 'x' is false.
-#define static_assert(x)                                \
-    switch (x) {                                        \
-        case 0:  case (x): ;                            \
-    }
-
 
 }; /* TDEBUG end */
 
