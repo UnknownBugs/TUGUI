@@ -2,7 +2,7 @@
  * @Author: SPeak Shen 
  * @Date: 2021-11-29 09:44:36 
  * @Last Modified by: SPeak Shen
- * @Last Modified time: 2021-11-30 12:24:31
+ * @Last Modified time: 2021-12-02 01:05:16
  */
 
 #ifndef __MATRIX_HPP__
@@ -16,10 +16,55 @@
 #include <vector.hpp>
 
 namespace TMATH {
+    template<typename, unsigned int, unsigned int> class Matrix;
+
+    template<typename T, unsigned int N, unsigned int M>
+    Matrix<T, N, M> operator+(const Matrix<T, N, M> &m1, const Matrix<T, N, M> &m2) {
+        Matrix<T, N, M> temp;
+        for (int i = 0; i < N; i++) {
+            temp[i] = m1[i] + m2[i];
+        }
+        return temp;
+    }
+
+    template<typename T, unsigned int N, unsigned int M>
+    Matrix<T, N, M> operator-(const Matrix<T, N, M> &m1, const Matrix<T, N, M> &m2) {
+        Matrix<T, N, M> temp;
+        for (int i = 0; i < N; i++) {
+            temp[i] = m1[i] - m2[i];
+        }
+        return temp;
+    }
+
+    template<typename T, unsigned int N, unsigned int M>
+    Vector<T, N> operator*(const Matrix<T, N, M> &m, const Vector<T, M> &v) {
+        Vector<T, N> temp;
+        for (int i = 0; i < N; i++) {
+            temp[i] = m[i] * v;
+        }
+        return temp;
+    }
+
+    template<typename T, unsigned int N, unsigned int M, unsigned int X>
+    Matrix<T, N, X> operator*(const Matrix<T, N, M> &m1, const Matrix<T, M, X> &m2) {
+        Matrix<T, N, X> temp;
+        auto m2T = m2.transpose();
+        for (int i = 0; i < N; i++) {
+            for (int j = 0; j < X; j++) {
+                temp[i][j] = m1[i] * m2T[j];
+            }
+        }
+        return temp;
+    }
 
 template<typename T, unsigned int N = 1, unsigned int M = 1>
 class Matrix {
-
+private:
+/*
+    friend Vector<T, N> operator+<T, N, M>(const Matrix &, const Matrix &);
+    friend Vector<T, N> operator-<T, N, M>(const Matrix &, const Matrix &);
+    friend Vector<T, N> operator*<T, N, M>(const Matrix &, const Vector<T, M> &);
+*/
 public: // Type
 
     enum class RC {
@@ -63,6 +108,16 @@ public:
 
     unsigned int getCol() const {
         return M;
+    }
+
+    Matrix<T, M, N> transpose() const {
+        Matrix<T, M, N> temp;
+        for (int i = 0; i < M; i++) {
+            for (int j = 0; j < N; j++) {
+                temp[i][j] = __mVector[j][i];
+            }
+        }
+        return temp;
     }
 
 private:
