@@ -18,6 +18,7 @@ tugui_bootmain(void *ImageHandle __attribute__((unused)), SystemTable::ESystemTa
     EventInterfaceImpl event;
     event.init(systemTable);
     TUGUI::INTERFACE::gEventInterfacePtr = &event;
-    
+
+
     tuguiMain();
 }

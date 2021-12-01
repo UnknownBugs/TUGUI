@@ -158,7 +158,11 @@ public:
     */
     void drawCircle(unsigned int x0, unsigned int y0, unsigned int r, RGB rgb = PIXEL_WHITE);
 
-private:
+    void tuguiblt(unsigned char img[], unsigned int img_width,
+                  unsigned int img_height, unsigned int posX,
+                  unsigned int posY);
+
+   private:
     /**
      *  1.x
      *  2.y 
@@ -403,6 +407,13 @@ void Graphics::drawCircle(unsigned int x0, unsigned int y0, unsigned int r, RGB 
             y--;    // (x, y -1)
         }
     }
+}
+
+void Graphics::tuguiblt(unsigned char img[], unsigned int img_width,
+                        unsigned int img_height, unsigned int posX,
+                        unsigned int posY) {
+    INTERFACE::gBaseInterfacePtr->tuguiblt(img, img_width, img_height, posX,
+                                           posY);
 }
 
 /**
