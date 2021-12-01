@@ -34,6 +34,25 @@ public:
     uint32_t getVerticalResolution() const override {
         return __mGOP.getVerticalResolution();
     }
+    void tuguiblt(unsigned char img[], unsigned int img_width,
+                  unsigned int img_height,unsigned int posX,unsigned int posY) override{
+        unsigned char *fb;
+        unsigned int i, j, k, vr, hr, ofs = 0;
+        fb = (unsigned char *)__mGOP.getFrameBufferBase();
+        vr = __mGOP.getVerticalResolution();
+        hr = __mGOP.getHorizontalResolution();
+        fb += hr * posY * 4 + posX * 4;
+        for (i = 0; i < vr; i++) {
+            if (i >= img_height) break;
+            for (j = 0; j < hr; j++) {
+                if (j >= img_width) {
+                    fb += (hr - img_width) * 4;
+                    break;
+                }
+                for (k = 0; k < 4; k++) *fb++ = img[ofs++];
+            }
+        }
+    }
 
     void drawPixel(uint32_t x, uint32_t y, TUGUI::RGB rgb) override {
         uint32_t hr = getHorizontalResolution();

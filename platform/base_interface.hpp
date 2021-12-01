@@ -29,9 +29,12 @@ public:
 
     virtual uint32_t getHorizontalResolution() const = 0;
 
-    virtual RT clearScrean() {
-        return RT::ERROR;
-    }
+    virtual void tuguiblt(unsigned char img[], 
+                          unsigned int img_width,
+                          unsigned int img_height, 
+                          unsigned int posX,
+                          unsigned int posY);
+    virtual RT clearScrean() { return RT::ERROR; }
 
     virtual void * tuguiMalloc(uint64_t size) = 0;
 
