@@ -32,10 +32,6 @@
 
 #pragma GCC system_header
 
-#if __cplusplus < 201103L
-# include <bits/c++0x_warning.h>
-#else // C++0x
-
 #pragma GCC visibility push(default)
 
 #include <defs.hpp>
@@ -100,7 +96,5 @@ namespace std
     { return __ils.end(); }
 }
 #pragma GCC visibility pop
-
-#endif // C++11
 
 #endif // _INITIALIZER_LIST

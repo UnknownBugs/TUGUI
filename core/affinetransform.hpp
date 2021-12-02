@@ -1,36 +1,85 @@
 #ifndef __TRANSFORMATION_HPP__
 #define __TRANSFORMATION_HPP__
 
+#include <initializer_list.hpp>
+
 #include <homocoordinates.hpp>
+#include <matrix.hpp>
 
 namespace TUGUI {
 
-namespace Transform {
+namespace TRANSFORM {
 
+template <unsigned int R>
 class AffineTransform {
+
 public:
-    virtual void operate()() {
-
+    virtual TMATH::HomoCoordinates<R>
+    operate()(const TMATH::HomoCoordinates<R> &hc) const {
+        auto ans = _mTransformMatrix * hc;
+        return ans;
     }
 
-    virtual void add(const AffineTransform &at) {
-
+    virtual void
+    operate()(TMATH::HomoCoordinates<R> &hc) {
+        hc = _mTransformMatrix * hc;
     }
+
+public:
+
+    AffineTransform() {
+        for (int i = 0; i < R; i++) {
+            _mTransformMatrix[i][i] = 1; // init E
+        }
+    }
+
+
+    virtual void add(const AffineTransform &atM) {
+        _mTransformMatrix = atM * _mTransformMatrix;
+    }
+
+protected:
+    TMATH::Matrix<double, R, R> _mTransformMatrix;
+
 }; // AffineTransform
 
-class Scale : public AffineTransform {
-public:
-    void operate()() {
+template <unsigned int R>
+class Scale : private AffineTransform<R> {
 
+public:
+
+    void operate()(TMATH::HomoCoordinates<R> &hc) override {
+        hc = _mTransformMatrix * hc;
+    }
+
+public:
+
+    Scale() = default;
+
+    Scale(const Matrix<double, R, R> &m) {
+        init(m);
+    }
+
+    Scale(const Matrix<double, R - 1, R - 1> &m) {
+        init(m);
     }
 
     void add(const Scale &s) {
-    
+        _mTransformMatrix = s._mTransformMatrix * _mTransformMatrix;
+    }
+
+private:
+
+    template<typename _M>
+    void init(const _M & m) {
+        for (int i = 0; i < R - 1; i++) {
+            _mTransformMatrix[i][i] = m[i][i];
+        }
     }
 
 }; // Scale
 
-}; // Transform
+}; // TRANSFORM
 
 }; // TUGUI
 

@@ -8,6 +8,7 @@ namespace TMATH {
 template <unsigned int N = 3>
 class HomoCoordinates : public Vector<double, N> {
 public:
+
     HomoCoordinates() {
 
     }
