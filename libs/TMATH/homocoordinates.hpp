@@ -16,7 +16,7 @@ public:
     template <typename... Targs>
     HomoCoordinates(const double n, const Targs... ns) : Vector<double, N>(n, ns...) {
         if ((*this)[N -1] != 0) {
-            for (int i = 0; i < N; i++) {
+            for (unsigned int i = 0; i < N; i++) {
                 (*this)[i] = (*this)[i] / (*this)[N -1];
             }
         }

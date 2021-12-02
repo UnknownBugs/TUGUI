@@ -1,34 +1,37 @@
 #include <tugui.hpp>
-#include <affinetransform.hpp>
 
 using namespace TUGUI;
 
+
 int tuguiMain() {
 
-    TMATH::HomoCoordinates<3> rectPointer { 300, 300, 1};
+    TMATH::HomoCoordinates<3> rectWH { 100, 100, 1 };
     // alloc memory
     Graphics *g = new Graphics();
     // test
-    g->drawRectangle(100, 100, rectPointer[0], rectPointer[1], PIXEL_RED);
+    g->drawRectangle(100, 100, rectWH[0], rectWH[1], PIXEL_RED); // 1
 
-    
-    
-    TRANSFORM::Scale<3> scale {
-        TMATH::Matrix<double, 2, 2> {
-            {2, 0},
-            {0, 3}
-        }
+    TMATH::Matrix<double, 3, 3> m {
+        {1.5, 0, 0},
+        {0, 2, 0},
+        {0, 0, 1}
     };
 
-    scale(rectPointer);
-    g->drawRectangle(100, 100, rectPointer[0], rectPointer[1], PIXEL_RED);
+    rectWH = m * rectWH;
+
+    g->drawRectangle(100, 100, rectWH[0], rectWH[1], {0x33, 0x44, 0x55, 0}); // 2
+
+    TRANSFORM::Scale<3> scale { m };
+    
+    scale(rectWH);
+
+    g->drawRectangle(100, 100, rectWH[0], rectWH[1], {0x66, 077, 0x88, 0}); // 3
 
     // free memory
     delete g;
 
-    while (1) {
+    while (1)
         ;
-    }
 
     return 0;
 

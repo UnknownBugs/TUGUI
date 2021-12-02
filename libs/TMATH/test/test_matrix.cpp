@@ -1,9 +1,11 @@
 #include <iostream>
 
+#define __INITIALIZER_LIST_HPP__
+
 #include <vector.hpp>
 #include <matrix.hpp>
 
-#include <initializer_list.hpp>
+#include <initializer_list>
 
 template<typename T>
 void printV(const T &v) {

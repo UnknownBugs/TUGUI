@@ -32,8 +32,8 @@ namespace TMATH {
 
     template<typename T, unsigned int N>
     T operator*(const Vector<T, N> &v1, const Vector<T, N> &v2) {
-        T temp;
-        for (int i = 0; i < N; i++) {
+        T temp = v1.c[0] * v2.c[0];
+        for (unsigned int i = 1; i < N; i++) {
             temp += v1.c[i] * v2.c[i];
         }
         return temp;
@@ -62,7 +62,7 @@ private:
 public:
 
     Vector(unsigned int val = 0) {
-        for (int i = 0; i < N; i++) {
+        for (unsigned int i = 0; i < N; i++) {
             c[i] = val;
         }
     }

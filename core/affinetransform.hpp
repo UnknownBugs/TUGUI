@@ -3,6 +3,8 @@
 
 #include <initializer_list.hpp>
 
+#include <assert.hpp>
+
 #include <homocoordinates.hpp>
 #include <matrix.hpp>
 
@@ -28,14 +30,14 @@ public:
 public:
 
     AffineTransform() {
-        for (int i = 0; i < R; i++) {
+        for (unsigned int i = 0; i < R; i++) {
             _mTransformMatrix[i][i] = 1; // init E
         }
     }
 
 
     virtual void add(const AffineTransform &atM) {
-        _mTransformMatrix = atM * _mTransformMatrix;
+        _mTransformMatrix = _mTransformMatrix * atM._mTransformMatrix;
     }
 
 protected:
@@ -50,25 +52,19 @@ public:
 
     Scale() = default;
 
-    Scale(const Matrix<double, R, R> &m) {
-        init(m);
+    Scale(const TMATH::Matrix<double, R, R> &m) {
+         for (unsigned int i = 0; i < R - 1; i++) {
+            this->_mTransformMatrix[i][i] = m[i][i];
+        }
     }
 
-    Scale(const Matrix<double, R - 1, R - 1> &m) {
-        init(m);
+    explicit Scale(const std::initializer_list<TMATH::Vector<double, R>> &vecList) 
+        : Scale { TMATH::Matrix<double, R, R>(vecList) } {
+        ASSERT(vecList.size() == R);
     }
 
     void add(const Scale &s) {
-        _mTransformMatrix = s._mTransformMatrix * _mTransformMatrix;
-    }
-
-private:
-
-    template<typename _M>
-    void init(const _M & m) {
-        for (int i = 0; i < R - 1; i++) {
-            _mTransformMatrix[i][i] = m[i][i];
-        }
+        this->_mTransformMatrix = s._mTransformMatrix * this->_mTransformMatrix;
     }
 
 }; // Scale
