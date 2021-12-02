@@ -16,6 +16,14 @@ void printV(const T &v) {
 }
 
 template<typename T>
+void printV(const T &v) {
+    for (int i = 0; i < v.size(); i++) {
+        std::cout << v[i] << "\t";
+    }
+    std::cout << std::endl;
+}
+
+template<typename T>
 void printM(const T &m) {
     for (int i = 0; i < m.getRow(); i++) {
         for (int j = 0; j < m.getCol(); j++) {

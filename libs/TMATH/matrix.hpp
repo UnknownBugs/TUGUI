@@ -59,6 +59,7 @@ namespace TMATH {
     Matrix<T, N, X> operator*(const Matrix<T, N, M> &m1, const Matrix<T, M, X> &m2) {
         Matrix<T, N, X> temp;
         auto m2T = m2.transpose();
+
         for (unsigned int i = 0; i < N; i++) {
             for (unsigned int j = 0; j < X; j++) {
                 temp[i][j] = m1[i] * m2T[j];
@@ -122,6 +123,7 @@ public:
 
     Matrix<T, M, N> transpose() const {
         Matrix<T, M, N> temp;
+
         for (unsigned int i = 0; i < M; i++) {
             for (unsigned int j = 0; j < N; j++) {
                 temp[i][j] = __mVector[j][i];
