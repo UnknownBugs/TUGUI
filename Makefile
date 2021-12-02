@@ -24,7 +24,7 @@ MAKE := make
 CXX_FLAGS := -Wall -Wextra \
              -fno-builtin  \
              -nostdinc -nostdlib \
-             -fno-rtti
+             -fno-rtti 
 
 UEFI_APP_CXX_FLAGS := -Wl,--subsystem,10
 

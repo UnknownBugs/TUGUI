@@ -12,8 +12,9 @@
 #include <tdebug.hpp>
 // std
 #include <initializer_list.hpp>
-
+// TMATH
 #include <vector.hpp>
+#include <homocoordinates.hpp>
 
 namespace TMATH {
     template<typename, unsigned int, unsigned int> class Matrix;
@@ -37,6 +38,15 @@ namespace TMATH {
     }
 
     template<typename T, unsigned int N, unsigned int M>
+    HomoCoordinates<N> operator*(const Matrix<T, N, M> &m, const HomoCoordinates<M> &hc) {
+        HomoCoordinates<N> temp;
+        for (unsigned int i = 0; i < N; i++) {
+            temp[i] = m[i] * hc;
+        }
+        return temp;
+    }
+
+    template<typename T, unsigned int N, unsigned int M>
     Vector<T, N> operator*(const Matrix<T, N, M> &m, const Vector<T, M> &v) {
         Vector<T, N> temp;
         for (int i = 0; i < N; i++) {
@@ -49,8 +59,9 @@ namespace TMATH {
     Matrix<T, N, X> operator*(const Matrix<T, N, M> &m1, const Matrix<T, M, X> &m2) {
         Matrix<T, N, X> temp;
         auto m2T = m2.transpose();
-        for (int i = 0; i < N; i++) {
-            for (int j = 0; j < X; j++) {
+
+        for (unsigned int i = 0; i < N; i++) {
+            for (unsigned int j = 0; j < X; j++) {
                 temp[i][j] = m1[i] * m2T[j];
             }
         }
@@ -86,8 +97,8 @@ public: // Operater
 public:
 
     Matrix() {
-        for (int i = 0; i < N; i++) {
-            for (int j = 0; j < M; j++) {
+        for (unsigned int i = 0; i < N; i++) {
+            for (unsigned int j = 0; j < M; j++) {
                 __mVector[i][j] = 0; // todo: temp design
             }
         }
@@ -96,7 +107,7 @@ public:
     Matrix(const std::initializer_list<Vector<T, M> > &vecList) {
         if (vecList.size() > N) TDEBUG::crash();
 
-        for (int i = 0; i < vecList.size() && vecList.begin() + i != vecList.end(); i++) {
+        for (unsigned int i = 0; i < vecList.size() && vecList.begin() + i != vecList.end(); i++) {
             __mVector[i] = *(vecList.begin() + i);
         }
 
@@ -112,8 +123,9 @@ public:
 
     Matrix<T, M, N> transpose() const {
         Matrix<T, M, N> temp;
-        for (int i = 0; i < M; i++) {
-            for (int j = 0; j < N; j++) {
+
+        for (unsigned int i = 0; i < M; i++) {
+            for (unsigned int j = 0; j < N; j++) {
                 temp[i][j] = __mVector[j][i];
             }
         }

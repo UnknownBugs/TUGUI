@@ -18,6 +18,7 @@
 #include <platform/base_interface.hpp>
 #include <platform/event_interface.hpp>
 #include <core/colors/color.hpp>
+#include <core/affinetransform.hpp>
 
 namespace TUGUI {
 

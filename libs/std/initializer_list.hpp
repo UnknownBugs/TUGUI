@@ -27,18 +27,23 @@
  *  This is a Standard C++ Library header.
  */
 
-#ifndef _INITIALIZER_LIST
-#define _INITIALIZER_LIST
+/**
+ * 
+ * fatal error: definition of std::initializer_list does not match #include <initializer_list>
+ *              class initializer_list
+ *
+ * typedef long long unsigned int 		size_type; // Note: 
+ * 
+*/
+
+#ifndef __INITIALIZER_LIST_HPP__
+#define __INITIALIZER_LIST_HPP__
 
 #pragma GCC system_header
 
-#if __cplusplus < 201103L
-# include <bits/c++0x_warning.h>
-#else // C++0x
-
 #pragma GCC visibility push(default)
 
-#include <defs.hpp>
+//#include <defs.hpp>
 
 namespace std
 {
@@ -50,7 +55,7 @@ namespace std
       typedef _E 		value_type;
       typedef const _E& 	reference;
       typedef const _E& 	const_reference;
-      typedef long unsigned int 		size_type;
+      typedef long long unsigned int 		size_type; // Note: 
       typedef const _E* 	iterator;
       typedef const _E* 	const_iterator;
 
@@ -101,6 +106,4 @@ namespace std
 }
 #pragma GCC visibility pop
 
-#endif // C++11
-
-#endif // _INITIALIZER_LIST
+#endif // __INITIALIZER_LIST_HPP__
