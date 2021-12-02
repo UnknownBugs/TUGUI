@@ -9,6 +9,9 @@ registerKeyNotify   := test/registerKeyNotify
 timer_wait          := test/timer_wait
 timer_sync          := test/timer_sync
 displayPicture      := test/displayPicture
+affineTransform     := test/affineTransform
+
+
 ALL_MODULES := $(base) \
                $(coordinate_line) \
                $(straight_line) \
@@ -19,7 +22,8 @@ ALL_MODULES := $(base) \
                $(registerKeyNotify) \
                $(timer_wait) \
                $(timer_sync) \
-	       $(displayPicture)
+	       $(displayPicture) \
+               $(affineTransform)
 
 MODULES_LIST := moduels: \
                 base \
@@ -32,7 +36,8 @@ MODULES_LIST := moduels: \
                 registerKeyNotify \
                 timer_wait \
                 timer_sync \
-		displayPicture
+		displayPicture \
+                affineTransform
 
 
 MODULES_INFO := $(addsuffix \n,$(MODULES_LIST))
