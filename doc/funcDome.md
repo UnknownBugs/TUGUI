@@ -1,16 +1,28 @@
 ## 功能展示
 
-> 6.三角形
+> 图形变换
 >
-> 5.画矩形
+> - scale/缩放
+
+> 基础图形
 >
-> 4.画圆
+> - 三角形
 >
-> 3.任意角度直线
+> - 画矩形
 >
-> 2.坐标线
+> - 画圆
 >
-> 1.像素控制
+> - 任意角度直线
+>
+> - 坐标线
+>
+> - 像素控制
+
+
+
+### Scale / 缩放 [sourceCode](../test/affineTransform/test_scale.cpp)
+
+![](images/test_pic/test_scale.png)
 
 
 
