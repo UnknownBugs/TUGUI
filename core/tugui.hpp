@@ -11,8 +11,11 @@
 #ifndef __TUGUI_HPP__
 #define __TUGUI_HPP__
 
+// TMATH
 #include <formula.hpp>
 #include <vector.hpp>
+#include <homocoordinates.hpp>
+
 #include <utils.hpp>
 
 #include <platform/base_interface.hpp>
@@ -40,6 +43,10 @@ public:
         INTERFACE::gBaseInterfacePtr->drawPixel(x, y, rgb);
     }
 
+    void drawPixel(const TMATH::HomoCoordinates<3> &point, RGB rgb) {
+        INTERFACE::gBaseInterfacePtr->drawPixel(point[0], point[1], rgb);
+    }
+
     void drawXLine(unsigned int y, unsigned int x1, unsigned int x2, RGB rgb = PIXEL_WHITE) {
         if (x1 > x2) swap(x1, x2);
         unsigned int end = min(x2, INTERFACE::gBaseInterfacePtr->getHorizontalResolution());
@@ -65,6 +72,26 @@ public:
         __mLinearEquation.set(x1, y1, x2, y2);
         
         double sX { x1 * 1. }, dX { x2 * 1. };
+        double deltaX { 1 };
+
+        if (sX > dX) swap(sX, dX);
+        
+        if (__mLinearEquation.getSlope() > 1 || __mLinearEquation.getSlope() < -1) // deltaY = 1 or -1
+            deltaX = 1. / MUTILS::abs(__mLinearEquation.getSlope());
+
+        while (sX < dX) {
+            drawPixel(sX, __mLinearEquation.getY(sX), rgb);
+            sX += deltaX;
+        }
+    }
+
+    void drawLine(const TMATH::HomoCoordinates<3> &begin, const TMATH::HomoCoordinates<3> &end, RGB rgb = PIXEL_WHITE) {
+        if (begin[0] == end[0]) drawYLine(begin[0], begin[1], end[1], rgb);
+        if (begin[1] == end[1]) drawXLine(begin[1], begin[0], end[0], rgb);
+
+        __mLinearEquation.set(begin[0], begin[1], end[0], end[1]);
+        
+        double sX { begin[0] * 1. }, dX { end[0] * 1. };
         double deltaX { 1 };
 
         if (sX > dX) swap(sX, dX);
@@ -137,7 +164,10 @@ public:
 
     void drawRectangle(Rectangle rect, RGB rgb = PIXEL_WHITE);
 
-    void drawTriangle(unsigned int x1, unsigned int y1, unsigned int x2, unsigned int y2, unsigned int x3, unsigned int y3, RGB rgb = PIXEL_WHITE);
+    void drawTriangle(unsigned int x1, unsigned int y1, unsigned int x2, unsigned int y2, unsigned int x3, unsigned int y3, RGB rgb);
+
+    void drawTriangle(const TMATH::HomoCoordinates<3> &,
+       const TMATH::HomoCoordinates<3> &, const TMATH::HomoCoordinates<3> &, RGB rgb = PIXEL_WHITE);
 
     void fillTriangle( int x1,  int y1,  int x2,  int y2,  int x3,  int y3, RGB rgb = PIXEL_WHITE);
     /**
@@ -202,11 +232,24 @@ void Graphics::drawRectangle(Rectangle rect, RGB rgb) {
     drawRectangle(rect.x, rect.y, rect.w, rect.h, rgb);
 }
 
-void Graphics::drawTriangle(unsigned int x1, unsigned int y1, unsigned int x2, unsigned int y2, unsigned int x3, unsigned int y3, RGB rgb)
-{
+void Graphics::drawTriangle(
+    unsigned int x1, unsigned int y1,
+    unsigned int x2, unsigned int y2,
+    unsigned int x3, unsigned int y3, RGB rgb
+) {
     drawLine(x1, y1, x2, y2, rgb);
     drawLine(x2, y2, x3, y3, rgb);
     drawLine(x3, y3, x1, y1, rgb);
+}
+
+void Graphics::drawTriangle(
+    const TMATH::HomoCoordinates<3> &p1,
+    const TMATH::HomoCoordinates<3> &p2,
+    const TMATH::HomoCoordinates<3> &p3, RGB rgb
+) {
+    drawLine(p1, p2, rgb);
+    drawLine(p2, p3, rgb);
+    drawLine(p3, p1, rgb);
 }
 
 void Graphics::fillTriangle(int x1, int y1,  int x2,  int y2,  int x3,  int y3, RGB rgb)

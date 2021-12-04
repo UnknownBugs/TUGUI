@@ -67,6 +67,8 @@ export INC_DIR
 export OBJ_DIR
 export BIN_DIR
 
+export modules
+
 BOOTMAIN_OBJS := $(addsuffix .o,$(BOOTMAIN))
 BOOTMAIN_OBJS := $(addprefix $(OBJ_DIR)/,$(BOOTMAIN_OBJS))
 

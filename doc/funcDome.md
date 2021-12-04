@@ -3,6 +3,9 @@
 > 图形变换
 >
 > - scale/缩放
+>
+> - Translation/平移
+> - Rotation/旋转
 
 > 基础图形
 >
@@ -17,6 +20,32 @@
 > - 坐标线
 >
 > - 像素控制
+
+
+
+### Rotation / 旋转 [sourceCode](../test/affineTransform/test_rotation.cpp)
+
+![](images/test_pic/test_rotation.gif)
+
+#### Try / Bug
+
+![](images/test_pic/test_rotation_try3.png)
+
+
+
+![](images/test_pic/test_rotation_try2.png)
+
+
+
+![](images/test_pic/test_rotation_bug1.png)
+
+
+
+
+
+### Translation / 平移 [sourceCode](../test/affineTransform/test_translation.cpp)
+
+![](images/test_pic/test_translation.png)
 
 
 

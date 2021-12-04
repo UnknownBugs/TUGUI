@@ -1,17 +1,23 @@
 MODULE := affineTransform
 
-CASES := scale
+ifeq ($(modules),scale)
 
-EFI := $(addprefix $(BIN_DIR)/,$(CASES))
+include scale.mk
 
-SRCS := test_scale.cpp
+else ifeq ($(modules),translation)
 
-LOCAL_INC := $(addprefix -I,$(INC_DIR))
+include translation.mk
 
-OBJS := $(SRCS:.cpp=.o)
-OBJS := $(addprefix $(OBJ_DIR)/,$(OBJS))
+else ifeq ($(modules),rotation)
 
-$(EFI): $(SRCS) $(TUGUI_INCLUDE_FILE)
-	@echo + $@
-	$(CXX) -c $(SRCS) $(CXX_FLAGS) -o $(OBJS) $(LOCAL_INC)
-	$(LD) $(LD_FLAGS) $(BOOTMAIN_OBJS) $(OBJS) -o $@  $(UEFI_APP_LD_FLAGS)
+include translation.mk
+
+else
+
+all : $(BIN_DIR)/scale $(BIN_DIR)/translation $(BIN_DIR)/rotation
+
+include scale.mk
+include translation.mk
+include rotation.mk
+
+endif
