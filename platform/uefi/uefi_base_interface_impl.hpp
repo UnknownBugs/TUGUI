@@ -3,6 +3,7 @@
 
 #include <base_interface.hpp>
 #include <tdebug.hpp>
+#include <icxxabi.hpp>
 
 #include <uefi/wrapper/gop_wrapper.hpp>
 #include <uefi/wrapper/systemtable_wrapper.hpp>
@@ -54,15 +55,15 @@ public:
         }
     }
 
-    void drawPixel(uint32_t x, uint32_t y, TUGUI::RGB rgb) override {
+    void drawPixel(uint32_t x, uint32_t y, uint8_t r, uint8_t g, uint8_t b, uint8_t reserved) override {
         uint32_t hr = getHorizontalResolution();
         UEFIWrapper::GOP::Pixel *base = (UEFIWrapper::GOP::Pixel *)(__mGOP.getFrameBufferBase());
         UEFIWrapper::GOP::Pixel *pixel = base + (hr * y) + x;
 
-        pixel->red = rgb.R;
-        pixel->green = rgb.G;
-        pixel->blue = rgb.B;
-        pixel->reserved = rgb.S;
+        pixel->red = r;
+        pixel->green = g;
+        pixel->blue = b;
+        pixel->reserved = reserved;
     }
 
     TDEBUG::RT clearScrean() override {

@@ -11,8 +11,6 @@
 #include <defs.hpp>
 #include <tdebug.hpp>
 
-#include "core/colors/color.hpp"
-
 // TODO: When the event interface protocol is designed, delete here
 #include <Uefi.h>
 

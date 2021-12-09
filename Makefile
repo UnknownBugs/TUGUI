@@ -24,7 +24,8 @@ MAKE := make
 CXX_FLAGS := -Wall -Wextra \
              -fno-builtin  \
              -nostdinc -nostdlib \
-             -fno-rtti 
+             -fno-rtti \
+             -fno-exceptions
 
 UEFI_APP_CXX_FLAGS := -Wl,--subsystem,10
 
@@ -55,6 +56,7 @@ SUBDIRS += $($(modules))
 endif
 
 TUGUI_INCLUDE_FILE := $(TOP_DIR)/core/tugui.hpp
+NEW_TUGUI_INCLUDE_FILE := $(TOP_DIR)/core/new_tugui.hpp
 
 export LD LD_FLAGS UEFI_APP_LD_FLAGS
 export CXX CXX_FLAGS UEFI_APP_CXX_FLAGS
