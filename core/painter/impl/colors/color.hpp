@@ -18,7 +18,7 @@ namespace TUGUI {
 
 class Color {
 
-public:
+public: // Type
 
     struct RGB {
         uint8_t R;
@@ -26,7 +26,7 @@ public:
         uint8_t B;
     };
 
-public:
+public: // cntor
 
     Color(uint8_t r, uint8_t g, uint8_t b, uint8_t transp = 0) : 
         Color({r, g, b}, transp) { }
@@ -38,7 +38,7 @@ public:
         __mRgbEnd = rgbEnd;
         __mTransparency = transp;
         __mRgbBuff = nullptr;
-        __mBuffSize = 0;
+        __mBuffSize = __mIndex = 0;
     }
 
     ~Color() {
@@ -47,16 +47,9 @@ public:
         }
     }
 
+public: // setter/getter
     
-    const RGB * getGradientRgbBuff(uint32_t size = 1) {
-        if (size > __mBuffSize) {
-            resize(size);
-        } else if (size <= __mBuffSize / 2) {
-            resize(__mBuffSize / 2);
-        }
-        for (unsigned int i = 0; i < size; i++) {
-            __mRgbBuff[i] = getGradientRgb(i, size);
-        }
+    const RGB * getGradientRgbBuff() const {
         return  __mRgbBuff;
     }
 
@@ -64,7 +57,7 @@ public:
     RGB getGradientRgb(int32_t index, int32_t step) const {
         RGB ans;
         if (index > step) step = index;
-        // use int32_t to avoid overflow
+        // use int32_t to avoid overflow & signed integer and unsigned interger compute issue
         int32_t beginR = __mRgbBegin.R, beginG = __mRgbBegin.G, beginB = __mRgbBegin.B;
         int32_t endR = __mRgbEnd.R, endG = __mRgbEnd.G, endB = __mRgbEnd.B;
         ans.R = beginR + (endR - beginR) * index * 1. / step;
@@ -73,10 +66,30 @@ public:
         return ans;
     }
 
+    RGB getGradientRgb() {
+        __mIndex = (__mIndex + 1) % __mBuffSize;
+        return __mRgbBuff[__mIndex];
+    }
+
+    void setGradient(uint32_t gradient) {
+        if (gradient > __mBuffSize) {
+            resize(gradient);
+        } else if (gradient <= __mBuffSize / 2) {
+            resize(__mBuffSize / 2);
+        }
+        for (unsigned int i = 0; i < gradient; i++) {
+            __mRgbBuff[i] = getGradientRgb(i, gradient);
+        }
+
+        __mBuffSize = gradient;
+        __mIndex = __mBuffSize - 1;
+    }
+
 private:
+
     RGB __mRgbBegin, __mRgbEnd;
     RGB *__mRgbBuff;
-    uint32_t __mBuffSize;
+    uint32_t __mIndex, __mBuffSize;
     uint8_t __mTransparency;
 
     void resize(uint32_t size) {

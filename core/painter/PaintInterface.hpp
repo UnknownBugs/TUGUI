@@ -1,14 +1,13 @@
 #ifndef __PAINT_ENGINE_INTERFACE_HPP__
 #define __PAINT_ENGINE_INTERFACE_HPP__
 
-#include <core/painter/impl/PaintBase.hpp>
-#include <core/painter/impl/colors/color.hpp>
-
 namespace TUGUI {
+
+class PaintEngine;
 
 class PaintInterface {
 public:
-    virtual void paint(Color &) const = 0;
+    virtual void paint(PaintEngine &) const = 0;
 };
 
 }; // TUGUI

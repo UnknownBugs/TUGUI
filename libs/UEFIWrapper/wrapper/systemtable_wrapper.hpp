@@ -81,8 +81,7 @@ public:
     }
 
     // noblockkeyboardevent
-    static unsigned long long readKeyStroke(EFI_INPUT_KEY *key)
-    {
+    static unsigned long long readKeyStroke(EFI_INPUT_KEY *key) {
         return __mST->ConIn->ReadKeyStroke(__mST->ConIn, key);
     }
 

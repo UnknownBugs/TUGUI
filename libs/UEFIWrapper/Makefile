@@ -1,11 +1,8 @@
-include modules_info.mk
-include platform/bootmain.mk
-
 # project dir
 TOP_DIR := $(shell pwd)
 
 LD := x86_64-w64-mingw32-ld
-LD_FLAGS := -e tugui_bootmain 
+LD_FLAGS := -e tugui_bootmain
 
 ifneq ($(shell echo $(shell uname -r) | awk -F '-' '{ print $$3 }'),MANJARO)
 LD_FLAGS +=  -nostdinc -nostdinc++ -nostdlib

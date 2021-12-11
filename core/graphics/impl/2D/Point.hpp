@@ -5,7 +5,6 @@
 #include <initializer_list.hpp>
 
 #include <core/painter/PaintInterface.hpp>
-#include <core/painter/impl/PaintBase.hpp>
 #include <core/painter/impl/colors/color.hpp>
 
 namespace TUGUI {
@@ -18,8 +17,9 @@ public:
         *this = hc;
     }
 
-    void paint(Color &color) const {
-        PaintBase::drawPixel((*this)[0], (*this)[1], color.getGradientRgbBuff()[0]);
+    void paint(PaintEngine &pe) const {
+        pe.setColorGradient(1);
+        pe.drawPixel((*this)[0], (*this)[1]);
     }
 }; // Point
 }; // TUGUI

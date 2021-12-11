@@ -19,7 +19,8 @@ int tuguiMain() {
 
     int i = 0;
     while (i < 500) {
-        PaintBase::drawPixel(50, 50 + i, c.getGradientRgb(i, 500));
+        PaintEngine::PaintBase::drawPixel(50, 50 + i, c.getGradientRgb(i, 500));
+        pe.drawPixel(50 + 2, 51 + i);
         i++;
     }
 
