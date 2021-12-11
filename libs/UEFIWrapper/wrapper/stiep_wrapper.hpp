@@ -11,8 +11,7 @@
 #ifndef __STIEP_WRAPPER_HPP__
 #define __STIEP_WRAPPER_HPP__
 
-#include <defs.hpp>
-#include <uefi/wrapper/systemtable_wrapper.hpp>
+#include <wrapper/systemtable_wrapper.hpp>
 
 #define EFI_KEYBOARD_EVENT_PROTOCAL_GUID \
   {0xdd9e7534,                           \

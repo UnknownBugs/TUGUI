@@ -12,7 +12,7 @@
 #define __GOP_WRAPPER_HPP__
 
 #include <defs.hpp>
-#include <uefi/wrapper/systemtable_wrapper.hpp>
+#include <wrapper/systemtable_wrapper.hpp>
 
 #define EFI_GRAPHICS_OUTPUT_PROTOCAL_GUID { \
     0x9042a9de, 0x23dc, 0x4a38, { \

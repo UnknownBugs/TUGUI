@@ -1,13 +1,10 @@
 #ifndef __UEFI_EVENT_INTERFACE_HPP__
 #define __UEFI_EVENT_INTERFACE_HPP__
 
-#include <event_interface.hpp>
-#include <tdebug.hpp>
+#include <wrapper/stiep_wrapper.hpp>
+#include <wrapper/systemtable_wrapper.hpp>
 
-#include <uefi/wrapper/stiep_wrapper.hpp>
-#include <uefi/wrapper/systemtable_wrapper.hpp>
-
-class EventInterfaceImpl : public TUGUI::INTERFACE::EventInterface {
+class EventInterfaceImpl {
 
     using ST  = UEFIWrapper::SystemTable;
     using EST = UEFIWrapper::SystemTable::ESystemTable;
@@ -23,13 +20,13 @@ public:
 
         unsigned long long registerKeyNotify(EFI_KEY_DATA *key,
                                              keyFucntion key_notice,
-                                             void **notify_handle) override{
+                                             void **notify_handle) {
             return __mSTIEP.RegisterKeyNotify(key, key_notice, notify_handle);
         }
 
         // basic event
         unsigned long long waitForKeyEvent(unsigned long long numberOfEvents,
-                                        unsigned long long *index) override {
+                                        unsigned long long *index) {
             return UEFIWrapper::SystemTable::waitForKeyEvent(numberOfEvents,
                                                           index);
         }
@@ -37,12 +34,12 @@ public:
         // basic event
         unsigned long long waitForEvent(unsigned long long numberOfEvents,
                                         void **Event,
-                                        unsigned long long *index) override {
+                                        unsigned long long *index) {
             return  UEFIWrapper::SystemTable::waitForEvent(numberOfEvents, Event, index);
         }
 
         // noblockkeyboardevent
-        unsigned long long readKeyStrokeEvent(EFI_INPUT_KEY *key) override{
+        unsigned long long readKeyStrokeEvent(EFI_INPUT_KEY *key) {
             return UEFIWrapper::SystemTable::readKeyStroke(key);
         }
 

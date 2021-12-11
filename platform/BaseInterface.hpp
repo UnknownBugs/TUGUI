@@ -11,8 +11,6 @@
 #include <defs.hpp>
 #include <tdebug.hpp>
 
-#include "core/colors/color.hpp"
-
 namespace TUGUI {
 
 using TDEBUG::RT;
@@ -21,7 +19,7 @@ namespace INTERFACE {
 
 class BaseInterface {
 public:
-    virtual void drawPixel(uint32_t x, uint32_t y, RGB rgb) = 0;
+    virtual void drawPixel(uint32_t x, uint32_t y, uint8_t r, uint8_t g, uint8_t b, uint8_t reserved) = 0;
 
     virtual uint32_t getFrameBufferBase() const = 0;
 
@@ -29,16 +27,17 @@ public:
 
     virtual uint32_t getHorizontalResolution() const = 0;
 
-    virtual void tuguiblt(unsigned char img[], 
+    virtual void tuguiblt(unsigned char img[],
                           unsigned int img_width,
                           unsigned int img_height, 
                           unsigned int posX,
-                          unsigned int posY);
+                          unsigned int posY) = 0;
+
     virtual RT clearScrean() { return RT::ERROR; }
 
+#if 1
     virtual void * tuguiMalloc(uint64_t size) = 0;
-
-    virtual void tuguiOutputString(wchar_t *s) = 0;
+#endif
 };
 
 extern BaseInterface *gBaseInterfacePtr;
