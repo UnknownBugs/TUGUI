@@ -5,8 +5,8 @@
  * @Last Modified time: 2021-11-21 00:27:54
  */
 
-#ifndef __COLOR_TABLE_HPP__
-#define __COLOR_TABLE_HPP__
+#ifndef __COLOR_TABLE_HPP__TUGUI
+#define __COLOR_TABLE_HPP__TUGUI
 
 namespace TUGUI {
 
@@ -18,4 +18,4 @@ namespace TUGUI {
 
 }; // TUGUI
 
-#endif // __COLOR_TABLE_HPP__
+#endif // __COLOR_TABLE_HPP__TUGUI

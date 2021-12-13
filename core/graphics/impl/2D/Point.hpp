@@ -18,7 +18,6 @@ public:
     }
 
     void paint(PaintEngine &pe) const {
-        pe.setColorGradient(1);
         pe.drawPixel((*this)[0], (*this)[1]);
     }
 }; // Point

@@ -5,8 +5,8 @@
  * @Last Modified time: 2021-11-21 00:27:54
  */
 
-#ifndef __COLOR_HPP__
-#define __COLOR_HPP__
+#ifndef __COLOR_HPP__TUGUI
+#define __COLOR_HPP__TUGUI
 
 #include <defs.hpp>
 #include <array.hpp>
@@ -37,8 +37,10 @@ public: // cntor
         __mRgbBegin = rgbBegin;
         __mRgbEnd = rgbEnd;
         __mTransparency = transp;
+        __mIndex = __mBuffSize =  0;
         __mRgbBuff = nullptr;
-        __mBuffSize = __mIndex = 0;
+
+        setGradient(1);
     }
 
     ~Color() {
@@ -77,7 +79,7 @@ public: // setter/getter
         } else if (gradient <= __mBuffSize / 2) {
             resize(__mBuffSize / 2);
         }
-        for (unsigned int i = 0; i < gradient; i++) {
+        for (unsigned int i = 0; i <= gradient; i++) {
             __mRgbBuff[i] = getGradientRgb(i, gradient);
         }
 
@@ -101,4 +103,4 @@ private:
 
 }; // TUGUI
 
-#endif
+#endif // __COLOR_HPP__TUGUI
