@@ -1,5 +1,7 @@
+include tools/makefile/function.mk
 include modules_info.mk
 include platform/bootmain.mk
+include libs/UEFIWrapper/UefiWrapperInclude.mk
 
 # project dir
 TOP_DIR := $(shell pwd)
@@ -24,7 +26,8 @@ MAKE := make
 CXX_FLAGS := -Wall -Wextra \
              -fno-builtin  \
              -nostdinc -nostdlib \
-             -fno-rtti 
+             -fno-rtti \
+             -fno-exceptions
 
 UEFI_APP_CXX_FLAGS := -Wl,--subsystem,10
 
@@ -33,10 +36,14 @@ UEFI_APP_CXX_FLAGS := -Wl,--subsystem,10
 OBJ_DIR := $(TOP_DIR)/obj
 BIN_DIR := $(TOP_DIR)/bin
 
+UEFIWRAPPER_LIB_INC := libs/UEFIWrapper \
+                       $(addprefix libs/UEFIWrapper/,$(UEFIWRAPPER_LIB_INC))
+
+
 LIBS    := libs/MUTILS \
            libs/TDEBUG \
            libs/TMATH \
-           libs/Uefi \
+           $(UEFIWRAPPER_LIB_INC) \
            libs/std
 
 # include

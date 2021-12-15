@@ -1,11 +1,11 @@
 #ifndef __UEFI_BASE_INTERFACE_HPP__
 #define __UEFI_BASE_INTERFACE_HPP__
 
-#include <base_interface.hpp>
+#include <BaseInterface.hpp>
 #include <tdebug.hpp>
+#include <icxxabi.hpp>
 
-#include <uefi/wrapper/gop_wrapper.hpp>
-#include <uefi/wrapper/systemtable_wrapper.hpp>
+#include <UEFIWrapper.hpp>
 
 class BaseInterfaceImpl : public TUGUI::INTERFACE::BaseInterface {
 
@@ -19,7 +19,6 @@ public:
         ST::setWatchdogTimer(0, 0, 0, nullptr);
         ST::clearScreen();
         __mGOP = UEFIWrapper::GOP(); // init gop ptr
-        
     }
 
     uint32_t getFrameBufferBase() const override {
@@ -35,7 +34,7 @@ public:
         return __mGOP.getVerticalResolution();
     }
     void tuguiblt(unsigned char img[], unsigned int img_width,
-                  unsigned int img_height,unsigned int posX,unsigned int posY) override{
+                  unsigned int img_height,unsigned int posX,unsigned int posY) override {
         unsigned char *fb;
         unsigned int i, j, k, vr, hr, ofs = 0;
         fb = (unsigned char *)__mGOP.getFrameBufferBase();
@@ -54,15 +53,15 @@ public:
         }
     }
 
-    void drawPixel(uint32_t x, uint32_t y, TUGUI::RGB rgb) override {
+    void drawPixel(uint32_t x, uint32_t y, uint8_t r, uint8_t g, uint8_t b, uint8_t reserved) override {
         uint32_t hr = getHorizontalResolution();
         UEFIWrapper::GOP::Pixel *base = (UEFIWrapper::GOP::Pixel *)(__mGOP.getFrameBufferBase());
         UEFIWrapper::GOP::Pixel *pixel = base + (hr * y) + x;
 
-        pixel->red = rgb.R;
-        pixel->green = rgb.G;
-        pixel->blue = rgb.B;
-        pixel->reserved = rgb.S;
+        pixel->red = r;
+        pixel->green = g;
+        pixel->blue = b;
+        pixel->reserved = reserved;
     }
 
     TDEBUG::RT clearScrean() override {
@@ -72,10 +71,6 @@ public:
 
     void * tuguiMalloc(uint64_t size) override {
         return UEFIWrapper::SystemTable::allocatePool(EfiConventionalMemory, size);
-    }
-
-    void tuguiOutputString(wchar_t *s) override {
-        UEFIWrapper::SystemTable::OutputString(s);
     }
 
    private:

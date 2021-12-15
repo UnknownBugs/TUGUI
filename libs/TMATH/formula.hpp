@@ -12,8 +12,8 @@
 
 #define DOUBLE_MAX (1.79769e+308)
 
-namespace Math {
-namespace Formula {
+namespace TMATH {
+namespace FORMULA {
 
 class LinearEquation {
 
