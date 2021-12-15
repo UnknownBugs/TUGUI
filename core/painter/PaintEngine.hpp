@@ -1,9 +1,16 @@
 #ifndef __PAINT_EGINE_HPP__TUGUI
 #define __PAINT_EGINE_HPP__TUGUI
 
+<<<<<<< HEAD
 #include <platform/BaseInterface.hpp>
 #include <core/painter/impl/colors/color.hpp>
 #include <core/painter/PaintInterface.hpp>
+=======
+#include <core/painter/impl/PaintBase.hpp>
+#include <core/painter/impl/colors/color.hpp>
+#include <core/painter/PaintInterface.hpp>
+#include <core/painter/impl/rasterizer/Rasterizer.hpp>
+>>>>>>> 7fb5bf50fe8ae2a4b6c8a9129e08439410689b79
 
 namespace TUGUI {
 
@@ -56,8 +63,18 @@ public:
         PaintBase::drawPixel(x, y, __mColor.getGradientRgb());
     }
 
+<<<<<<< HEAD
 private:
     Color __mColor;
+=======
+    void rasterizer(const PaintInterface * const pInterface) {
+        __mRasterizer(*pInterface, __mColor);
+    }
+
+private:
+    Color __mColor;
+    Rasterizer __mRasterizer;
+>>>>>>> 7fb5bf50fe8ae2a4b6c8a9129e08439410689b79
 }; // PaintEngine
 
 }; // TUGUI

@@ -5,8 +5,13 @@
  * @Last Modified time: 2021-11-21 00:27:54
  */
 
+<<<<<<< HEAD
 #ifndef __COLOR_HPP__
 #define __COLOR_HPP__
+=======
+#ifndef __COLOR_HPP__TUGUI
+#define __COLOR_HPP__TUGUI
+>>>>>>> 7fb5bf50fe8ae2a4b6c8a9129e08439410689b79
 
 #include <defs.hpp>
 #include <array.hpp>
@@ -37,8 +42,15 @@ public: // cntor
         __mRgbBegin = rgbBegin;
         __mRgbEnd = rgbEnd;
         __mTransparency = transp;
+<<<<<<< HEAD
         __mRgbBuff = nullptr;
         __mBuffSize = __mIndex = 0;
+=======
+        __mIndex = __mBuffSize =  0;
+        __mRgbBuff = nullptr;
+
+        setGradient(1);
+>>>>>>> 7fb5bf50fe8ae2a4b6c8a9129e08439410689b79
     }
 
     ~Color() {
@@ -77,7 +89,11 @@ public: // setter/getter
         } else if (gradient <= __mBuffSize / 2) {
             resize(__mBuffSize / 2);
         }
+<<<<<<< HEAD
         for (unsigned int i = 0; i < gradient; i++) {
+=======
+        for (unsigned int i = 0; i <= gradient; i++) {
+>>>>>>> 7fb5bf50fe8ae2a4b6c8a9129e08439410689b79
             __mRgbBuff[i] = getGradientRgb(i, gradient);
         }
 
@@ -101,4 +117,8 @@ private:
 
 }; // TUGUI
 
+<<<<<<< HEAD
 #endif
+=======
+#endif // __COLOR_HPP__TUGUI
+>>>>>>> 7fb5bf50fe8ae2a4b6c8a9129e08439410689b79

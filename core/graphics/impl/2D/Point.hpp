@@ -18,7 +18,10 @@ public:
     }
 
     void paint(PaintEngine &pe) const {
+<<<<<<< HEAD
         pe.setColorGradient(1);
+=======
+>>>>>>> 7fb5bf50fe8ae2a4b6c8a9129e08439410689b79
         pe.drawPixel((*this)[0], (*this)[1]);
     }
 }; // Point
