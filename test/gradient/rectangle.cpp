@@ -1,4 +1,4 @@
-#include <new_tugui.hpp>
+#include <tugui.hpp>
 
 using namespace TUGUI;
 

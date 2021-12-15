@@ -1,10 +1,8 @@
-MODULE := base
+CASES := Circle
 
-CASES := memory_alloc
+EFI := $(addprefix $(BIN_DIR)/$(modules),$(CASES))
 
-EFI := $(addprefix $(BIN_DIR)/,$(CASES))
-
-SRCS := memory_alloc.cpp
+SRCS := scale.cpp
 
 LOCAL_INC := $(addprefix -I,$(INC_DIR))
 

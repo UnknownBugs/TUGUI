@@ -1,7 +1,8 @@
-MODULE := registerKeyNotify
-EFI := $(addprefix $(BIN_DIR)/,$(MODULE))
+CASES := Line
 
-SRCS := registerKeyNotify.cpp
+EFI := $(addprefix $(BIN_DIR)/$(modules),$(CASES))
+
+SRCS := line.cpp
 
 LOCAL_INC := $(addprefix -I,$(INC_DIR))
 

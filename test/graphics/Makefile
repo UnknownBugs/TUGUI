@@ -1,7 +1,8 @@
-MODULE := echo-wait
+MODULE := rectangle
+
 EFI := $(addprefix $(BIN_DIR)/,$(MODULE))
 
-SRCS := echo-wait.cpp
+SRCS := rectangle.cpp
 
 LOCAL_INC := $(addprefix -I,$(INC_DIR))
 

@@ -26,8 +26,8 @@ public:
         __mX { x }, __mY { y }, __mW { w }, __mH { h }, __mFilled(filled) {
         
         AABB aabb { 
-            {x, y}, 
-            {x + w, y + h}
+            {static_cast<double>(x), y}, 
+            {static_cast<double>(x + w), y + h}
         };
         
         __mAABB = aabb;

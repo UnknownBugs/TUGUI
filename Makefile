@@ -1,5 +1,7 @@
+include tools/makefile/function.mk
 include modules_info.mk
 include platform/bootmain.mk
+include libs/UEFIWrapper/UefiWrapperInclude.mk
 
 # project dir
 TOP_DIR := $(shell pwd)
@@ -34,11 +36,14 @@ UEFI_APP_CXX_FLAGS := -Wl,--subsystem,10
 OBJ_DIR := $(TOP_DIR)/obj
 BIN_DIR := $(TOP_DIR)/bin
 
+UEFIWRAPPER_LIB_INC := libs/UEFIWrapper \
+                       $(addprefix libs/UEFIWrapper/,$(UEFIWRAPPER_LIB_INC))
+
+
 LIBS    := libs/MUTILS \
            libs/TDEBUG \
            libs/TMATH \
-           libs/Uefi \
-           libs/UEFIWrapper \
+           $(UEFIWRAPPER_LIB_INC) \
            libs/std
 
 # include
@@ -57,7 +62,6 @@ SUBDIRS += $($(modules))
 endif
 
 TUGUI_INCLUDE_FILE := $(TOP_DIR)/core/tugui.hpp
-NEW_TUGUI_INCLUDE_FILE := $(TOP_DIR)/core/new_tugui.hpp
 
 export LD LD_FLAGS UEFI_APP_LD_FLAGS
 export CXX CXX_FLAGS UEFI_APP_CXX_FLAGS

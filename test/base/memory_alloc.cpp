@@ -5,11 +5,13 @@ using namespace TUGUI;
 int tuguiMain() {
 
     // alloc memory
-    Graphics *g = new Graphics();
+    PaintEngine *pe = new PaintEngine();
     // test
-    g->drawRectangle(100, 100, 300, 300, PIXEL_RED);
+    for (int i = 0; i < 100; i++) {
+        pe->drawPixel(100, 100);
+    }
     // free memory
-    delete g;
+    delete pe;
 
     while(1);
     
