@@ -6,7 +6,6 @@ int tuguiMain() {
 
     PaintEngine pe;
 
-
     Circle c(500, 500, 200, true);
 
     pe.setColor(Color(BLACK, RED));
