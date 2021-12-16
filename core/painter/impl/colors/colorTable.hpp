@@ -13,8 +13,12 @@ namespace TUGUI {
 #define BLACK   {0, 0, 0}
 #define WHITE   {0xFF, 0xFF, 0xFF}
 #define RED     {0xFF, 0, 0}
+#define ORANGE  {0xFF, 0x7F, 0}
+#define YELLOW  {0xFF, 0xFF, 0}
 #define GREEN   {0, 0xFF, 0}
+#define CYAN    {0, 0xFF, 0xFF}
 #define BLUE    {0, 0, 0xFF}
+#define VIOLET  {0x8B, 0, 0xFF}
 
 }; // TUGUI
 
