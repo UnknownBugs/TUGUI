@@ -5,11 +5,14 @@
 #include <utils.hpp>
 #include <formula.hpp>
 
+#include <core/painter/PaintInterface.hpp>
+#include <core/transform/TransformInterface.hpp>
+#include <core/transform/TransformEngine.hpp>
 #include <core/graphics/impl/2D/Point.hpp>
 
 namespace TUGUI {
 
-class Line : public PaintInterface {
+class Line : public PaintInterface, public TransformInterface {
 public:
 
     Line(const Point &begin, const Point &end) : __mBegin { begin }, __mEnd { end }  {
@@ -38,6 +41,11 @@ public:
             pe.drawPixel(sX, __mLinearEquation.getY(sX));
             sX += deltaX;
         }
+    }
+
+    void transform(const TransformEngine &te) {
+        te.affineTransform(__mBegin);
+        te.affineTransform(__mEnd);
     }
 
 private:

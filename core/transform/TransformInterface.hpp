@@ -1,11 +1,19 @@
-#ifndef __TRANSFORM_INTERFACE_HPP__
-#define __TRANSFORM_INTERFACE_HPP__
+#ifndef __TRANSFORM_INTERFACE_HPP__TUGUI
+#define __TRANSFORM_INTERFACE_HPP__TUGUI
+
+namespace TUGUI {
+
+class TransformEngine;
 
 class TransformInterface {
 
 public:
-    virtual void transform(const TransformInterface &) = 0;
+    virtual void transform(const TransformEngine &) = 0;
 
 }; // TransformInterface
 
-#endif // __TRANSFORM_INTERFACE_HPP__
+}; // TUGUI
+
+
+
+#endif // __TRANSFORM_INTERFACE_HPP__TUGUI

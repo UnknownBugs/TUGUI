@@ -6,6 +6,7 @@
 #include <core/graphics/impl/2D/Line.hpp>
 #include <core/graphics/impl/2D/Rectangle.hpp>
 #include <core/graphics/impl/2D/Circle.hpp>
+#include <core/transform/TransformEngine.hpp>
 
 namespace TUGUI {
 

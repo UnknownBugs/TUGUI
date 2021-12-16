@@ -49,10 +49,14 @@ class Scale : public AffineTransform<R> {
 
 public:
 
-    Scale() = default;
+    Scale(uint32_t scale = 1) {
+        for (unsigned int i = 0; i < R - 1; i++) {
+            this->_mTransformMatrix[i][i] = scale;
+        }
+    };
 
     Scale(const TMATH::Matrix<double, R, R> &m) {
-         for (unsigned int i = 0; i < R - 1; i++) {
+        for (unsigned int i = 0; i < R - 1; i++) {
             this->_mTransformMatrix[i][i] = m[i][i];
         }
     }
