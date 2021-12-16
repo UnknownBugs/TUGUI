@@ -6,10 +6,14 @@ int tuguiMain() {
 
     PaintEngine pe;
 
-    Circle c1(150, 150, 100), c2(500, 500, 200, true);
 
-    pe(c1);
-    pe(c2);
+    Circle c(500, 500, 200, true);
+
+    pe.setColor(Color(BLACK, RED));
+
+    pe.setColorGradient(3.15 * 200 * 200);
+
+    pe(c);
 
     while(1);
     
