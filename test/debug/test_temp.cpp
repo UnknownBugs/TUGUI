@@ -10,17 +10,17 @@ int tuguiMain() {
 
     te.setScale(2);
 
-    Line line(50, 50, 200, 300);
+    Line l1(50, 50, 300, 300), l2(100, 50, 350, 300);
 
     pe.setColor(Color(BLUE, GREEN));
 
-    pe.setColorGradient(100);
+    pe.setColorGradient(250);
 
-    pe(line);
+    pe(l1);
 
-    //te(line);
+    te(l2);
 
-    //pe(line);
+    pe(l2);
 
     while(1);
     

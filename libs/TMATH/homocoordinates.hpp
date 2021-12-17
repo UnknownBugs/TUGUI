@@ -13,6 +13,10 @@ public:
 
     }
 
+    HomoCoordinates(const Vector<double, N> &v) {
+        *this = v;
+    }
+
     template <typename... Targs>
     HomoCoordinates(const double n, const Targs... ns) : Vector<double, N>(n, ns...) {
         if ((*this)[N -1] != 0) {

@@ -15,7 +15,7 @@ namespace TMATH {
     template<typename T, unsigned int N>
     Vector<T, N> operator+(const Vector<T, N> &v1, const Vector<T, N> &v2) {
         Vector<T, N> temp;
-        for (int i = 0; i < N; i++) {
+        for (unsigned int i = 0; i < N; i++) {
             temp[i] = v1.c[i] + v2.c[i];
         }
         return temp;
@@ -24,7 +24,7 @@ namespace TMATH {
     template<typename T, unsigned int N>
     Vector<T, N> operator-(const Vector<T, N> &v1, const Vector<T, N> &v2) {
         Vector<T, N> temp;
-        for (int i = 0; i < N; i++) {
+        for (unsigned int i = 0; i < N; i++) {
             temp[i] = v1.c[i] - v2.c[i];
         }
         return temp;

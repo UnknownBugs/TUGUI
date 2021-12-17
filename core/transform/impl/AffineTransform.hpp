@@ -16,14 +16,16 @@ template <unsigned int R>
 class AffineTransform {
 
 public:
+    /*
     virtual TMATH::HomoCoordinates<R>
     operator()(const TMATH::HomoCoordinates<R> &hc) const {
         auto ans = _mTransformMatrix * hc;
         return ans;
     }
+    */
 
     virtual void
-    operator()(TMATH::HomoCoordinates<R> &hc) {
+    operator()(TMATH::HomoCoordinates<R> &hc) const {
         hc = _mTransformMatrix * hc;
     }
 

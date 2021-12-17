@@ -44,8 +44,9 @@ public:
     }
 
     void transform(const TransformEngine &te) {
-        te.affineTransform(__mBegin);
+        __mEnd = __mEnd - __mBegin;
         te.affineTransform(__mEnd);
+        __mEnd = __mEnd + __mBegin;
     }
 
 private:
