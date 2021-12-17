@@ -1,0 +1,3 @@
+[submodule "libs/TMATH"]
+	path = libs/TMATH
+	url = https://github.com/UnknownBugs/TMATH.git
