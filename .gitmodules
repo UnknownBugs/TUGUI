@@ -1,3 +1,6 @@
 [submodule "libs/TMATH"]
 	path = libs/TMATH
 	url = https://github.com/UnknownBugs/TMATH.git
+[submodule "platform/uefi/UEFIWrapper"]
+	path = platform/uefi/UEFIWrapper
+	url = https://github.com/UnknownBugs/UEFIWrapper.git
