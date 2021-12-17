@@ -16,14 +16,16 @@ template <unsigned int R>
 class AffineTransform {
 
 public:
+    /*
     virtual TMATH::HomoCoordinates<R>
     operator()(const TMATH::HomoCoordinates<R> &hc) const {
         auto ans = _mTransformMatrix * hc;
         return ans;
     }
+    */
 
     virtual void
-    operator()(TMATH::HomoCoordinates<R> &hc) {
+    operator()(TMATH::HomoCoordinates<R> &hc) const {
         hc = _mTransformMatrix * hc;
     }
 
@@ -49,10 +51,14 @@ class Scale : public AffineTransform<R> {
 
 public:
 
-    Scale() = default;
+    Scale(uint32_t scale = 1) {
+        for (unsigned int i = 0; i < R - 1; i++) {
+            this->_mTransformMatrix[i][i] = scale;
+        }
+    };
 
     Scale(const TMATH::Matrix<double, R, R> &m) {
-         for (unsigned int i = 0; i < R - 1; i++) {
+        for (unsigned int i = 0; i < R - 1; i++) {
             this->_mTransformMatrix[i][i] = m[i][i];
         }
     }
