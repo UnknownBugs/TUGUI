@@ -29,10 +29,13 @@ public:
 
         __mLinearEquation.set(__mBegin[0], __mBegin[1], __mEnd[0], __mEnd[1]);
 
-        double sX { __mBegin[0] * 1. }, dX { __mEnd[0] * 1. };
+        double sX { __mBegin[0] * 1. }, dX {__mEnd[0] * 1. };
         double deltaX { 1 };
 
         if (sX > dX) MUTILS::swap(sX, dX);
+
+        if (sX < 0) sX = 0;
+        if (dX > PaintEngine::PaintBase::getHorizontalResolution()) dX =  PaintEngine::PaintBase::getHorizontalResolution();
 
         if (__mLinearEquation.getSlope() > 1 || __mLinearEquation.getSlope() < -1) // deltaY = 1 or -1
             deltaX = 1. / MUTILS::abs(__mLinearEquation.getSlope());
@@ -44,9 +47,8 @@ public:
     }
 
     void transform(const TransformEngine &te) {
-        __mEnd = __mEnd - __mBegin;
+        te.affineTransform(__mBegin);
         te.affineTransform(__mEnd);
-        __mEnd = __mEnd + __mBegin;
     }
 
 private:

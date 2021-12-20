@@ -7,6 +7,7 @@
 
 #include <homocoordinates.hpp>
 #include <matrix.hpp>
+#include <function.hpp>
 
 namespace TUGUI {
 
@@ -135,6 +136,8 @@ private:
 
 template <unsigned int R>
 class Rotation : public AffineTransform<R> {
+
+/*
 public:
     TMATH::HomoCoordinates<R>
     operator()(const TMATH::HomoCoordinates<R> &hc) const override {
@@ -149,10 +152,26 @@ public:
         hc = this->_mTransformMatrix * hc;
         __mTransBack(hc);
     }
+*/
 
 public:
 
-    Rotation() = default;
+    Rotation(int degree = 0) {
+        /**
+         * 
+         * | cos -sin 0 |
+         * | sin  cos 0 |
+         * |  0    0  1 |
+         * 
+        */
+        if (R == 3) {
+            this->_mTransformMatrix = TMATH::Matrix<double, R, R> {
+                {TMATH::FUNCTION::cosDegree(degree), -TMATH::FUNCTION::sinDegree(degree), 0},
+                {TMATH::FUNCTION::sinDegree(degree), TMATH::FUNCTION::cosDegree(degree), 0},
+                {0,     0,     1}
+            };
+        }
+    }
 
     Rotation(const TMATH::Matrix<double, R, R> &m) {
         for (unsigned int i = 0; i < R - 1; i++) {
@@ -172,6 +191,7 @@ public:
         this->_mTransformMatrix = s._mTransformMatrix * this->_mTransformMatrix;
     }
 
+/*
     void setPoint(const TMATH::HomoCoordinates<R> &point) {
         // todo: wait optimize
         __mTransBack.set({ (int)point[0], (int)point[1] });
@@ -181,6 +201,7 @@ public:
 private:
 
     Translation<R> __mTransOrigin, __mTransBack;
+*/
 
 }; // Rotation
 
