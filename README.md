@@ -3,15 +3,16 @@ a tiny uefi graphical user interfaces libaray......
 
 ## 1.最近动态
 
-> 1.添加 数学相关基础库
->
-> - 齐次坐标
-> - ....
->
-> 2.图形学 变换
+> 图形学 变换
 >
 > - 2D/3D
 > - ....
+>
+> 色彩管理
+>
+> - 渐变
+>
+> 透明度
 
 
 
@@ -238,3 +239,5 @@ int tuguiMain() { // 左大括号总在最后一个参数同一行的末尾处
 
 ## 5.QuickLinks
 [UEFI DOC](https://kagurazakakotori.github.io/ubmp-cn/)
+
+[图形学](https://www.bilibili.com/video/BV1X7411F744)
