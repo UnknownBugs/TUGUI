@@ -108,7 +108,7 @@ modules :
 	@echo "$(MODULES_INFO)"
 
 sync :
-	git submodule update --init --recursive
+	git submodule update --recursive
 
 clean :
 	rm -rf obj bin
