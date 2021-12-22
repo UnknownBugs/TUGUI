@@ -52,7 +52,7 @@ class Scale : public AffineTransform<R> {
 
 public:
 
-    Scale(uint32_t scale = 1) {
+    Scale(const double &scale = 1) {
         for (unsigned int i = 0; i < R - 1; i++) {
             this->_mTransformMatrix[i][i] = scale;
         }
@@ -137,23 +137,6 @@ private:
 template <unsigned int R>
 class Rotation : public AffineTransform<R> {
 
-/*
-public:
-    TMATH::HomoCoordinates<R>
-    operator()(const TMATH::HomoCoordinates<R> &hc) const override {
-        __mTransOrigin(hc);
-        auto ans = this->_mTransformMatrix * hc;
-        __mTransBack(ans);
-        return ans;
-    }
-
-    void operator()(TMATH::HomoCoordinates<R> &hc) override {
-        __mTransOrigin(hc);
-        hc = this->_mTransformMatrix * hc;
-        __mTransBack(hc);
-    }
-*/
-
 public:
 
     Rotation(int degree = 0) {
@@ -190,18 +173,6 @@ public:
     void add(const Rotation &s) {
         this->_mTransformMatrix = s._mTransformMatrix * this->_mTransformMatrix;
     }
-
-/*
-    void setPoint(const TMATH::HomoCoordinates<R> &point) {
-        // todo: wait optimize
-        __mTransBack.set({ (int)point[0], (int)point[1] });
-        __mTransOrigin.set({ -(int)point[0], -(int)point[1] });
-    }
-
-private:
-
-    Translation<R> __mTransOrigin, __mTransBack;
-*/
 
 }; // Rotation
 

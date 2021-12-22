@@ -17,17 +17,17 @@ int tuguiMain() {
 
     pe(l1);
 
-    te.setPoint(100, 50);
+    te.initRefSystem(100, 50);
     te(l2);
 
     pe(l2);
 
-    te.setPoint(400, 401);
-    te.setRotation(35);
-    pe.setColor(Color(YELLOW, VIOLET));
-    pe.setColorGradient(150);
+    // config transformEngine
+    te.initRefSystem(400, 401);
+    te.setRotation(5); // set rotation 35 degree
+    te.addScale(1.05);   // add scale 1.1 base on rotation 35 degree
 
-    uint8_t rTimes = 10;
+    uint8_t rTimes = 72;
 
     for (uint8_t i = 0; i < rTimes; i++) {
         pe(l3);

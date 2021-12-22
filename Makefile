@@ -102,10 +102,13 @@ $(SUBDIRS): NULL
 NULL:
 
 
-.PHONY : modules clean
+.PHONY : modules clean sync
 
 modules :
 	@echo "$(MODULES_INFO)"
+
+sync :
+	git submodule update --init --recursive
 
 clean :
 	rm -rf obj bin

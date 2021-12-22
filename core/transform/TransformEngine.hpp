@@ -10,11 +10,14 @@ namespace TUGUI {
 
 class TransformEngine {
 public:
-    TransformEngine() = default;
 
     void operator()(TransformInterface &trans) {
         trans.transform(*this);
     }
+
+public:
+
+    TransformEngine() = default;
 
     void affineTransform(TMATH::HomoCoordinates<2 + 1> &hc) const {
         __mTransOrigin(hc);
@@ -22,22 +25,67 @@ public:
         __mTransBack(hc);
     }
 
-    void addTransformer(TRANSFORM::AffineTransform<2 + 1> at) {
-        __mAffineTransform = at;
-    }
+    /**
+     * default:
+     *      (0, 0)
+     *        +--------------> x
+     *        |
+     *        |    Screen
+     *        |
+     *        v
+     *        y
+    */
 
-    void setScale(uint32_t scale) {
-        __mAffineTransform.add(TRANSFORM::Scale<2 + 1>(scale));
-    }
-
-    void setRotation(uint32_t angle) {
-        __mAffineTransform.add(TRANSFORM::Rotation<2 + 1>(angle));
-    }
-
-    void setPoint(int x, int y) {
+    void initRefSystem(int x, int y) {
         // todo: wait optimize
         __mTransBack.set({ x, y });
         __mTransOrigin.set({ -x, -y });
+    }
+
+    void visibleRefSystem() {
+        
+    }
+
+public: // setter and adder
+
+    void setTransformer(TRANSFORM::AffineTransform<2 + 1> at) {
+        __mAffineTransform = at;
+    }
+
+    void setAffineTransformer(TRANSFORM::AffineTransform<2 + 1> at) {
+        __mAffineTransform = at;
+    }
+
+    void setScale(const double &scale) {
+        __mAffineTransform = TRANSFORM::Scale<2 + 1>(scale);
+    }
+
+    void setTranslation(uint32_t translation) {
+        __mAffineTransform = TRANSFORM::Translation<2 + 1>(translation);
+    }
+
+    void setRotation(uint32_t angle) {
+        __mAffineTransform = TRANSFORM::Rotation<2 + 1>(angle);
+    }
+
+    void addTransformer(TRANSFORM::AffineTransform<2 + 1> at) {
+        __mAffineTransform.add(at);
+    }
+
+    void addAffineTransformer(TRANSFORM::AffineTransform<2 + 1> at) {
+        __mAffineTransform.add(at);
+    }
+
+    void addScale(const double &scale) {
+        __mAffineTransform.add(TRANSFORM::Scale<2 + 1>(scale));
+    }
+
+    void addTranslation(uint32_t translation) {
+        __mAffineTransform.add(TRANSFORM::Translation<2 + 1>(translation));
+    }
+
+    void addRotation(uint32_t angle) {
+        __mAffineTransform.add(TRANSFORM::Rotation<2 + 1>(angle));
     }
 
 
