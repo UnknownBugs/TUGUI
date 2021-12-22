@@ -16,8 +16,8 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
-    - name: sync code
-      run: make sync
+    - name: sync submodule code
+      run: git submodule update --init --recursive
     - name: 配置环境
       run: sudo apt-get install g++-mingw-w64-x86-64 -y
     - name: 编译所有测试模块
