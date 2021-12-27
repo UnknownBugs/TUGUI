@@ -15,9 +15,9 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v2
-    - name: sync submodule code
-      run: git submodule update --init --recursive
+    - uses: actions/checkout@v1
+      with:
+        submodules: recursive
     - name: 配置环境
       run: sudo apt-get install g++-mingw-w64-x86-64 -y
     - name: 编译所有测试模块
