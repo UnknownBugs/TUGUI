@@ -35,3 +35,4 @@
 bin/
 obj/
 .vscode/
+test/debug/
