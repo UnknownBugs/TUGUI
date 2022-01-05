@@ -24,19 +24,19 @@ public: // Type
         uint8_t R;
         uint8_t G;
         uint8_t B;
+        uint8_t reserved;
     };
 
 public: // cntor
 
-    Color(uint8_t r, uint8_t g, uint8_t b, uint8_t transp = 0) : 
-        Color({r, g, b}, transp) { }
+    Color(uint8_t r, uint8_t g, uint8_t b) : 
+        Color({r, g, b, 0}) { }
 
-    Color(const RGB &rgb = WHITE, uint8_t transp = 0) : Color(rgb, rgb, transp) { }
+    Color(const RGB &rgb = WHITE) : Color(rgb, rgb) { }
 
-    Color(const RGB &rgbBegin, const RGB &rgbEnd, uint8_t transp = 0) {
+    Color(const RGB &rgbBegin, const RGB &rgbEnd) {
         __mRgbBegin = rgbBegin;
         __mRgbEnd = rgbEnd;
-        __mTransparency = transp;
         __mIndex = __mBuffSize =  0;
         __mRgbBuff = nullptr;
 
@@ -92,7 +92,6 @@ private:
     RGB __mRgbBegin, __mRgbEnd;
     RGB *__mRgbBuff;
     uint32_t __mIndex, __mBuffSize;
-    uint8_t __mTransparency;
 
     void resize(uint32_t size) {
         delete [] __mRgbBuff;
