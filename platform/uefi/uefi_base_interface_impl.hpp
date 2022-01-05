@@ -21,7 +21,7 @@ public:
         __mGOP = UEFIWrapper::GOP(); // init gop ptr
     }
 
-    uint32_t getFrameBufferBase() const override {
+    uint64_t getFrameBufferBase() const override {
         return __mGOP.getFrameBufferBase();
         
     }

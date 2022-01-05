@@ -22,6 +22,15 @@ struct PaintBase {
     static uint32_t getVerticalResolution() {
         return INTERFACE::gBaseInterfacePtr->getVerticalResolution();
     }
+
+    static Color::RGB getPixel(uint32_t x, uint32_t y) {
+        Color::RGB *VM = (Color::RGB *)(INTERFACE::gBaseInterfacePtr->getFrameBufferBase());
+        uint32_t hr = getHorizontalResolution();
+        if (x >= getHorizontalResolution() || y >= getVerticalResolution()) {
+            // todo
+        }
+        return VM[(hr * y) + x];
+    }
 }; // PaintBase
 
 } // TUGUI
