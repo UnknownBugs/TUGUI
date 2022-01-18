@@ -2,43 +2,47 @@
 # * @Date: 2020-03-19 21:17:34 
 
 # from .c .S .cpp to .o [src_file -> objfile]
-define srcToObjFile
-	$(addprefix obj/,\
-		$(addsuffix .o,\
+# $(1) src file
+# $(2) type
+# $(3) dir(out path)
+define srcToXXFile
+	$(addprefix $(3)/,\
+		$(addsuffix $(2),\
 			$(basename $(1))\
 		)\
 	)
 endef
 
-##create dir of file
-#	$(1) list of obj file
-define createTargetDir
-	$(shell mkdir -p $(dir $(1)))
-endef
+
+# from .c .S .cpp to .o [src_file -> objfile]
+# $(1) src file
+# $(2) dir(out path)
+srcToObjFile = $(call srcToXXFile,$(1),.o,$(2))
+objToBinFile = $(call srcToXXFile,$(1),,$(2))
+
 
 ## batch compiler by gcc
-#	$(1): list of src file
-#	$(2): Include
+#	$(1): compiler tools
+#	$(2): src file
 #	$(3): flag
+#   $(4): dir
+#   $(5): ConvertFunc
 define batchCompiler
 	$(foreach f,$(2),\
-		$(shell $(1) -o $(call srcToObjFile,$(f)) $(3) $(4) -c $(f))\
+		$(shell $(1) -c $(f) $(3) -o \ 
+			$(call $(5), $(f), $(4))\
+		)\
 	)
 endef
 
-# exe shell script (script,args1,arg2....)
-exeShellScript = sh tools/shell/$(1) $(2) $(3) $(4)
-
-toTargetFile = $(addprefix obj/,$(1)$(2).o)
-
-# get filelist of multi-dir
-# 
-getFileList = $(foreach d,$(2),$(shell find $(d) -name *$(1)))
-
-
-cgtype = $(patsubst %.$(2),%.$(3),$(1))
-objfile = $(call toobj,$(1))
-outfile = $(call cgtype,$(call toobj,$(1)),o,out)
-filename = $(basename $(notdir $(1)))
-
-read_packet = $(foreach p,$(call packetname,$(1)),$($(p)))
+## batch compiler by gcc
+#	$(1): compiler tools
+#	$(2): src file
+#	$(3): flag
+#   $(4): dir
+#   $(5): ConvertFunc
+define batchCompilerCmds
+	$(foreach f,$(2),\
+		"$(1) $(f) $(3) -o $(call $(5), $(notdir $(f)), $(4))"\
+	)
+endef
