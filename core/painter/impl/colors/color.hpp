@@ -29,8 +29,8 @@ public: // Type
 
 public: // cntor
 
-    Color(uint8_t r, uint8_t g, uint8_t b) : 
-        Color({r, g, b, 0}) { }
+    Color(uint8_t r, uint8_t g, uint8_t b, uint8_t reserved = 0) : 
+        Color(RGB{r, g, b, reserved}) { }
 
     Color(const RGB &rgb = WHITE) : Color(rgb, rgb) { }
 

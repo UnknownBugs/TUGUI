@@ -1,13 +1,11 @@
 include ../../tools/makefile/function.mk
 
-MODULE := gradient
+MODULE := transformation
 
 LOCAL_OBJ_DIR := $(OBJ_DIR)/$(MODULE)
 LOCAL_BIN_DIR := $(BIN_DIR)/$(MODULE)
 
-SRCS := t_gradient_circle.cpp \
-        t_gradient_line.cpp \
-		t_gradient_rectangle.cpp
+SRCS := line.cpp
 
 LOCAL_INC := $(addprefix -I,$(INC_DIR))
 
