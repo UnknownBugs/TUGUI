@@ -43,6 +43,6 @@ endef
 #   $(5): ConvertFunc
 define batchCompilerCmds
 	$(foreach f,$(2),\
-		"$(1) $(f) $(3) -o $(call $(5), $(notdir $(f)), $(4))"\
+		$(1) $(f) $(3) -o $(call $(5), $(notdir $(f)), $(4));\
 	)
 endef
