@@ -2,7 +2,8 @@ MODULE := rectangle
 
 EFI := $(addprefix $(BIN_DIR)/,$(MODULE))
 
-SRCS := rectangle.cpp
+SRCS := rectangle.cpp \
+        line.cpp
 
 LOCAL_INC := $(addprefix -I,$(INC_DIR))
 
