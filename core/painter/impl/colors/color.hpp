@@ -8,9 +8,7 @@
 #ifndef __COLOR_HPP__TUGUI
 #define __COLOR_HPP__TUGUI
 
-#include <defs.hpp>
-#include <array.hpp>
-
+#include <libs/MUTILS/mutils.hpp>
 #include <core/painter/impl/colors/colorTable.hpp>
 
 
@@ -37,23 +35,21 @@ public: // cntor
     Color(const RGB &rgbBegin, const RGB &rgbEnd) {
         __mRgbBegin = rgbBegin;
         __mRgbEnd = rgbEnd;
-        __mIndex = __mBuffSize =  0;
-        __mRgbBuff = nullptr;
+        __mIndex = __mGradient =  0;
 
         setGradient(1);
     }
 
     ~Color() {
-        if (nullptr != __mRgbBuff) {
-            delete [] __mRgbBuff;
-        }
+
     }
 
 public: // setter/getter
-    
+    /*
     const RGB * getGradientRgbBuff() const {
         return  __mRgbBuff;
     }
+    */
 
     // Gradient = A + (B-A) / Step * index
     RGB getGradientRgb(int32_t index, int32_t step) const {
@@ -69,35 +65,20 @@ public: // setter/getter
     }
 
     RGB getGradientRgb() {
-        __mIndex = (__mIndex + 1) % __mBuffSize;
-        return __mRgbBuff[__mIndex];
+        __mIndex = (__mIndex + 1) % __mGradient;
+        return getGradientRgb(__mIndex, __mGradient);
     }
 
     void setGradient(uint32_t gradient) {
-        if (gradient > __mBuffSize) {
-            resize(gradient);
-        } else if (gradient <= __mBuffSize / 2) {
-            resize(__mBuffSize / 2);
-        }
-        for (unsigned int i = 0; i <= gradient; i++) {
-            __mRgbBuff[i] = getGradientRgb(i, gradient);
-        }
-
-        __mBuffSize = gradient;
-        __mIndex = __mBuffSize - 1;
+        __mGradient = gradient;
+        __mIndex = __mGradient - 1;
     }
 
 private:
 
     RGB __mRgbBegin, __mRgbEnd;
-    RGB *__mRgbBuff;
-    uint32_t __mIndex, __mBuffSize;
+    uint32_t __mIndex, __mGradient;
 
-    void resize(uint32_t size) {
-        delete [] __mRgbBuff;
-        __mRgbBuff = new RGB[size];
-        __mBuffSize = size;
-    }
 }; // Color
 
 }; // TUGUI

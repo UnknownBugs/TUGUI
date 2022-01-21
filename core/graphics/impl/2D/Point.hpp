@@ -1,8 +1,8 @@
 #ifndef __POINT__HPP__TUGUI
 #define __POINT__HPP__TUGUI
 
-#include <homocoordinates.hpp>
-#include <initializer_list.hpp>
+#include <libs/TMATH/tmath.hpp>
+#include <libs/std/initializer_list.hpp>
 
 #include <core/painter/PaintInterface.hpp>
 #include <core/painter/impl/colors/color.hpp>

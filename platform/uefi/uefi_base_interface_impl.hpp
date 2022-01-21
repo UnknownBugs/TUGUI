@@ -1,9 +1,8 @@
 #ifndef __UEFI_BASE_INTERFACE_HPP__
 #define __UEFI_BASE_INTERFACE_HPP__
 
-#include <BaseInterface.hpp>
-#include <tdebug.hpp>
-#include <icxxabi.hpp>
+#include <platform/BaseInterface.hpp>
+#include <libs/MUTILS/icxxabi.hpp>
 
 #include <UEFIWrapper.hpp>
 
@@ -14,11 +13,12 @@ class BaseInterfaceImpl : public TUGUI::INTERFACE::BaseInterface {
 
 public:
 
-    void init(EST *est) {
-        ST::init(est);
+    void init(void *est) override {
+        ST::init(static_cast<EST *>(est));
         ST::setWatchdogTimer(0, 0, 0, nullptr);
         ST::clearScreen();
         __mGOP = UEFIWrapper::GOP(); // init gop ptr
+        getInstancePtr() = this;
     }
 
     uint64_t getFrameBufferBase() const override {
@@ -33,25 +33,6 @@ public:
     uint32_t getVerticalResolution() const override {
         return __mGOP.getVerticalResolution();
     }
-    void tuguiblt(unsigned char img[], unsigned int img_width,
-                  unsigned int img_height,unsigned int posX,unsigned int posY) override {
-        unsigned char *fb;
-        unsigned int i, j, k, vr, hr, ofs = 0;
-        fb = (unsigned char *)__mGOP.getFrameBufferBase();
-        vr = __mGOP.getVerticalResolution();
-        hr = __mGOP.getHorizontalResolution();
-        fb += hr * posY * 4 + posX * 4;
-        for (i = 0; i < vr; i++) {
-            if (i >= img_height) break;
-            for (j = 0; j < hr; j++) {
-                if (j >= img_width) {
-                    fb += (hr - img_width) * 4;
-                    break;
-                }
-                for (k = 0; k < 4; k++) *fb++ = img[ofs++];
-            }
-        }
-    }
 
     void drawPixel(uint32_t x, uint32_t y, uint8_t r, uint8_t g, uint8_t b, uint8_t reserved) override {
         uint32_t hr = getHorizontalResolution();
@@ -64,43 +45,15 @@ public:
         pixel->reserved = reserved;
     }
 
-    TDEBUG::RT clearScrean() override {
+    int clearScrean() override {
         UEFIWrapper::SystemTable::clearScreen();
-        return TDEBUG::RT::SUCCESS;
+        return 0;
     }
 
-    void * tuguiMalloc(uint64_t size) override {
-        return UEFIWrapper::SystemTable::allocatePool(EfiConventionalMemory, size);
-    }
-
-   private:
+private:
     static UEFIWrapper::GOP __mGOP;
 };  // BaseInterfaceImpl
 
-void * operator new(uint64_t size) {
-    return UEFIWrapper::SystemTable::allocatePool(EfiConventionalMemory, size);
-}
-
-void * operator new[](uint64_t size) {
-    return UEFIWrapper::SystemTable::allocatePool(EfiConventionalMemory, size);
-}
-
-void operator delete(void *ptr) {
-    UEFIWrapper::SystemTable::freePool(ptr);
-}
-
-void operator delete[](void *ptr) {
-    UEFIWrapper::SystemTable::freePool(ptr);
-}
-
-void operator delete(void* ptr, uint64_t size) {
-     size -= size;  // remove warning: unused parameter
-    UEFIWrapper::SystemTable::freePool(ptr);
-}
-
-void operator delete[](void* ptr, uint64_t size) {
-    size -= size;   // remove warning: unused parameter
-    UEFIWrapper::SystemTable::freePool(ptr);
-}
+UEFIWrapper::GOP BaseInterfaceImpl::__mGOP;
 
 #endif // __UEFI_BASE_INTERFACE_HPP__

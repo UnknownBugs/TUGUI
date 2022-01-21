@@ -2,8 +2,8 @@
 #define __LINE__HPP__TUGUI
 
 
-#include <utils.hpp>
-#include <formula.hpp>
+#include <libs/MUTILS/mutils.hpp>
+#include <libs/TMATH/tmath.hpp>
 
 #include <core/painter/PaintInterface.hpp>
 #include <core/transform/TransformInterface.hpp>

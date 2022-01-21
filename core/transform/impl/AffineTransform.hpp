@@ -1,13 +1,8 @@
 #ifndef __TRANSFORMATION_HPP__
 #define __TRANSFORMATION_HPP__
 
-#include <initializer_list.hpp>
-
-#include <assert.hpp>
-
-#include <homocoordinates.hpp>
-#include <matrix.hpp>
-#include <function.hpp>
+#include <libs/std/initializer_list.hpp>
+#include <libs/TMATH/tmath.hpp>
 
 namespace TUGUI {
 
@@ -118,7 +113,7 @@ public:
 private:
     
     void init(const std::initializer_list<int> &mList) {
-        ASSERT(mList.size() == R - 1);
+        //ASSERT(mList.size() == R - 1); TODO
         for (unsigned int i = 0; i < R - 1; i++) {
             this->_mTransformMatrix[i][R - 1] = *(mList.begin() + i);
         }

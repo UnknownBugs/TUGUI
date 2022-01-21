@@ -14,23 +14,23 @@ class PaintEngine {
 public:
     struct PaintBase {
         static void clearScreen() {
-            INTERFACE::gBaseInterfacePtr->clearScrean();
+            INTERFACE::BaseInterface::getInstancePtr()->clearScrean();
         }
 
         static void drawPixel(uint32_t x, uint32_t y, Color::RGB rgb = WHITE) {
-            INTERFACE::gBaseInterfacePtr->drawPixel(x, y, rgb.R, rgb.G, rgb.B, 0);
+            INTERFACE::BaseInterface::getInstancePtr()->drawPixel(x, y, rgb.R, rgb.G, rgb.B, 0);
         }
 
         static uint32_t getHorizontalResolution() {
-            return INTERFACE::gBaseInterfacePtr->getHorizontalResolution();
+            return INTERFACE::BaseInterface::getInstancePtr()->getHorizontalResolution();
         }
 
         static uint32_t getVerticalResolution() {
-            return INTERFACE::gBaseInterfacePtr->getVerticalResolution();
+            return INTERFACE::BaseInterface::getInstancePtr()->getVerticalResolution();
         }
 
         static Color::RGB getPixel(uint32_t x, uint32_t y) {
-            Color::RGB *VM = (Color::RGB *)(INTERFACE::gBaseInterfacePtr->getFrameBufferBase());
+            Color::RGB *VM = (Color::RGB *)(INTERFACE::BaseInterface::getInstancePtr()->getFrameBufferBase());
             uint32_t hr = getHorizontalResolution();
             if (x >= getHorizontalResolution() || y >= getVerticalResolution()) {
                 // todo

@@ -1,7 +1,7 @@
 #ifndef __RECTANGLE__HPP__TUGUI
 #define __RECTANGLE__HPP__TUGUI
 
-#include <defs.hpp>
+#include <libs/MUTILS/mutils.hpp>
 
 #include <core/painter/PaintInterface.hpp>
 #include <core/painter/impl/rasterizer/AABB.hpp>

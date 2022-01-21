@@ -1,9 +1,9 @@
 #ifndef __AABB_HPP__TUGUI
 #define __AABB_HPP__TUGUI
 
-#include <initializer_list.hpp>
-#include <utils.hpp>
-#include <vector.hpp>
+#include <libs/std/initializer_list.hpp>
+#include <libs/MUTILS/mutils.hpp>
+#include <libs/TMATH/tmath.hpp>
 
 namespace TUGUI {
 

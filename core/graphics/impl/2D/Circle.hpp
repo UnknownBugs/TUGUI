@@ -1,7 +1,7 @@
 #ifndef __CIRCLE__HPP__TUGUI
 #define __CIRCLE__HPP__TUGUI
 
-#include <defs.hpp>
+#include <libs/MUTILS/mutils.hpp>
 
 #include <core/painter/PaintInterface.hpp>
 #include <core/painter/impl/rasterizer/AABB.hpp>
