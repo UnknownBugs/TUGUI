@@ -19,6 +19,7 @@ endef
 # $(2) dir(out path)
 srcToObjFile = $(call srcToXXFile,$(1),.o,$(2))
 objToBinFile = $(call srcToXXFile,$(1),,$(2))
+srcToBinFile = $(call srcToXXFile,$(1),.out,$(2))
 
 
 ## batch compiler by gcc

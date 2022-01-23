@@ -5,6 +5,8 @@
  * @Last Modified time: 2021-11-30 10:34:37
  */
 
+#ifndef _STDINT_H
+
 #ifndef __DEFS_HPP__
 #define __DEFS_HPP__
 
@@ -52,3 +54,5 @@ enum {
 #endif // __cplusplus
 
 #endif // __DEFS_HPP__
+
+#endif // _STDINT_H

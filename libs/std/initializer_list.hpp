@@ -36,14 +36,14 @@
  * 
 */
 
+#ifndef _INITIALIZER_LIST
+
 #ifndef __INITIALIZER_LIST_HPP__
 #define __INITIALIZER_LIST_HPP__
 
 #pragma GCC system_header
 
 #pragma GCC visibility push(default)
-
-//#include <libs/MUTILS/mutils.hpp>
 
 namespace std
 {
@@ -55,7 +55,7 @@ namespace std
       typedef _E 		value_type;
       typedef const _E& 	reference;
       typedef const _E& 	const_reference;
-      typedef long long unsigned int 		size_type; // Note: 
+      typedef size_t 		  size_type; // Note: 
       typedef const _E* 	iterator;
       typedef const _E* 	const_iterator;
 
@@ -107,3 +107,5 @@ namespace std
 #pragma GCC visibility pop
 
 #endif // __INITIALIZER_LIST_HPP__
+
+#endif // _INITIALIZER_LIST
