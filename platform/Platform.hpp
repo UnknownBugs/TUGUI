@@ -1,27 +1,29 @@
-/*
- * @Author: SPeak Shen 
- * @Date: 2021-11-16 23:55:54 
- * @Last Modified by: tiansongyu
- * @Last Modified time: 2021-11-29 00:12:48
- */
+#ifndef __PLATFORM_HPP__TUGUI
+#define __PLATFORM_HPP__TUGUI
 
-#ifndef __Platform_HPP__TUGUI
-#define __Platform_HPP__TUGUI
-
-#include <platform/BaseInterface.hpp>
+#ifdef UEFIWrapper
 #include <platform/uefi/uefi_base_interface_impl.hpp>
+using BASE_INTERFACE_IMPL = BaseInterfaceImpl;
+#define TUGUI_MAIN tugui_main
+#elif defined(WIN)
+
+#else
+#include <platform/linux/LinuxBaseInterfaceImpl.hpp>
+using BASE_INTERFACE_IMPL = LinuxBaseInterfaceImpl;
+#define TUGUI_MAIN main
+#endif
 
 namespace TUGUI {
 
 namespace PLATFORM {
 
 static inline void init(void *sys) {
-    static BaseInterfaceImpl base;
+    static BASE_INTERFACE_IMPL base;
     base.init(sys);
 }
 
 }; // namespace PLATFORM
 
-}; // TUGUI
+}; // namespace TUGUI
 
-#endif // __Platform_HPP__TUGUI
+#endif // __PLATFORM_HPP__TUGUI

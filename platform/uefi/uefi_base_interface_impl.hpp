@@ -21,8 +21,8 @@ public:
         getInstancePtr() = this;
     }
 
-    uint64_t getFrameBufferBase() const override {
-        return __mGOP.getFrameBufferBase();
+    void * getFrameBufferBase() const override {
+        return (void *)(__mGOP.getFrameBufferBase());
         
     }
 

@@ -19,7 +19,7 @@ jobs:
     - name: sync submodule code
       run: git submodule update --init --recursive
     - name: 配置环境
-      run: sudo apt-get install g++-mingw-w64-x86-64 -y
+      run: sudo apt-get install libdrm-dev
     - name: 编译所有测试模块
       run: make
     - uses: actions/upload-artifact@master
