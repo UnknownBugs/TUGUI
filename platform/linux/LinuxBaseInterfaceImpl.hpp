@@ -1,3 +1,15 @@
+/*
+ * @Author: SPeak Shen 
+ * @Date: 2022-01-24 01:03:49 
+ * @Last Modified by: SPeak Shen
+ * @Last Modified time: 2022-01-24 02:03:34
+ *
+ * refLinks: https://github.com/dvdhrm/docs/blob/master/drm-howto/modeset.c
+ * 
+ */
+
+
+
 #ifndef __LINUX_BASE_INTERFACE_IMPL_HPP__TUGUI
 #define __LINUX_BASE_INTERFACE_IMPL_HPP__TUGUI
 
@@ -33,48 +45,131 @@ class LinuxBaseInterfaceImpl : public TUGUI::INTERFACE::BaseInterface {
 public:
 
     LinuxBaseInterfaceImpl() : __mMap { } {
+        int ret;
+        
+        ret = __mFileDesc = open("/dev/dri/card0", O_RDWR | O_CLOEXEC);
+        if (ret < 0) {
+            fprintf(stderr, "retrieve DRM resources (%d): %m\n", errno);
+            std::abort();
+        }
 
-        __mFileDesc = open("/dev/dri/card0", O_RDWR | O_CLOEXEC);
         __mDrmModeRes = drmModeGetResources(__mFileDesc);
         __mDrmModeConnector = drmModeGetConnector(__mFileDesc,  __mDrmModeRes->connectors[0]);
 
+        printf("retrieve DRM connector %u:%u (%d): %m\n", 0, __mDrmModeRes->connectors[0], errno);
+
+        /* check if a monitor is connected */
+        if (__mDrmModeConnector->connection != DRM_MODE_CONNECTED) {
+            fprintf(stderr, "ignoring unused connector %u\n",
+                __mDrmModeConnector->connector_id);
+        }
+
+        /* check if there is at least one valid mode */
+        if (__mDrmModeConnector->count_modes == 0) {
+            fprintf(stderr, "no valid mode for connector %u\n",
+                __mDrmModeConnector->connector_id);
+        }
+
+        printf("mode for connector %u is %ux%u\n",
+		__mDrmModeConnector->connector_id, getHorizontalResolution(), getVerticalResolution());
+
+        /** 
+         * find a crtc for this connector
+         * first try the currently conected encoder+crtc
+         */
+        /*
+        if (__mDrmModeConnector->encoder_id)
+            __mModeEncoder = drmModeGetEncoder(__mFileDesc, __mDrmModeConnector->encoder_id);
+        else {
+            printf("currently conected encoder+crtc error....");
+            std::abort();
+        }
+        */
+        
     }
 
     ~LinuxBaseInterfaceImpl() {
         releaseDrmAllRes();
         drmModeFreeConnector(__mDrmModeConnector);
         drmModeFreeResources(__mDrmModeRes);
+        //drmModeFreeEncoder(__mModeEncoder);
         close(__mFileDesc);
     }
 
     void init(void *ptr = nullptr) override {
+        struct drm_mode_create_dumb create = { };
+        int ret;
+
         if (ptr != nullptr) {
             // TODO
         }
 
-        struct drm_mode_create_dumb create = { };
-        
-        // get Buff
-        drmIoctl(__mFileDesc, DRM_IOCTL_MODE_CREATE_DUMB, &create);
+        memset(&create, 0, sizeof(create));
+
+        /* create a dumb-buffer, the pixel format is XRGB888 */
+        create.width = getHorizontalResolution();
+        create.height = getVerticalResolution();
+        create.bpp = 32;
+
+        ret = drmIoctl(__mFileDesc, DRM_IOCTL_MODE_CREATE_DUMB, &create);
+        if (ret < 0) {
+            printf("fd(%d), create dumb buffer (%d): %m\n", __mFileDesc, errno);
+            std::abort();
+        }
+
+        printf("dumb-buff(return): size(%lld) handle(%d) pitch(%d) \n", create.size, create.handle, create.pitch);
+
         __mDrmBuff.size = create.size;
 
-        drmModeAddFB(
-            __mFileDesc, getVerticalResolution(),
-            getHorizontalResolution(), 24,
+        ret = drmModeAddFB(
+            __mFileDesc, 
+            // getH and getVer pos error, spend 1.5h
+            getHorizontalResolution(), getVerticalResolution(),
+            24,
             32, create.pitch,
             create.handle, &(__mDrmBuff.id)
         );
 
+        if (ret) {
+            printf("create framebuffer (%d): %m\n", errno);
+            std::abort();
+        }
+
         // map buffer to userspace
         __mMap.handle = create.handle;
-        drmIoctl(__mFileDesc, DRM_IOCTL_MODE_MAP_DUMB, &__mMap);
+        ret = drmIoctl(__mFileDesc, DRM_IOCTL_MODE_MAP_DUMB, &__mMap);
+        if (ret) {
+            fprintf(stderr, "cannot map dumb buffer (%d): %m\n", errno);
+            std::abort();
+        }
+
+        printf("map-buff(return): pad(%d) handle(%d) offset(%lld) \n", __mMap.pad, __mMap.handle, __mMap.offset);
 
         __mDrmBuff.addr = mmap(0, create.size, PROT_READ | PROT_WRITE, MAP_SHARED, __mFileDesc, __mMap.offset);
+
+        if (__mDrmBuff.addr == MAP_FAILED) {
+            fprintf(stderr, "cannot mmap dumb buffer (%d): %m\n", errno);
+            std::abort();
+    	}
+
+        /* perform actual modesetting on each found connector+CRTC */
+        ret = drmModeSetCrtc(
+            __mFileDesc, __mDrmModeRes->crtcs[0],
+            __mDrmBuff.id, 0, 0,
+            &__mDrmModeRes->connectors[0], 1, &(__mDrmModeConnector->modes[0])
+        );
+
+		if (ret) {
+            fprintf(stderr, "cannot set CRTC for connector %u (%d): %m\n", __mDrmModeRes->connectors[0], errno);
+            std::abort();
+        }
 
         clearScrean();
 
         // this is child-Ptr
         getInstancePtr() = this;
+
+        printf("init: buffInfo(%p, %lld)\n", __mDrmBuff.addr, create.size);
 
     }
 
@@ -105,7 +200,7 @@ public:
     }
 
     int clearScrean() override {
-        memset(__mDrmBuff.addr, 0xff, __mDrmBuff.size);
+        memset(__mDrmBuff.addr, 0x00, __mDrmBuff.size);
         return 0;
     }
 
@@ -115,6 +210,7 @@ private:
     DrmBuff __mDrmBuff;
     drmModeConnector *__mDrmModeConnector;
     drmModeRes *__mDrmModeRes;
+    //drmModeEncoder *__mModeEncoder;
  	struct drm_mode_map_dumb __mMap;
 
     void releaseDrmAllRes() {
