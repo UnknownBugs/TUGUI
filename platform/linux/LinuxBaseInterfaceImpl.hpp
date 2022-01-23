@@ -2,7 +2,7 @@
  * @Author: SPeak Shen 
  * @Date: 2022-01-24 01:03:49 
  * @Last Modified by: SPeak Shen
- * @Last Modified time: 2022-01-24 02:03:34
+ * @Last Modified time: 2022-01-24 02:52:54
  *
  * refLinks: https://github.com/dvdhrm/docs/blob/master/drm-howto/modeset.c
  * 
@@ -211,7 +211,7 @@ private:
     drmModeConnector *__mDrmModeConnector;
     drmModeRes *__mDrmModeRes;
     //drmModeEncoder *__mModeEncoder;
- 	struct drm_mode_map_dumb __mMap;
+    struct drm_mode_map_dumb __mMap;
 
     void releaseDrmAllRes() {
         struct drm_mode_destroy_dumb destroy = { };
