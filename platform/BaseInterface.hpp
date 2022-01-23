@@ -1,8 +1,8 @@
 /*
  * @Author: SPeak Shen 
  * @Date: 2021-11-16 23:55:54 
- * @Last Modified by: tiansongyu
- * @Last Modified time: 2021-11-29 00:12:48
+ * @Last Modified by: SPeak Shen
+ * @Last Modified time: 2022-01-24 02:52:25
  */
 
 #ifndef __BASE_INTERFACE_HPP__
@@ -46,8 +46,8 @@ public:
 
 };
 
-}; // INTERFACE
+}; // namespace INTERFACE
 
-}; // TUGUI
+}; // namespace TUGUI
 
 #endif // __BASE_INTERFACE_HPP__
