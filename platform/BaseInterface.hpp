@@ -18,11 +18,11 @@ class BaseInterface {
 
 public:
     struct RGB {
-        uint8_t r;
-        uint8_t g;
         uint8_t b;
-        uint16_t s;
-    };
+        uint8_t g;
+        uint8_t r;
+        uint8_t s;
+    } __attribute__((__packed__));;
 
 public:
     virtual void init(void *) = 0;

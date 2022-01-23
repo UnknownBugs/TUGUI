@@ -1,7 +1,7 @@
 #ifndef __PLATFORM_HPP__TUGUI
 #define __PLATFORM_HPP__TUGUI
 
-#ifdef UEFIWrapper
+#ifdef UEFI
 #include <platform/uefi/uefi_base_interface_impl.hpp>
 using BASE_INTERFACE_IMPL = BaseInterfaceImpl;
 #define TUGUI_MAIN tugui_main
