@@ -213,6 +213,7 @@ private:
     //drmModeEncoder *__mModeEncoder;
     struct drm_mode_map_dumb __mMap;
 
+
     void releaseDrmAllRes() {
         struct drm_mode_destroy_dumb destroy = { };
         drmModeRmFB(__mFileDesc, __mDrmBuff.id);
