@@ -144,15 +144,15 @@ public:
             fprintf(stderr, "cannot mmap dumb buffer (%d): %m\n", errno);
             std::abort();
     	}
-
-        /* perform actual modesetting on each found connector+CRTC */
+	
+        /* perform actual modesetting on connector+CRTC */
         ret = drmModeSetCrtc(
             __mFileDesc, __mDrmModeRes->crtcs[0],
             __mDrmBuff.id, 0, 0,
             &__mDrmModeRes->connectors[0], 1, &(__mDrmModeConnector->modes[0])
         );
 
-		if (ret) {
+	if (ret) {
             fprintf(stderr, "cannot set CRTC for connector %u (%d): %m\n", __mDrmModeRes->connectors[0], errno);
             std::abort();
         }

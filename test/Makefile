@@ -2,7 +2,7 @@ include ../tools/makefile/function.mk
 
 MODULE := base
 
-SRCS := base_grahics.cpp
+SRCS := base_graphics.cpp
 
 LOCAL_INC := $(addprefix -I,$(INC_DIR))
 

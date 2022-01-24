@@ -33,6 +33,8 @@ public:
         }
     }
 
+    virtual ~AffineTransform() { }
+
     virtual void add(const AffineTransform &atM) {
         _mTransformMatrix = _mTransformMatrix * atM._mTransformMatrix;
     }
@@ -64,10 +66,6 @@ public:
         ASSERT(vecList.size() == R);
     }
 
-    void add(const Scale &s) {
-        this->_mTransformMatrix = s._mTransformMatrix * this->_mTransformMatrix;
-    }
-
 }; // Scale
 
 
@@ -96,10 +94,6 @@ public:
     explicit Translation(const std::initializer_list<TMATH::Vector<double, R>> &vecList) 
         : Translation { TMATH::Matrix<double, R, R>(vecList) } {
         ASSERT(vecList.size() == R);
-    }
-
-    void add(const Translation &s) {
-        this->_mTransformMatrix = s._mTransformMatrix * this->_mTransformMatrix;
     }
 
     void set(const std::initializer_list<int> &mList) {
@@ -163,10 +157,6 @@ public:
     explicit Rotation(const std::initializer_list<TMATH::Vector<double, R>> &vecList) 
         : Rotation { TMATH::Matrix<double, R, R>(vecList) } {
         ASSERT(vecList.size() == R);
-    }
-
-    void add(const Rotation &s) {
-        this->_mTransformMatrix = s._mTransformMatrix * this->_mTransformMatrix;
     }
 
 }; // Rotation

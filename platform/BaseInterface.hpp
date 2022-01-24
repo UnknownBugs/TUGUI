@@ -25,6 +25,9 @@ public:
     } __attribute__((__packed__));;
 
 public:
+    virtual ~BaseInterface() { }
+
+public:
     virtual void init(void *) = 0;
 
     virtual void drawPixel(uint32_t x, uint32_t y, uint8_t r, uint8_t g, uint8_t b, uint8_t reserved) = 0;

@@ -36,7 +36,7 @@
  * 
 */
 
-#ifndef _INITIALIZER_LIST
+#ifndef __cpp_initializer_lists 
 
 #ifndef __INITIALIZER_LIST_HPP__
 #define __INITIALIZER_LIST_HPP__

@@ -8,6 +8,9 @@ class TransformEngine;
 class TransformInterface {
 
 public:
+    virtual ~TransformInterface() { }
+
+public:
     virtual void transform(const TransformEngine &) = 0;
 
 }; // TransformInterface
