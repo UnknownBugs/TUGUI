@@ -13,20 +13,13 @@
 #ifndef __LINUX_BASE_INTERFACE_IMPL_HPP__TUGUI
 #define __LINUX_BASE_INTERFACE_IMPL_HPP__TUGUI
 
-#include <assert.h>
-#include <ctype.h>
-#include <stdbool.h>
 #include <stdio.h>
 #include <stdlib.h>
-#include <stdint.h>
-#include <inttypes.h>
 #include <unistd.h>
 #include <string.h>
 #include <errno.h>
 #include <fcntl.h>
 
-#include <sys/poll.h>
-#include <sys/time.h>
 #include <sys/mman.h>
 
 #include <platform/BaseInterface.hpp>
