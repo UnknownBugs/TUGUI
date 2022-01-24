@@ -1,4 +1,4 @@
-#ifndef __TUGUI_HPP__TUGUI
+#ifndef __TUGUI_HPP_TUGUI
 #define __TUGUI_HPP_TUGUI
 
 #include <platform/Platform.hpp>

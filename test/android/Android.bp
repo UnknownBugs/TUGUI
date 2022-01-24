@@ -1,0 +1,14 @@
+cc_binary {
+    name: "tugui_graphics",
+
+    srcs: ["base_graphics.cpp"],
+    
+    include_dirs: [
+        "external/libdrm",
+        "test/TUGUI"
+    ],
+
+    shared_libs: [
+        "libdrm",
+    ], 
+}

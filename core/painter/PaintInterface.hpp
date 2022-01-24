@@ -8,6 +8,10 @@ namespace TUGUI {
 class PaintEngine;
 
 class PaintInterface {
+
+public:
+    virtual ~PaintInterface() { }
+
 public:
     virtual void paint(PaintEngine &) const = 0;
 
